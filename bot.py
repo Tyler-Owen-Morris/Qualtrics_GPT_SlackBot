@@ -6,14 +6,19 @@ from dotenv import load_dotenv
 from flask import Flask
 from slackeventsapi import SlackEventAdapter
 
+# Load Environment variables
 envpath = Path('.') / '.env'
 load_dotenv(dotenv_path=envpath)
 
+# setup Flask server to handle callback events from slack
 app = Flask(__name__)
 slack_event_adapter = SlackEventAdapter(
     os.environ['SIGNING_SECRET'], '/slack/events', app)
+
+# setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
 
+# setup the slack client
 client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 BOT_ID = client.api_call('auth.test')['user_id']
 
@@ -27,6 +32,7 @@ def message(payload):
     print("channel:", channel_id)
     user_id = event.get('user')
     text = event.get('text')
+    print("user msg:", text)
     global last_msg
     if text == last_msg:
         return
@@ -42,6 +48,7 @@ def message(payload):
         )
 
         resp = completion.choices[0].message.content
+        print(resp)
         client.chat_postMessage(channel=channel_id,
                                 text=resp)
 
