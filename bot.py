@@ -49,9 +49,10 @@ def message(payload):
         completion = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
             # model='curie:ft-personal-2023-04-28-05-11-33',
-            messages=[{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. Reply with OK if you understand."},
-                      {"role": "assistant", "content": "OK"},
-                      {"role": "user", "content": text}]
+            # messages=[{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. Reply with OK if you understand."},
+            #           {"role": "assistant", "content": "OK"},
+            #           {"role": "user", "content": text}]
+            messages=full_msgs
         )
         resp = completion.choices[0].message.content
 
