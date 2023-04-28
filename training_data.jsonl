@@ -1,511 +1,101 @@
-{"prompt":"can you toggle a survey to be inactive or do you need to use the options >responses > set survey expiration option ?","completion":"You can close a survey manually by either deactivating it, or closing the project. in order to close the project, navigate to the Projects menu. Locate the project and click the 3 dots on the right hand side, then select the first option 'close project' from the menu that appears."}
-{"prompt":"is there a way to transfer over information about opt outs from an old Q instance into a new one?","completion":"If you still have access to the previous instance of Qualtrics you can export the contacts from the old instance and when you import them to the new one be sure to include the value of 'unsubscribed' as 1. If you load them to the directory level then the opt outs will apply for the entire directory. You could also load them to a mailing list and have them apply at that level. It's also important that the unique identifier is the same across the two directories."}
-{"prompt":"How do I export a file from Alida so that it can be imported into Qualtrics XM Directory?","completion":"There is likely a way to generate a standard file for the Alida 'panel file' into a format like 'CSV', and once that has been done the file can be ingested into Qualtrics XM directory through standard methods."}
-{"prompt":"I have a client who has a ticket team set up to receive email alerts when the ticket is created. When the ticket status changes to overdue another workflow sends out an email. I want that email to go to the ticket team.  When I pipe in the Team value I see  ${<tck://Field/roleId>}   Is this the correct setup when the event that starts the workflow is a ticket status change?","completion":"It is not possible to send a bulk email to the ticket team in a ticket workflow using the 'roleId' embedded data field. Emails must be specified prior to the ticket workflow firing so that they may be included in the flow."}
-{"prompt":"Has anyone received an .sav file with historical data? A client sent one to us and we don't think we have a way to read it. When requesting an alternate file type the alternative mentioned was SPSS. I'm generally unfamiliar with both of these file types - does anyone know if either can be converted to an excel file TSV CSV etc? Or the best way to engage with one of these file types and eventually upload them as historical data for a survey?","completion":"Yes. A '.sav' file can be eaisly converted to CSV or TSV using python tools or publicly available websites. If the data is sensitive, it's advised to do it with private tools, but if the data is not sensitive then it's safe to convert with a public web tool."}
-{"prompt":"Can we send Q Distribution Data (email bounced email blocked etc.) to Salesforce?","completion":"Response funnel data cannot be automatically sent to Salseforce without an adjacent process being built to read the data from Qualtrics and load it into the relevant objects in Salesforce."}
-{"prompt":"Do partial responses that are recorded show up in the respondent funnel as 'Survey Finished = 1'?","completion":"No, partial completes are recorded as 'Survey Complete'=0 but they do include another field in the respondent funnel to indicate that they were recorded. That field is 'Survey Partial Record' and it's set to 1 for recorded responses."}
-{"prompt":"What is the main purpose of an Authenticator?", "completion":"The main purpose of an Authenticator is to collect survey responses that are connected to contact list information without generating unique links, allowing respondents to 'log in' to take a survey and ensuring only those listed in your contact list can participate."}
-{"prompt":"Where can you find the authenticator in a survey?", "completion":"Authenticators are elements in your survey flow, just like branch logic or randomizers."}
-{"prompt":"What information can be used to authenticate a respondent?", "completion":"Only the Email or ExternalDataReference contact list fields can be used to authenticate a respondent."}
-{"prompt":"How can you ensure respondents have the information they need to log in to the authenticator?", "completion":"Make sure that the respondent has the information they need to log in to the authenticator. The contact field used for authentication should contain unique values for each contact, such as an email or an ID number."}
-{"prompt":"What happens when a respondent fails to authenticate?", "completion":"If a respondent fails to authenticate, they are prompted to re-enter the information. If they continue to fail, they will be skipped past the authenticated section of the survey. If there is nothing after the authenticated section, the survey will continue to the end of the survey message and their response will be recorded."}
-{"prompt":"What should you do before setting up an Authenticator?", "completion":"Before setting up an Authenticator, make sure you've created your contact list first."}
-{"prompt":"How do you add an Authenticator to your survey flow?", "completion":"To add an Authenticator to your survey flow, navigate to Survey flow, click Add a New Element Here or Add Below, and select Authenticator."}
-{"prompt":"Which authentication type should you choose if you want to authenticate based on SSO?", "completion":"If you want to authenticate based on SSO, you should check out SSO Authenticator."}
-{"prompt":"How can you customize the authentication process?", "completion":"Authenticators have a number of options for customizing the authentication process, such as Maximum Authentication Attempts, Authentication Prompt Text, Authentication Error Text, Too Many Failures Error Text, Allow authenticating respondents to retake authenticated section, and Reload any previously saved progress upon authentication."}
-{"prompt":"What does the Prefill option do in an Authenticator?", "completion":"The Prefill option in an Authenticator allows you to auto-authenticate a user. If they have the right credentials, they never even see the authenticator and are logged right in."}
-{"prompt":"How can you distribute a survey with Prefill turned on?", "completion":"There are two ways of distributing a survey with Prefill turned on: an anonymous link with a query string attached, or emailing an invite to a contact list."}
-{"prompt":"What should you do if you want to test the survey with an Authenticator?", "completion":"If you want to test the survey with an Authenticator, add extra dummy contacts to your contact list so you can log in to the authenticator yourself while testing, and enable Allow authenticating respondents to retake authenticated section in the authenticator options. Be sure to disable it before you launch the survey."}
-{"prompt":"How do you remove an Authenticator from the survey flow?", "completion":"To remove the Authenticator, move all blocks out from under the Authenticator and only then click Delete. If you delete the Authenticator without moving the blocks, all associated blocks will be deleted. If you accidentally delete your blocks, click Cancel at the bottom of your survey flow and all changes you made will not be saved."}
-{"prompt":"What is the primary function of the Authenticator element in a survey?", "completion":"The primary function of the Authenticator element in a survey is to ensure that only respondents listed in your contact list can participate in the survey by requiring them to log in using their Email or ExternalDataReference contact list field."}
-{"prompt":"What are the two contact list fields that can be used for authentication?", "completion":"The two contact list fields that can be used for authentication are Email and ExternalDataReference."}
-{"prompt":"Where do you add the Authenticator in the survey?", "completion":"You add the Authenticator in the survey flow as a new element, alongside other elements like branch logic or randomizers."}
-{"prompt":"What can you do to allow authenticated respondents to retake the authenticated section?", "completion":"To allow authenticated respondents to retake the authenticated section, enable the option 'Allow authenticating respondents to retake authenticated section' in the Authenticator settings."}
-{"prompt":"How many authentication attempts can you set as the maximum in the Authenticator options?", "completion":"In the Authenticator options, you can customize the maximum number of authentication attempts by specifying a desired number in the 'Maximum Authentication Attempts' field."}
-{"prompt":"What happens if a respondent has too many failed authentication attempts?", "completion":"If a respondent has too many failed authentication attempts, they will see the 'Too Many Failures Error Text' and be skipped past the authenticated section of the survey. If there is nothing after the authenticated section, the survey will continue to the 'End of Survey' message and their response will be recorded."}
-{"prompt":"How do you use the Prefill option to auto-authenticate a user?", "completion":"To use the Prefill option to auto-authenticate a user, you can either distribute the survey using an anonymous link with a query string attached or by emailing an invite to a contact list. When the respondent has the right credentials, they will be logged in automatically without seeing the authenticator."}
-{"prompt":"What should you do to test a survey with an Authenticator before launching?", "completion":"To test a survey with an Authenticator before launching, add extra dummy contacts to your contact list to log in to the authenticator during testing, and enable the option 'Allow authenticating respondents to retake authenticated section'. Remember to disable this option before launching the survey."}
-{"prompt":"What customization options are available for the authentication error message?", "completion":"You can customize the authentication error message by editing the 'Authentication Error Text' in the Authenticator settings."}
-{"prompt":"What happens to associated blocks if you delete the Authenticator without moving them?", "completion":"If you delete the Authenticator without moving the associated blocks, all those blocks will also be deleted. To prevent this, move the blocks out from under the Authenticator before deleting it."}
-{"prompt":"What is the purpose of the SSO Authenticator in Qualtrics?", "completion":"The purpose of the SSO Authenticator in Qualtrics is to authenticate respondents against a third-party system, verifying that they have a legitimate user ID at your university or have a Facebook account, for example."}
-{"prompt":"How many basic types of SSO authentication does the authenticator feature support?", "completion":"The authenticator feature supports 6 basic types of SSO authentication."}
-{"prompt":"List the six basic types of SSO authentication supported by the authenticator feature.", "completion":"The six basic types of SSO authentication supported by the authenticator feature are Token, CAS (Central Authentication Service), LDAP (Lightweight Directory Access Protocol), Shibboleth, Google OAuth 2.0, and Facebook."}
-{"prompt":"What information do you need to obtain from your IT department for Token, CAS, LDAP, or Shibboleth authentication?", "completion":"For Token, CAS, LDAP, or Shibboleth authentication, you will need to contact your IT department to obtain information on your SSO authenticator setup."}
-{"prompt":"What are the limitations when using special characters in embedded data for authentication values?", "completion":"When using special characters in embedded data for authentication values, characters such as period (.) and hashtag (#) are unsupported."}
-{"prompt":"Who can limit the access to SSO authenticators?", "completion":"Brand Administrators can limit access to SSO authenticators by configuring SSO connections for the organization."}
-{"prompt":"What is the purpose of a Token authenticator?", "completion":"The purpose of a Token authenticator is to authenticate respondents using a secure token generated by a third party. Token authenticators can also be used to pass encrypted embedded data into the survey, where it can then be decrypted and stored as embedded data."}
-{"prompt":"How do you set up a Token authenticator in Qualtrics?", "completion":"To set up a Token authenticator in Qualtrics, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Token'. 6. Specify the Encryption Method, Mac Method, and Leeway (we suggest 300 as the leeway). You can also generate a secure key, or enter in your own key. 7. Click 'Apply'."}
-{"prompt":"How can you capture respondent identifying information with a Token authenticator?", "completion":"To capture respondent identifying information with a Token authenticator, enable 'Capture respondent identifying info', click 'Add Embedded Data', enter your embedded data field name into the 'Embedded Data to Set' text entry box on the left of the equals sign, insert the parameter name from the encrypted token into the 'Field From SSO' text entry box, and click 'Apply'."}
-{"prompt":"How can you associate a respondent with a contact list using a Token authenticator?", "completion":"To associate a respondent with a contact list using a Token authenticator, enable the 'Associate Respondent With Panel' option, which forces participants to be a member of the selected contact list in order to take the survey."}{"prompt":"","completion":""}
-{"prompt":"What is the purpose of using CAS (Central Authentication Service) in SSO authentication?", "completion":"The purpose of using CAS (Central Authentication Service) in SSO authentication is to allow respondents to authenticate against a CAS server, which helps verify their identity through a central system before they can access the survey."}
-{"prompt":"What does LDAP (Lightweight Directory Access Protocol) authentication do in the SSO authenticator?", "completion":"LDAP (Lightweight Directory Access Protocol) authentication in the SSO authenticator is used to verify respondents' identities by checking their credentials against an LDAP directory server, which contains information about users and their access rights within an organization."}
-{"prompt":"How does Shibboleth authentication work in the SSO authenticator?", "completion":"Shibboleth authentication in the SSO authenticator works by using the SAML (Security Assertion Markup Language) protocol, allowing respondents to authenticate their identity with a trusted identity provider (IdP) that supports SAML. This helps ensure that only authorized users can access the survey."}
-{"prompt":"How does Google OAuth 2.0 authentication function in the SSO authenticator?", "completion":"Google OAuth 2.0 authentication in the SSO authenticator allows respondents to authenticate their identity by using their Google username and password. The system relies on the OAuth 2.0 protocol, which enables secure authorization for accessing Google APIs on behalf of the user."}
-{"prompt":"What is the purpose of using Facebook authentication in the SSO authenticator?", "completion":"The purpose of using Facebook authentication in the SSO authenticator is to allow respondents to authenticate their identity by using their Facebook username and password. This simplifies the login process and leverages the security features of the Facebook platform to ensure that only authorized users can access the survey."}
-{"prompt":"What are the steps to configure a Token authenticator to capture identifying information?", "completion":"To configure a Token authenticator to capture identifying information, follow these steps: 1. Enable 'Capture respondent identifying info'. 2. Click 'Add Embedded Data'. 3. Enter your embedded data field name into the 'Embedded Data to Set' text entry box on the left of the equals sign. 4. Insert the parameter name from the encrypted token into the 'Field From SSO' text entry box. 5. If needed, click the plus sign (+) to add a field and the minus sign (-) to remove a field. 6. Click 'Apply'."}
-{"prompt":"What is the recommended Leeway value for setting up a Token authenticator?", "completion":"The recommended Leeway value for setting up a Token authenticator is 300."}
-{"prompt":"What should you do if you encounter the error message 'Unable to login with information provided' when using the Token SSO authenticator with 'Associate Respondent With Panel' enabled?", "completion":"If you encounter the error message 'Unable to login with information provided' when using the Token SSO authenticator with 'Associate Respondent With Panel' enabled, it means the SSO connection worked, but the information does not match what's in your contact list. You should verify the respondent's information in the contact list and make sure it matches the information being passed through the Token authenticator."}
-{"prompt":"What is the purpose of the 'Identified by Fields' dropdown when associating a respondent with a contact list using a Token authenticator?", "completion":"The purpose of the 'Identified by Fields' dropdown when associating a respondent with a contact list using a Token authenticator is to specify which identifying field from the contact list pairs with the Token authenticator attribute. This helps the system match respondents to the correct contact list entry based on the provided attribute."}
-{"prompt":"How do you set up a Token authenticator in Qualtrics?", "completion":"To set up a Token authenticator in Qualtrics, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Token'. 6. Specify the Encryption Method, Mac Method, and Leeway (recommended value is 300). 7. You can also generate a secure key or enter your own key. 8. Click 'Apply'."}
-{"prompt":"What is the purpose of using embedded data with a Token authenticator?", "completion":"The purpose of using embedded data with a Token authenticator is to capture and store information about respondents that is passed through the encrypted token. This information can be used for analysis, personalization, or other purposes within the survey."}
-{"prompt":"Why is it important to contact your IT department when setting up a Token authenticator?", "completion":"It is important to contact your IT department when setting up a Token authenticator because they can provide you with the necessary setup information, such as the Encryption Method, Mac Method, and Leeway. They may also be able to help you generate a secure key or provide an existing key. Qualtrics Support will not be able to distribute Token SSO information for security and data privacy reasons."}
-{"prompt":"How can you limit who can access SSO authenticators in Qualtrics?", "completion":"Brand Administrators can limit who can access SSO authenticators in Qualtrics by configuring SSO connections for the organization. This allows them to control which users within the organization can utilize SSO authentication for surveys."}
-{"prompt":"What are the steps to associate a respondent with a contact list using a Token authenticator?", "completion":"To associate a respondent with a contact list using a Token authenticator, follow these steps: 1. Enable 'Associate Respondent With Panel'. 2. Select the contact list you want to associate respondents with. 3. Choose the appropriate 'Identified by Fields' dropdown option to match the Token authenticator attribute with the corresponding identifying field from the contact list. 4. Make sure the identifying information passed through the Token matches the information in the contact list."}
-{"prompt":"What are some best practices for using embedded data with SSO authenticators?", "completion":"Some best practices for using embedded data with SSO authenticators include: 1. Avoid using special characters such as period (.) and hashtag (#) in embedded data field names, as they are unsupported. 2. Ensure that the parameter names from the encrypted token match the embedded data field names. 3. Test the embedded data values in the survey flow before distributing the survey to ensure they are captured correctly in the response results."}
-{"prompt":"How can you generate a test token for a Token authenticator in Qualtrics?", "completion":"To generate a test token for a Token authenticator in Qualtrics, go back into the survey flow where the Token authenticator is configured. Then, click the 'Generate Test Token' button. This allows you to test the authentication process before distributing the survey."}
-{"prompt":"What happens when a respondent authenticates with Google OAuth 2.0 in the SSO authenticator?", "completion":"When a respondent authenticates with Google OAuth 2.0 in the SSO authenticator, they are asked to provide their Google username and password. Once their credentials are verified, they are granted access to the survey. The OAuth 2.0 protocol ensures secure authorization for accessing GoogleAPIs on behalf of the user, and the respondent's Google account information is used to verify their identity."}
-{"prompt":"What are the advantages of using Facebook authentication in SSO authenticators?", "completion":"The advantages of using Facebook authentication in SSO authenticators include: 1. Simplified login process for respondents, as they can use their existing Facebook credentials. 2. Leveraging the security features of the Facebook platform to verify user identities. 3. Potential for increased response rates due to the familiarity and convenience of using a popular social media platform for authentication."}
-{"prompt":"How do you set up a CAS authenticator in the SSO authenticator?", "completion":"To set up a CAS authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'CAS'. 6. Enter the required CAS Server URL, CAS Login URL, and CAS Logout URL. 7. Configure any additional settings as needed. 8. Click 'Apply'."}
-{"prompt":"How do you set up an LDAP authenticator in the SSO authenticator?", "completion":"To set up an LDAP authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'LDAP'. 6. Enter the required LDAP Server URL, LDAP Port, LDAP Bind DN, and LDAP Bind Password. 7. Configure any additional settings as needed. 8. Click 'Apply'."}
-{"prompt":"How do you set up a Shibboleth authenticator in the SSO authenticator?", "completion":"To set up a Shibboleth authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Shibboleth'. 6. Configure any additional settings as needed, such as specifying the Identity Provider Entity ID, Single Sign-On Service URL, and Single Logout Service URL. 7. Click 'Apply'."}
-{"prompt":"How do you set up a Google OAuth 2.0 authenticator in the SSO authenticator?", "completion":"To set up a Google OAuth 2.0 authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Google OAuth 2.0'. 6. No additional setup information is required, as the process is automatic. 7. Click 'Apply'."}
-{"prompt":"How do you set up a Facebook authenticator in the SSO authenticator?", "completion":"To set up a Facebook authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3.Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Facebook'. 6. No additional setup information is required, as the process is automatic. 7. Click 'Apply'."}
-{"prompt":"What are some common use cases for SSO authenticators in Qualtrics?", "completion":"Some common use cases for SSO authenticators in Qualtrics include: 1. Restricting survey access to specific individuals or groups within an organization. 2. Simplifying the login process for respondents by allowing them to use their existing credentials from trusted identity providers. 3. Ensuring data security and privacy by verifying respondent identities before granting access to surveys. 4. Capturing respondent identifying information for data analysis and personalization purposes."}
-{"prompt":"How do you troubleshoot issues with SSO authenticators?", "completion":"To troubleshoot issues with SSO authenticators, you can: 1. Verify that your SSO settings are correctly configured in the Survey flow. 2. Double-check the information provided by your IT department or identity provider to ensure it is accurate. 3. Use the 'Generate Test Token' feature (for Token authenticators) or test the SSO authenticator using a test account. 4. Check for any error messages and consult Qualtrics Support or your IT department for assistance in resolving the issue. 5. Review the Qualtrics documentation on SSO authenticators for detailed setup and troubleshooting guidance."}
-{"prompt":"What is the significance of the 'Capture respondent identifying info' option when using an SSO authenticator?", "completion":"The significance of the 'Capture respondent identifying info' option when using an SSO authenticator is that it allows you to collect and store information about respondents that is passed through the authentication process. This information can be used for analysis, personalization, or other purposes within the survey. By enabling this option, you can capture specific attributes from the identity provider and store them as embedded data in the survey results."}
-{"prompt":"Can you use multiple SSO authenticators in a single survey?", "completion":"Yes, you can use multiple SSO authenticators in a single survey. To do this, add multiple authenticator elements in the Survey flow, each with a different SSO type (e.g., Token, CAS, LDAP, Shibboleth, Google OAuth 2.0, or Facebook). This allows respondents to choose from different authentication options when accessing your survey. However, keep in mind that using multiple authenticators may introduce complexity and should be carefully considered based on your survey requirements."}
-{"prompt":"What are the steps to set up a CAS Authenticator in Qualtrics?", "completion":"To set up a CAS Authenticator in Qualtrics, follow these steps: 1. Open the Survey flow while editing your survey. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'CAS'. 6. Specify the Hostname, Port, and URI. 7. Click 'Apply'. Note that for security and data privacy reasons, you must contact your IT department to get the necessary setup information, as Qualtrics Support will not be able to distribute CAS server information."}
-{"prompt":"How can you capture identifying information from a CAS Authenticator in Qualtrics?", "completion":"To capture identifying information from a CAS Authenticator in Qualtrics, follow these steps: 1. Enable 'Capture respondent identifying info'. 2. Click 'Add Embedded Data'. 3. Enter your embedded data field name into the 'Embedded Data to Set' text entry box on the left of the equals sign. 4. Insert the username parameter into the 'Field From SSO' text entry box. Note that Qualtrics only accepts the username attribute from CAS, so any field specified to capture attributes will return the username. 5. If needed, click the plus sign (+) to add fields and the minus sign (-) to remove fields. 6. Click 'Apply'. After this, you will see the embedded data value in the response results after someone takes the survey."}
-{"prompt":"What is the purpose of the 'Associate Respondent With Panel' option in CAS SSO Authenticators?", "completion":"The 'Associate Respondent With Panel' option in CAS SSO Authenticators serves to prevent participants from taking the survey multiple times. By enabling this option, you force participants to be a member of the selected contact list in order to take the survey. The contact list field that is selected as the identifying field (using the 'Identified by Field' dropdown) must house the CAS username to properly authenticate users. For example, if the identifying field was 'First Name' and the respondent was passing 'johnd' for their CAS username, the contact list would need to have 'johnd' in the 'First Name' field."}
-{"prompt":"What are the steps to set up an LDAP Authenticator in Qualtrics?", "completion":"To set up an LDAP Authenticator in Qualtrics, follow these steps: 1. Open the Survey flow while editing your survey. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'LDAP'. 6. Specify the Hostname, Port, Base DN, Bind DN, Bind Password, and Filter. Note that the Filter field should be left in the format ([filter]=%1), e.g., (sAMAccountName=%1) or (uid=%1). 7. Click 'Apply'. Due to the sensitive nature of LDAP server information, you must contact your IT department to get the necessary setup information, as Qualtrics Support will not be able to distribute LDAP server information."}
-{"prompt":"How can you capture identifying information from an LDAP Authenticator in Qualtrics?", "completion":"To capture identifying information from an LDAP Authenticator in Qualtrics, follow these steps: 1. Enable 'Capture respondent identifying info'. 2. Click 'Add Embedded Data'. 3. Use the plus sign(+) to add 4 fields. 4. Enter your embedded data field names into the 'Embedded Data to Set' text entry boxes on the left of the equals sign. 5. Insert the following parameters into the 'Field From SSO' text entry boxes: FirstName, LastName, Email, and ExternalDataReference. 6. Insert the attribute names into the respective fields. 7. Click 'Apply'. After this, you will see the embedded data value in the response results after someone takes the survey."}
-{"prompt":"What is the purpose of the 'Associate Respondent With Panel' option in LDAP SSO Authenticators?", "completion":"The 'Associate Respondent With Panel' option in LDAP SSO Authenticators serves to prevent participants from taking the survey multiple times. By enabling this option, you force participants to be a member of the selected contact list in order to take the survey. The identifying field from the contact list pairs with the corresponding LDAP authenticator attribute, as specified in the First Name Field, Last Name Field, Email Field, and External Data Reference in the authenticator settings. For example, if the identifying field was 'Email' and the respondent was passing 'johnd@email.com' for the mail attribute, the contact list would need to have 'johnd@email.com' in the 'Email' field."}
-{"prompt":"What are the steps to set up a Shibboleth Authenticator in Qualtrics?", "completion":"To set up a Shibboleth Authenticator in Qualtrics, follow these steps: 1. Open the Survey flow while editing your survey. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Shibboleth'. 6. Select the connection you'd like to use. We recommend the option that appears as default. Note that Brand Administrators can control which SSO connections are available across the organization. 7. Click 'Apply'. To find out if your brand has a Shibboleth SSO setup, contact your Brand Administrator."}
-{"prompt":"How can you capture identifying information from a Shibboleth Authenticator in Qualtrics?", "completion":"To capture identifying information from a Shibboleth Authenticator in Qualtrics, follow these steps: 1. Enable 'Capture respondent identifying info'. 2. Click 'Add Embedded Data'. 3. Use the plus sign (+) to add fields and the minus sign (-) to remove fields. 4. Enter your embedded data field name into the 'Embedded Data to Set' text entry box on the left of the equals sign. 5. Insert the formal or friendly names of the attributes that are being passed via SAML into the 'Field From SSO' text entry box (you can click the plus sign to add additional fields). 6. Click 'Apply'. After this, you will see the embedded data value in the response results after someone takes the survey. For more information on what embedded data can be captured, please contact your IT team."}
-{"prompt":"What is the purpose of the 'Associate Respondent With Panel' option in Shibboleth SSO Authenticators?", "completion":"The 'Associate Respondent With Panel' option in Shibboleth SSO Authenticators serves to prevent participants from taking the survey multiple times. By enabling this option, you force participants to be a member of the selected contact list in order to take the survey. The identifying field from the contact list pairs with the corresponding SAML attribute (specified by the 'Identified by Field' dropdown), as specified in the User Name Field, First Name Field, Last Name Field, and Email Field in the Qualtrics instance's SSO settings. For example, if the identifying field was 'External Data Reference' and the respondent was passing 'johnd' for the uid attribute, the contact list would need to have 'johnd' in the 'External Data Reference' field. If 'Associate Respondent With Panel' is enabled, you may get an error message that says 'Unable to login with information provided.' This means the SSO connection worked, but the information does not match what's in your contact list."}
-{"question": "What is a Google OAuth 2.0 authenticator?", "answer": "A Google OAuth 2.0 authenticator allows respondents to authenticate with their Google credentials. It can also be used to capture and store Google account information as embedded data."}
-{"question": "Can I restrict who can access my survey with a Google OAuth 2.0 authenticator?", "answer": "Yes, by adding approved account email domains to the 'Restrict Authentication to Domain(s)' field. To allow multiple domains, enter your domains as a comma-separated list."}
-{"question": "How do I set up a Google OAuth 2.0 authenticator?", "answer": "To set up a Google OAuth 2.0 authenticator, edit your survey, open the Survey flow, add a new element, select Authenticator, change Authentication Type to SSO, change SSO Type to Google OAuth 2.0, and click Apply."}
-{"question": "How can I capture identifying information with a Google OAuth 2.0 authenticator?", "answer": "Enable 'Capture respondent identifying info', click 'Add Embedded Data', use the plus sign (+) to add fields, enter your embedded data field name, and insert the parameter field from Google OAuth 2.0 into the 'Field From SSO' text entry box. Click Apply."}
-{"question": "Can I associate respondents with a contact list using Google OAuth 2.0 authenticator?", "answer": "Yes, enable 'Associate Respondent With Panel'. This option forces participants to be a member of the selected contact list in order to take the survey."}
-{"question": "What is a Facebook authenticator?", "answer": "A Facebook authenticator allows respondents to authenticate with their Facebook credentials. It can also be used to capture and store Facebook account information as embedded data."}
-{"question": "How do I set up a Facebook authenticator?", "answer": "To set up a Facebook authenticator, edit your survey, open the Survey flow, add a new element, select Authenticator, change Authentication Type to SSO, set the SSO Type to Facebook, and click Apply."}
-{"question": "How can I capture identifying information with a Facebook authenticator?", "answer": "Enable 'Capture respondent identifying info', click 'Add Embedded Data', use the plus sign (+) to add fields, enter your embedded data field name, and insert the parameter field from Facebook into the 'Field From SSO' text entry box. Click Apply."}
-{"question": "Can I associate respondents with a contact list using Facebook authenticator?", "answer": "Yes, enable 'Associate Respondent With Panel'. This option forces participants to be a member of the selected contact list in order to take the survey."}
-{"question": "What are the identifying fields from the contact list for Google OAuth 2.0 and Facebook authenticators?", "answer": "For Google OAuth 2.0: First Name -> FirstName, Last Name -> LastName, Email -> Email, External Data Reference -> UserName. For Facebook: First Name -> first_name, Last Name -> last_name, Email -> email, External Data Reference -> email."}
-{"question": "What is the Maximum Authentication Attempts setting in SSO authenticator?", "answer": "It's a setting under Options that allows you to set a limit on the number of authentication attempts. However, it's generally not recommended for SSO authenticators, as the Qualtrics survey is unaware of login failures on the SSO landing page."}
-{"question": "When would Maximum Authentication Attempts be useful for an SSO authenticator?","answer": "Maximum Authentication Attempts would be useful for an SSO authenticator if 'Associate Respondent With Panel' is enabled. In this case, the failure would occur because the user didn't match the contacts in the connected list."}
-{"question": "What does the error AUTHENTICATOR_SSO_CONFIG_DISABLED mean?", "answer": "This error means a Brand Administrator needs to enable 'Use for survey authenticator' for the SSO connection."}
-{"question": "What does the error AUTHENTICATOR_SSO_CONFIG_NOT_FOUND mean?", "answer": "This error means the SSO connection was not found in the SSO Provider Service, possibly due to data syncing issues or because the connection was deleted. A Brand Administrator may need to enable 'Use for survey authenticator' for the SSO connection."}
-{"question": "Can I test the setup of my Google OAuth 2.0 or Facebook authenticator?", "answer": "Yes, you can test the setup using the anonymous link."}
-{"question": "What are some examples of Google OAuth 2.0 attributes?", "answer": "Examples of Google OAuth 2.0 attributes include: FirstName, LastName, and Email."}
-{"question": "What are some examples of Facebook attributes?", "answer": "Examples of Facebook attributes include: name, first_name, last_name, link, gender, and email."}
-{"question": "How do I add approved account email domains to restrict access to my survey?", "answer": "Add approved account email domains to the 'Restrict Authentication to Domain(s)' field without the @ symbol (e.g., 'gmail.com' or 'qualtrics.com'). For multiple domains, enter them as a comma-separated list (e.g., 'gmail.com, qualtrics.com')."}
-{"question": "Why am I getting an error message 'Unable to login with information provided'?", "answer": "This error message means that the SSO connection worked, but the information does not match what's in your contact list."}
-{"question": "What do I need to do if I get an error message when using the 'Associate Respondent With Panel' option?", "answer": "Check that the information provided by the respondent matches the information in your contact list. If necessary, update the contact list to resolve the error."}
-{"question": "What are some other uses of an Authenticator?", "answer": "Apart from authentication, an Authenticator can be employed to load embedded data into a survey without relying on the respondent funnel. This can be achieved by adding the data to a directory mailing list and using the Authenticator to look up the data based on the 'external data reference.' This method offers more flexibility than supplemental data projects, as directories allow adding fields as needed, while supplemental data projects limit the number of fields upon creation."}
-{"question": "What are some alternative uses of an Authenticator?", "answer": "An Authenticator can be utilized for loading embedded data into a survey without depending on the respondent funnel. To do this, store the data in a directory mailing list and use the Authenticator to retrieve the data using the 'external data reference.' This approach provides greater flexibility than supplemental data projects, which restrict the number of fields during creation, while directories permit adding fields as required."}
-{"question": "What are some other uses of an Authenticator?", "answer": "An Authenticator can serve as a tool to import embedded data into a survey without the need for a respondent funnel. This can be accomplished by saving the data in a directory mailing list and leveraging the Authenticator to access the data based on the 'external data reference.' This method offers increased flexibility compared to supplemental data projects, which have a limited number of fields at the creation stage, while directories allow for adding fields whenever necessary."}
-{"question": "What are some alternative uses of an Authenticator?", "answer": "An Authenticator can be employed to import embedded data into a survey independently of the respondent funnel. To achieve this, insert the data into a directory mailing list and use the Authenticator to fetch the data by referencing the 'external data reference.' This technique provides more adaptability than supplemental data projects, which impose field limitations during creation, while directories enable adding fields on-demand."}
-{"question": "What are some other ways an Authenticator can be used?", "answer": "An Authenticator can be used to bring embedded data into a survey without necessitating the respondent funnel. This is done by placing the data in a directory mailing list and then utilizing the Authenticator to access the data via the 'external data reference.' This process offers greater versatility than supplemental data projects, which constrain the number of fields at the outset, while directories allow for the addition of fields as needed."}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
-{"prompt":"","completion":""}
+{"prompt":"can you toggle a survey to be inactive or do you need to use the options >responses > set survey expiration option ?\n\n###\n\n","completion":" You can close a survey manually by either deactivating it, or closing the project. in order to close the project, navigate to the Projects menu. Locate the project and click the 3 dots on the right hand side, then select the first option 'close project' from the menu that appears."}
+{"prompt":"is there a way to transfer over information about opt outs from an old Q instance into a new one?\n\n###\n\n","completion":" If you still have access to the previous instance of Qualtrics you can export the contacts from the old instance and when you import them to the new one be sure to include the value of 'unsubscribed' as 1. If you load them to the directory level then the opt outs will apply for the entire directory. You could also load them to a mailing list and have them apply at that level. It's also important that the unique identifier is the same across the two directories."}
+{"prompt":"How do I export a file from Alida so that it can be imported into Qualtrics XM Directory?\n\n###\n\n","completion":" There is likely a way to generate a standard file for the Alida 'panel file' into a format like 'CSV', and once that has been done the file can be ingested into Qualtrics XM directory through standard methods."}
+{"prompt":"I have a client who has a ticket team set up to receive email alerts when the ticket is created. When the ticket status changes to overdue another workflow sends out an email. I want that email to go to the ticket team.  When I pipe in the Team value I see  ${<tck://Field/roleId>}   Is this the correct setup when the event that starts the workflow is a ticket status change?\n\n###\n\n","completion":" It is not possible to send a bulk email to the ticket team in a ticket workflow using the 'roleId' embedded data field. Emails must be specified prior to the ticket workflow firing so that they may be included in the flow."}
+{"prompt":"Has anyone received an .sav file with historical data? A client sent one to us and we don't think we have a way to read it. When requesting an alternate file type the alternative mentioned was SPSS. I'm generally unfamiliar with both of these file types - does anyone know if either can be converted to an excel file TSV CSV etc? Or the best way to engage with one of these file types and eventually upload them as historical data for a survey?\n\n###\n\n","completion":" Yes. A '.sav' file can be eaisly converted to CSV or TSV using python tools or publicly available websites. If the data is sensitive, it's advised to do it with private tools, but if the data is not sensitive then it's safe to convert with a public web tool."}
+{"prompt":"Can we send Q Distribution Data (email bounced email blocked etc.) to Salesforce?\n\n###\n\n","completion":" Response funnel data cannot be automatically sent to Salseforce without an adjacent process being built to read the data from Qualtrics and load it into the relevant objects in Salesforce."}
+{"prompt":"Do partial responses that are recorded show up in the respondent funnel as 'Survey Finished = 1'?\n\n###\n\n","completion":" No, partial completes are recorded as 'Survey Complete'=0 but they do include another field in the respondent funnel to indicate that they were recorded. That field is 'Survey Partial Record' and it's set to 1 for recorded responses."}
+{"prompt":"What is the main purpose of an Authenticator?\n\n###\n\n","completion":" The main purpose of an Authenticator is to collect survey responses that are connected to contact list information without generating unique links, allowing respondents to 'log in' to take a survey and ensuring only those listed in your contact list can participate."}
+{"prompt":"Where can you find the authenticator in a survey?\n\n###\n\n","completion":" Authenticators are elements in your survey flow, just like branch logic or randomizers."}
+{"prompt":"What information can be used to authenticate a respondent?\n\n###\n\n","completion":" Only the Email or ExternalDataReference contact list fields can be used to authenticate a respondent."}
+{"prompt":"How can you ensure respondents have the information they need to log in to the authenticator?\n\n###\n\n","completion":" Make sure that the respondent has the information they need to log in to the authenticator. The contact field used for authentication should contain unique values for each contact, such as an email or an ID number."}
+{"prompt":"What happens when a respondent fails to authenticate?\n\n###\n\n","completion":" If a respondent fails to authenticate, they are prompted to re-enter the information. If they continue to fail, they will be skipped past the authenticated section of the survey. If there is nothing after the authenticated section, the survey will continue to the end of the survey message and their response will be recorded."}
+{"prompt":"What should you do before setting up an Authenticator?\n\n###\n\n","completion":" Before setting up an Authenticator, make sure you've created your contact list first."}
+{"prompt":"How do you add an Authenticator to your survey flow?\n\n###\n\n","completion":" To add an Authenticator to your survey flow, navigate to Survey flow, click Add a New Element Here or Add Below, and select Authenticator."}
+{"prompt":"Which authentication type should you choose if you want to authenticate based on SSO?\n\n###\n\n","completion":" If you want to authenticate based on SSO, you should check out SSO Authenticator."}
+{"prompt":"How can you customize the authentication process?\n\n###\n\n","completion":" Authenticators have a number of options for customizing the authentication process, such as Maximum Authentication Attempts, Authentication Prompt Text, Authentication Error Text, Too Many Failures Error Text, Allow authenticating respondents to retake authenticated section, and Reload any previously saved progress upon authentication."}
+{"prompt":"What does the Prefill option do in an Authenticator?\n\n###\n\n","completion":" The Prefill option in an Authenticator allows you to auto-authenticate a user. If they have the right credentials, they never even see the authenticator and are logged right in."}
+{"prompt":"How can you distribute a survey with Prefill turned on?\n\n###\n\n","completion":" There are two ways of distributing a survey with Prefill turned on: an anonymous link with a query string attached, or emailing an invite to a contact list."}
+{"prompt":"What should you do if you want to test the survey with an Authenticator?\n\n###\n\n","completion":" If you want to test the survey with an Authenticator, add extra dummy contacts to your contact list so you can log in to the authenticator yourself while testing, and enable Allow authenticating respondents to retake authenticated section in the authenticator options. Be sure to disable it before you launch the survey."}
+{"prompt":"How do you remove an Authenticator from the survey flow?\n\n###\n\n","completion":" To remove the Authenticator, move all blocks out from under the Authenticator and only then click Delete. If you delete the Authenticator without moving the blocks, all associated blocks will be deleted. If you accidentally delete your blocks, click Cancel at the bottom of your survey flow and all changes you made will not be saved."}
+{"prompt":"What is the primary function of the Authenticator element in a survey?\n\n###\n\n","completion":" The primary function of the Authenticator element in a survey is to ensure that only respondents listed in your contact list can participate in the survey by requiring them to log in using their Email or ExternalDataReference contact list field."}
+{"prompt":"What are the two contact list fields that can be used for authentication?\n\n###\n\n","completion":" The two contact list fields that can be used for authentication are Email and ExternalDataReference."}
+{"prompt":"Where do you add the Authenticator in the survey?\n\n###\n\n","completion":" You add the Authenticator in the survey flow as a new element, alongside other elements like branch logic or randomizers."}
+{"prompt":"What can you do to allow authenticated respondents to retake the authenticated section?\n\n###\n\n","completion":" To allow authenticated respondents to retake the authenticated section, enable the option 'Allow authenticating respondents to retake authenticated section' in the Authenticator settings."}
+{"prompt":"How many authentication attempts can you set as the maximum in the Authenticator options?\n\n###\n\n","completion":" In the Authenticator options, you can customize the maximum number of authentication attempts by specifying a desired number in the 'Maximum Authentication Attempts' field."}
+{"prompt":"What happens if a respondent has too many failed authentication attempts?\n\n###\n\n","completion":" If a respondent has too many failed authentication attempts, they will see the 'Too Many Failures Error Text' and be skipped past the authenticated section of the survey. If there is nothing after the authenticated section, the survey will continue to the 'End of Survey' message and their response will be recorded."}
+{"prompt":"How do you use the Prefill option to auto-authenticate a user?\n\n###\n\n","completion":" To use the Prefill option to auto-authenticate a user, you can either distribute the survey using an anonymous link with a query string attached or by emailing an invite to a contact list. When the respondent has the right credentials, they will be logged in automatically without seeing the authenticator."}
+{"prompt":"What should you do to test a survey with an Authenticator before launching?\n\n###\n\n","completion":" To test a survey with an Authenticator before launching, add extra dummy contacts to your contact list to log in to the authenticator during testing, and enable the option 'Allow authenticating respondents to retake authenticated section'. Remember to disable this option before launching the survey."}
+{"prompt":"What customization options are available for the authentication error message?\n\n###\n\n","completion":" You can customize the authentication error message by editing the 'Authentication Error Text' in the Authenticator settings."}
+{"prompt":"What happens to associated blocks if you delete the Authenticator without moving them?\n\n###\n\n","completion":" If you delete the Authenticator without moving the associated blocks, all those blocks will also be deleted. To prevent this, move the blocks out from under the Authenticator before deleting it."}
+{"prompt":"What is the purpose of the SSO Authenticator in Qualtrics?\n\n###\n\n","completion":" The purpose of the SSO Authenticator in Qualtrics is to authenticate respondents against a third-party system, verifying that they have a legitimate user ID at your university or have a Facebook account, for example."}
+{"prompt":"How many basic types of SSO authentication does the authenticator feature support?\n\n###\n\n","completion":" The authenticator feature supports 6 basic types of SSO authentication."}
+{"prompt":"List the six basic types of SSO authentication supported by the authenticator feature.\n\n###\n\n","completion":" The six basic types of SSO authentication supported by the authenticator feature are Token, CAS (Central Authentication Service), LDAP (Lightweight Directory Access Protocol), Shibboleth, Google OAuth 2.0, and Facebook."}
+{"prompt":"What information do you need to obtain from your IT department for Token, CAS, LDAP, or Shibboleth authentication?\n\n###\n\n","completion":" For Token, CAS, LDAP, or Shibboleth authentication, you will need to contact your IT department to obtain information on your SSO authenticator setup."}
+{"prompt":"What are the limitations when using special characters in embedded data for authentication values?\n\n###\n\n","completion":" When using special characters in embedded data for authentication values, characters such as period (.) and hashtag (#) are unsupported."}
+{"prompt":"Who can limit the access to SSO authenticators?\n\n###\n\n","completion":" Brand Administrators can limit access to SSO authenticators by configuring SSO connections for the organization."}
+{"prompt":"What is the purpose of a Token authenticator?\n\n###\n\n","completion":" The purpose of a Token authenticator is to authenticate respondents using a secure token generated by a third party. Token authenticators can also be used to pass encrypted embedded data into the survey, where it can then be decrypted and stored as embedded data."}
+{"prompt":"How do you set up a Token authenticator in Qualtrics?\n\n###\n\n","completion":" To set up a Token authenticator in Qualtrics, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Token'. 6. Specify the Encryption Method, Mac Method, and Leeway (we suggest 300 as the leeway). You can also generate a secure key, or enter in your own key. 7. Click 'Apply'."}
+{"prompt":"How can you capture respondent identifying information with a Token authenticator?\n\n###\n\n","completion":" To capture respondent identifying information with a Token authenticator, enable 'Capture respondent identifying info', click 'Add Embedded Data', enter your embedded data field name into the 'Embedded Data to Set' text entry box on the left of the equals sign, insert the parameter name from the encrypted token into the 'Field From SSO' text entry box, and click 'Apply'."}
+{"prompt":"How can you associate a respondent with a contact list using a Token authenticator?\n\n###\n\n","completion":" To associate a respondent with a contact list using a Token authenticator, enable the 'Associate Respondent With Panel' option, which forces participants to be a member of the selected contact list in order to take the survey."}
+{"prompt":"What is the purpose of using CAS (Central Authentication Service) in SSO authentication?\n\n###\n\n","completion":" The purpose of using CAS (Central Authentication Service) in SSO authentication is to allow respondents to authenticate against a CAS server, which helps verify their identity through a central system before they can access the survey."}
+{"prompt":"What does LDAP (Lightweight Directory Access Protocol) authentication do in the SSO authenticator?\n\n###\n\n","completion":" LDAP (Lightweight Directory Access Protocol) authentication in the SSO authenticator is used to verify respondents' identities by checking their credentials against an LDAP directory server, which contains information about users and their access rights within an organization."}
+{"prompt":"How does Shibboleth authentication work in the SSO authenticator?\n\n###\n\n","completion":" Shibboleth authentication in the SSO authenticator works by using the SAML (Security Assertion Markup Language) protocol, allowing respondents to authenticate their identity with a trusted identity provider (IdP) that supports SAML. This helps ensure that only authorized users can access the survey."}
+{"prompt":"How does Google OAuth 2.0 authentication function in the SSO authenticator?\n\n###\n\n","completion":" Google OAuth 2.0 authentication in the SSO authenticator allows respondents to authenticate their identity by using their Google username and password. The system relies on the OAuth 2.0 protocol, which enables secure authorization for accessing Google APIs on behalf of the user."}
+{"prompt":"What is the purpose of using Facebook authentication in the SSO authenticator?\n\n###\n\n","completion":" The purpose of using Facebook authentication in the SSO authenticator is to allow respondents to authenticate their identity by using their Facebook username and password. This simplifies the login process and leverages the security features of the Facebook platform to ensure that only authorized users can access the survey."}
+{"prompt":"What are the steps to configure a Token authenticator to capture identifying information?\n\n###\n\n","completion":" To configure a Token authenticator to capture identifying information, follow these steps: 1. Enable 'Capture respondent identifying info'. 2. Click 'Add Embedded Data'. 3. Enter your embedded data field name into the 'Embedded Data to Set' text entry box on the left of the equals sign. 4. Insert the parameter name from the encrypted token into the 'Field From SSO' text entry box. 5. If needed, click the plus sign (+) to add a field and the minus sign (-) to remove a field. 6. Click 'Apply'."}
+{"prompt":"What is the recommended Leeway value for setting up a Token authenticator?\n\n###\n\n","completion":" The recommended Leeway value for setting up a Token authenticator is 300."}
+{"prompt":"What should you do if you encounter the error message 'Unable to login with information provided' when using the Token SSO authenticator with 'Associate Respondent With Panel' enabled?\n\n###\n\n","completion":" If you encounter the error message 'Unable to login with information provided' when using the Token SSO authenticator with 'Associate Respondent With Panel' enabled, it means the SSO connection worked, but the information does not match what's in your contact list. You should verify the respondent's information in the contact list and make sure it matches the information being passed through the Token authenticator."}
+{"prompt":"What is the purpose of the 'Identified by Fields' dropdown when associating a respondent with a contact list using a Token authenticator?\n\n###\n\n","completion":" The purpose of the 'Identified by Fields' dropdown when associating a respondent with a contact list using a Token authenticator is to specify which identifying field from the contact list pairs with the Token authenticator attribute. This helps the system match respondents to the correct contact list entry based on the provided attribute."}
+{"prompt":"How do you set up a Token authenticator in Qualtrics?\n\n###\n\n","completion":" To set up a Token authenticator in Qualtrics, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Token'. 6. Specify the Encryption Method, Mac Method, and Leeway (recommended value is 300). 7. You can also generate a secure key or enter your own key. 8. Click 'Apply'."}
+{"prompt":"What is the purpose of using embedded data with a Token authenticator?\n\n###\n\n","completion":" The purpose of using embedded data with a Token authenticator is to capture and store information about respondents that is passed through the encrypted token. This information can be used for analysis, personalization, or other purposes within the survey."}
+{"prompt":"Why is it important to contact your IT department when setting up a Token authenticator?\n\n###\n\n","completion":" It is important to contact your IT department when setting up a Token authenticator because they can provide you with the necessary setup information, such as the Encryption Method, Mac Method, and Leeway. They may also be able to help you generate a secure key or provide an existing key. Qualtrics Support will not be able to distribute Token SSO information for security and data privacy reasons."}
+{"prompt":"How can you limit who can access SSO authenticators in Qualtrics?\n\n###\n\n","completion":" Brand Administrators can limit who can access SSO authenticators in Qualtrics by configuring SSO connections for the organization. This allows them to control which users within the organization can utilize SSO authentication for surveys."}
+{"prompt":"What are the steps to associate a respondent with a contact list using a Token authenticator?\n\n###\n\n","completion":" To associate a respondent with a contact list using a Token authenticator, follow these steps: 1. Enable 'Associate Respondent With Panel'. 2. Select the contact list you want to associate respondents with. 3. Choose the appropriate 'Identified by Fields' dropdown option to match the Token authenticator attribute with the corresponding identifying field from the contact list. 4. Make sure the identifying information passed through the Token matches the information in the contact list."}
+{"prompt":"What are some best practices for using embedded data with SSO authenticators?\n\n###\n\n","completion":" Some best practices for using embedded data with SSO authenticators include: 1. Avoid using special characters such as period (.) and hashtag (#) in embedded data field names, as they are unsupported. 2. Ensure that the parameter names from the encrypted token match the embedded data field names. 3. Test the embedded data values in the survey flow before distributing the survey to ensure they are captured correctly in the response results."}
+{"prompt":"How can you generate a test token for a Token authenticator in Qualtrics?\n\n###\n\n","completion":" To generate a test token for a Token authenticator in Qualtrics, go back into the survey flow where the Token authenticator is configured. Then, click the 'Generate Test Token' button. This allows you to test the authentication process before distributing the survey."}
+{"prompt":"What happens when a respondent authenticates with Google OAuth 2.0 in the SSO authenticator?\n\n###\n\n","completion":" When a respondent authenticates with Google OAuth 2.0 in the SSO authenticator, they are asked to provide their Google username and password. Once their credentials are verified, they are granted access to the survey. The OAuth 2.0 protocol ensures secure authorization for accessing GoogleAPIs on behalf of the user, and the respondent's Google account information is used to verify their identity."}
+{"prompt":"What are the advantages of using Facebook authentication in SSO authenticators?\n\n###\n\n","completion":" The advantages of using Facebook authentication in SSO authenticators include: 1. Simplified login process for respondents, as they can use their existing Facebook credentials. 2. Leveraging the security features of the Facebook platform to verify user identities. 3. Potential for increased response rates due to the familiarity and convenience of using a popular social media platform for authentication."}
+{"prompt":"How do you set up a CAS authenticator in the SSO authenticator?\n\n###\n\n","completion":" To set up a CAS authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'CAS'. 6. Enter the required CAS Server URL, CAS Login URL, and CAS Logout URL. 7. Configure any additional settings as needed. 8. Click 'Apply'."}
+{"prompt":"How do you set up an LDAP authenticator in the SSO authenticator?\n\n###\n\n","completion":" To set up an LDAP authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'LDAP'. 6. Enter the required LDAP Server URL, LDAP Port, LDAP Bind DN, and LDAP Bind Password. 7. Configure any additional settings as needed. 8. Click 'Apply'."}
+{"prompt":"How do you set up a Shibboleth authenticator in the SSO authenticator?\n\n###\n\n","completion":" To set up a Shibboleth authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Shibboleth'. 6. Configure any additional settings as needed, such as specifying the Identity Provider Entity ID, Single Sign-On Service URL, and Single Logout Service URL. 7. Click 'Apply'."}
+{"prompt":"How do you set up a Google OAuth 2.0 authenticator in the SSO authenticator?\n\n###\n\n","completion":" To set up a Google OAuth 2.0 authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Google OAuth 2.0'. 6. No additional setup information is required, as the process is automatic. 7. Click 'Apply'."}
+{"prompt":"How do you set up a Facebook authenticator in the SSO authenticator?\n\n###\n\n","completion":" To set up a Facebook authenticator in the SSO authenticator, follow these steps: 1. While editing your survey, open the Survey flow. 2. Click 'Add a New Element Here' or 'Add Below'. 3.Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Facebook'. 6. No additional setup information is required, as the process is automatic. 7. Click 'Apply'."}
+{"prompt":"What are some common use cases for SSO authenticators in Qualtrics?\n\n###\n\n","completion":" Some common use cases for SSO authenticators in Qualtrics include: 1. Restricting survey access to specific individuals or groups within an organization. 2. Simplifying the login process for respondents by allowing them to use their existing credentials from trusted identity providers. 3. Ensuring data security and privacy by verifying respondent identities before granting access to surveys. 4. Capturing respondent identifying information for data analysis and personalization purposes."}
+{"prompt":"How do you troubleshoot issues with SSO authenticators?\n\n###\n\n","completion":" To troubleshoot issues with SSO authenticators, you can: 1. Verify that your SSO settings are correctly configured in the Survey flow. 2. Double-check the information provided by your IT department or identity provider to ensure it is accurate. 3. Use the 'Generate Test Token' feature (for Token authenticators) or test the SSO authenticator using a test account. 4. Check for any error messages and consult Qualtrics Support or your IT department for assistance in resolving the issue. 5. Review the Qualtrics documentation on SSO authenticators for detailed setup and troubleshooting guidance."}
+{"prompt":"What is the significance of the 'Capture respondent identifying info' option when using an SSO authenticator?\n\n###\n\n","completion":" The significance of the 'Capture respondent identifying info' option when using an SSO authenticator is that it allows you to collect and store information about respondents that is passed through the authentication process. This information can be used for analysis, personalization, or other purposes within the survey. By enabling this option, you can capture specific attributes from the identity provider and store them as embedded data in the survey results."}
+{"prompt":"Can you use multiple SSO authenticators in a single survey?\n\n###\n\n","completion":" Yes, you can use multiple SSO authenticators in a single survey. To do this, add multiple authenticator elements in the Survey flow, each with a different SSO type (e.g., Token, CAS, LDAP, Shibboleth, Google OAuth 2.0, or Facebook). This allows respondents to choose from different authentication options when accessing your survey. However, keep in mind that using multiple authenticators may introduce complexity and should be carefully considered based on your survey requirements."}
+{"prompt":"What are the steps to set up a CAS Authenticator in Qualtrics?\n\n###\n\n","completion":" To set up a CAS Authenticator in Qualtrics, follow these steps: 1. Open the Survey flow while editing your survey. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'CAS'. 6. Specify the Hostname, Port, and URI. 7. Click 'Apply'. Note that for security and data privacy reasons, you must contact your IT department to get the necessary setup information, as Qualtrics Support will not be able to distribute CAS server information."}
+{"prompt":"How can you capture identifying information from a CAS Authenticator in Qualtrics?\n\n###\n\n","completion":" To capture identifying information from a CAS Authenticator in Qualtrics, follow these steps: 1. Enable 'Capture respondent identifying info'. 2. Click 'Add Embedded Data'. 3. Enter your embedded data field name into the 'Embedded Data to Set' text entry box on the left of the equals sign. 4. Insert the username parameter into the 'Field From SSO' text entry box. Note that Qualtrics only accepts the username attribute from CAS, so any field specified to capture attributes will return the username. 5. If needed, click the plus sign (+) to add fields and the minus sign (-) to remove fields. 6. Click 'Apply'. After this, you will see the embedded data value in the response results after someone takes the survey."}
+{"prompt":"What is the purpose of the 'Associate Respondent With Panel' option in CAS SSO Authenticators?\n\n###\n\n","completion":" The 'Associate Respondent With Panel' option in CAS SSO Authenticators serves to prevent participants from taking the survey multiple times. By enabling this option, you force participants to be a member of the selected contact list in order to take the survey. The contact list field that is selected as the identifying field (using the 'Identified by Field' dropdown) must house the CAS username to properly authenticate users. For example, if the identifying field was 'First Name' and the respondent was passing 'johnd' for their CAS username, the contact list would need to have 'johnd' in the 'First Name' field."}
+{"prompt":"What are the steps to set up an LDAP Authenticator in Qualtrics?\n\n###\n\n","completion":" To set up an LDAP Authenticator in Qualtrics, follow these steps: 1. Open the Survey flow while editing your survey. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'LDAP'. 6. Specify the Hostname, Port, Base DN, Bind DN, Bind Password, and Filter. Note that the Filter field should be left in the format ([filter]=%1), e.g., (sAMAccountName=%1) or (uid=%1). 7. Click 'Apply'. Due to the sensitive nature of LDAP server information, you must contact your IT department to get the necessary setup information, as Qualtrics Support will not be able to distribute LDAP server information."}
+{"prompt":"How can you capture identifying information from an LDAP Authenticator in Qualtrics?\n\n###\n\n","completion":" To capture identifying information from an LDAP Authenticator in Qualtrics, follow these steps: 1. Enable 'Capture respondent identifying info'. 2. Click 'Add Embedded Data'. 3. Use the plus sign(+) to add 4 fields. 4. Enter your embedded data field names into the 'Embedded Data to Set' text entry boxes on the left of the equals sign. 5. Insert the following parameters into the 'Field From SSO' text entry boxes: FirstName, LastName, Email, and ExternalDataReference. 6. Insert the attribute names into the respective fields. 7. Click 'Apply'. After this, you will see the embedded data value in the response results after someone takes the survey."}
+{"prompt":"What is the purpose of the 'Associate Respondent With Panel' option in LDAP SSO Authenticators?\n\n###\n\n","completion":" The 'Associate Respondent With Panel' option in LDAP SSO Authenticators serves to prevent participants from taking the survey multiple times. By enabling this option, you force participants to be a member of the selected contact list in order to take the survey. The identifying field from the contact list pairs with the corresponding LDAP authenticator attribute, as specified in the First Name Field, Last Name Field, Email Field, and External Data Reference in the authenticator settings. For example, if the identifying field was 'Email' and the respondent was passing 'johnd@email.com' for the mail attribute, the contact list would need to have 'johnd@email.com' in the 'Email' field."}
+{"prompt":"What are the steps to set up a Shibboleth Authenticator in Qualtrics?\n\n###\n\n","completion":" To set up a Shibboleth Authenticator in Qualtrics, follow these steps: 1. Open the Survey flow while editing your survey. 2. Click 'Add a New Element Here' or 'Add Below'. 3. Select 'Authenticator'. 4. Change 'Authentication Type' to 'SSO'. 5. Change 'SSO Type' to 'Shibboleth'. 6. Select the connection you'd like to use. We recommend the option that appears as default. Note that Brand Administrators can control which SSO connections are available across the organization. 7. Click 'Apply'. To find out if your brand has a Shibboleth SSO setup, contact your Brand Administrator."}
+{"prompt":"How can you capture identifying information from a Shibboleth Authenticator in Qualtrics?\n\n###\n\n","completion":" To capture identifying information from a Shibboleth Authenticator in Qualtrics, follow these steps: 1. Enable 'Capture respondent identifying info'. 2. Click 'Add Embedded Data'. 3. Use the plus sign (+) to add fields and the minus sign (-) to remove fields. 4. Enter your embedded data field name into the 'Embedded Data to Set' text entry box on the left of the equals sign. 5. Insert the formal or friendly names of the attributes that are being passed via SAML into the 'Field From SSO' text entry box (you can click the plus sign to add additional fields). 6. Click 'Apply'. After this, you will see the embedded data value in the response results after someone takes the survey. For more information on what embedded data can be captured, please contact your IT team."}
+{"prompt":"What is the purpose of the 'Associate Respondent With Panel' option in Shibboleth SSO Authenticators?\n\n###\n\n","completion":" The 'Associate Respondent With Panel' option in Shibboleth SSO Authenticators serves to prevent participants from taking the survey multiple times. By enabling this option, you force participants to be a member of the selected contact list in order to take the survey. The identifying field from the contact list pairs with the corresponding SAML attribute (specified by the 'Identified by Field' dropdown), as specified in the User Name Field, First Name Field, Last Name Field, and Email Field in the Qualtrics instance's SSO settings. For example, if the identifying field was 'External Data Reference' and the respondent was passing 'johnd' for the uid attribute, the contact list would need to have 'johnd' in the 'External Data Reference' field. If 'Associate Respondent With Panel' is enabled, you may get an error message that says 'Unable to login with information provided.' This means the SSO connection worked, but the information does not match what's in your contact list."}
+{"prompt": "What is a Google OAuth 2.0 authenticator?\n\n###\n\n","completion":" A Google OAuth 2.0 authenticator allows respondents to authenticate with their Google credentials. It can also be used to capture and store Google account information as embedded data."}
+{"prompt": "Can I restrict who can access my survey with a Google OAuth 2.0 authenticator?\n\n###\n\n","completion":" Yes, by adding approved account email domains to the 'Restrict Authentication to Domain(s)' field. To allow multiple domains, enter your domains as a comma-separated list."}
+{"prompt": "How do I set up a Google OAuth 2.0 authenticator?\n\n###\n\n","completion":" To set up a Google OAuth 2.0 authenticator, edit your survey, open the Survey flow, add a new element, select Authenticator, change Authentication Type to SSO, change SSO Type to Google OAuth 2.0, and click Apply."}
+{"prompt": "How can I capture identifying information with a Google OAuth 2.0 authenticator?\n\n###\n\n","completion":" Enable 'Capture respondent identifying info', click 'Add Embedded Data', use the plus sign (+) to add fields, enter your embedded data field name, and insert the parameter field from Google OAuth 2.0 into the 'Field From SSO' text entry box. Click Apply."}
+{"prompt": "Can I associate respondents with a contact list using Google OAuth 2.0 authenticator?\n\n###\n\n","completion":" Yes, enable 'Associate Respondent With Panel'. This option forces participants to be a member of the selected contact list in order to take the survey."}
+{"prompt": "What is a Facebook authenticator?\n\n###\n\n","completion":" A Facebook authenticator allows respondents to authenticate with their Facebook credentials. It can also be used to capture and store Facebook account information as embedded data."}
+{"prompt": "How do I set up a Facebook authenticator?\n\n###\n\n","completion":" To set up a Facebook authenticator, edit your survey, open the Survey flow, add a new element, select Authenticator, change Authentication Type to SSO, set the SSO Type to Facebook, and click Apply."}
+{"prompt": "How can I capture identifying information with a Facebook authenticator?\n\n###\n\n","completion":" Enable 'Capture respondent identifying info', click 'Add Embedded Data', use the plus sign (+) to add fields, enter your embedded data field name, and insert the parameter field from Facebook into the 'Field From SSO' text entry box. Click Apply."}
+{"prompt": "Can I associate respondents with a contact list using Facebook authenticator?\n\n###\n\n","completion":" Yes, enable 'Associate Respondent With Panel'. This option forces participants to be a member of the selected contact list in order to take the survey."}
+{"prompt": "What are the identifying fields from the contact list for Google OAuth 2.0 and Facebook authenticators?\n\n###\n\n","completion":" For Google OAuth 2.0: First Name -> FirstName, Last Name -> LastName, Email -> Email, External Data Reference -> UserName. For Facebook: First Name -> first_name, Last Name -> last_name, Email -> email, External Data Reference -> email."}
+{"prompt": "What is the Maximum Authentication Attempts setting in SSO authenticator?\n\n###\n\n","completion":" It's a setting under Options that allows you to set a limit on the number of authentication attempts. However, it's generally not recommended for SSO authenticators, as the Qualtrics survey is unaware of login failures on the SSO landing page."}
+{"prompt": "When would Maximum Authentication Attempts be useful for an SSO authenticator?","completion": "Maximum Authentication Attempts would be useful for an SSO authenticator if 'Associate Respondent With Panel' is enabled. In this case, the failure would occur because the user didn't match the contacts in the connected list."}
+{"prompt": "What does the error AUTHENTICATOR_SSO_CONFIG_DISABLED mean?\n\n###\n\n","completion":" This error means a Brand Administrator needs to enable 'Use for survey authenticator' for the SSO connection."}
+{"prompt": "What does the error AUTHENTICATOR_SSO_CONFIG_NOT_FOUND mean?\n\n###\n\n","completion":" This error means the SSO connection was not found in the SSO Provider Service, possibly due to data syncing issues or because the connection was deleted. A Brand Administrator may need to enable 'Use for survey authenticator' for the SSO connection."}
+{"prompt": "Can I test the setup of my Google OAuth 2.0 or Facebook authenticator?\n\n###\n\n","completion":" Yes, you can test the setup using the anonymous link."}
+{"prompt": "What are some examples of Google OAuth 2.0 attributes?\n\n###\n\n","completion":" Examples of Google OAuth 2.0 attributes include: FirstName, LastName, and Email."}
+{"prompt": "What are some examples of Facebook attributes?\n\n###\n\n","completion":" Examples of Facebook attributes include: name, first_name, last_name, link, gender, and email."}
+{"prompt": "How do I add approved account email domains to restrict access to my survey?\n\n###\n\n","completion":" Add approved account email domains to the 'Restrict Authentication to Domain(s)' field without the @ symbol (e.g., 'gmail.com' or 'qualtrics.com'). For multiple domains, enter them as a comma-separated list (e.g., 'gmail.com, qualtrics.com')."}
+{"prompt": "Why am I getting an error message 'Unable to login with information provided'?\n\n###\n\n","completion":" This error message means that the SSO connection worked, but the information does not match what's in your contact list."}
+{"prompt": "What do I need to do if I get an error message when using the 'Associate Respondent With Panel' option?\n\n###\n\n","completion":" Check that the information provided by the respondent matches the information in your contact list. If necessary, update the contact list to resolve the error."}
+{"prompt": "What are some other uses of an Authenticator?\n\n###\n\n","completion":" Apart from authentication, an Authenticator can be employed to load embedded data into a survey without relying on the respondent funnel. This can be achieved by adding the data to a directory mailing list and using the Authenticator to look up the data based on the 'external data reference.' This method offers more flexibility than supplemental data projects, as directories allow adding fields as needed, while supplemental data projects limit the number of fields upon creation."}
+{"prompt": "What are some alternative uses of an Authenticator?\n\n###\n\n","completion":" An Authenticator can be utilized for loading embedded data into a survey without depending on the respondent funnel. To do this, store the data in a directory mailing list and use the Authenticator to retrieve the data using the 'external data reference.' This approach provides greater flexibility than supplemental data projects, which restrict the number of fields during creation, while directories permit adding fields as required."}
+{"prompt": "What are some other uses of an Authenticator?\n\n###\n\n","completion":" An Authenticator can serve as a tool to import embedded data into a survey without the need for a respondent funnel. This can be accomplished by saving the data in a directory mailing list and leveraging the Authenticator to access the data based on the 'external data reference.' This method offers increased flexibility compared to supplemental data projects, which have a limited number of fields at the creation stage, while directories allow for adding fields whenever necessary."}
+{"prompt": "What are some alternative uses of an Authenticator?\n\n###\n\n","completion":" An Authenticator can be employed to import embedded data into a survey independently of the respondent funnel. To achieve this, insert the data into a directory mailing list and use the Authenticator to fetch the data by referencing the 'external data reference.' This technique provides more adaptability than supplemental data projects, which impose field limitations during creation, while directories enable adding fields on-demand."}
+{"prompt": "What are some other ways an Authenticator can be used?\n\n###\n\n","completion":" An Authenticator can be used to bring embedded data into a survey without necessitating the respondent funnel. This is done by placing the data in a directory mailing list and then utilizing the Authenticator to access the data via the 'external data reference.' This process offers greater versatility than supplemental data projects, which constrain the number of fields at the outset, while directories allow for the addition of fields as needed."}
