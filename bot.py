@@ -22,6 +22,7 @@ openai.api_key = os.environ['OPENAI_KEY']
 # setup the slack client
 client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 BOT_ID = client.api_call('auth.test')['user_id']
+print(BOT_ID)
 
 last_msg = ''
 
@@ -37,13 +38,20 @@ def message(payload):
     user_id = event.get('user')
     text = event.get('text')
     print("user msg:", text)
-    global last_msg
-    if text == last_msg:
-        return
-    else:
-        last_msg = text
-    if user_id != BOT_ID:
+    print("check string", text.lower()[:14])
+    if user_id != BOT_ID and "<@"+BOT_ID+">" in text[:14]:
+        global last_msg
+        if text == last_msg:
+            return
+        else:
+            last_msg = text
+        if "--reset" in text.lower():
+            start_new_conversation(user_id)
+            client.chat_postMessage(channel=channel_id,
+                                    text="Resetting the conversation and dumping memory")
+            return
         # SEEDED CHAT OPTION
+        text = text[4:]  # drop the bot opening from history and henceforth
         full_msgs = construct_chat_history(user_id, text)
         print("full message with history:", full_msgs)
         completion = openai.ChatCompletion.create(
@@ -87,26 +95,61 @@ def load_or_create_json_file(user_id):
     # Write the empty file if it doesn't exist
     if not os.path.exists(file_name):
         with open(file_name, "w") as json_file:
-            json.dump([], json_file)
+            json.dump([[]], json_file)
     # Read the file data
     with open(file_name, "r") as json_file:
-        data = json.load(json_file)
+        data = json.load(json_file)[-1]
 
     return data
 
 
 def append_and_save_conversation(user_id, user_string, bot_string):
-    data = load_or_create_json_file(user_id)
     file_name = f"conversations/{user_id}.json"
-
+    with open(file_name, "r") as json_file:
+        data = json.load(json_file)
+    last_conv = data[-1]
+    print("full data:", data)
+    print("last convo:", last_conv)
     user_message = {"role": "user", "content": user_string}
     bot_message = {"role": "assistant", "content": bot_string}
 
-    data.append(user_message)
-    data.append(bot_message)
-
+    last_conv.append(user_message)
+    last_conv.append(bot_message)
+    if len(data) > 1:
+        data = data[:-1]
+        data.append(last_conv)
+    else:
+        data = [last_conv]
+    print("data before write:", data)
     with open(file_name, "w") as json_file:
         json.dump(data, json_file)
+
+
+def start_new_conversation(user_id):
+    file_name = f"conversations/{user_id}.json"
+    with open(file_name, "r") as json_file:
+        data = json.load(json_file)
+    convo = []
+    print("data before reset", data)
+    data.append(convo)
+    print("data after reset", data)
+    with open(file_name, "w") as json_file:
+        json.dump(data, json_file)
+
+# def append_and_save_new_conversation(user_id, user_string, bot_string):
+#     data = load_or_create_json_file(user_id)
+#     file_name = f"conversations/{user_id}.json"
+#     convo = []
+
+#     user_message = {"role": "user", "content": user_string}
+#     bot_message = {"role": "assistant", "content": bot_string}
+
+#     convo.append(user_message)
+#     convo.append(bot_message)
+#     data.append(convo)
+
+#     with open(file_name, "w") as json_file:
+#         json.dump(data, json_file)
 
 
 if __name__ == "__main__":
