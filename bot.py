@@ -40,6 +40,8 @@ def message(payload):
     user_id = event.get('user')
     text = event.get('text')
     ts = event.get('ts')
+    thread_ts = event.get('thread_ts')
+    print("thread_ts", thread_ts)
     print("user msg:", text)
     print("check string", text.lower()[:14])
     # if it's a DM OR the user
@@ -69,6 +71,8 @@ def message(payload):
 
         print(resp)
         if channel_type in ['group', 'channel']:
+            if thread_ts != None:
+                ts = thread_ts  # reply in the thread
             client.chat_postMessage(
                 channel=channel_id, text=resp, thread_ts=ts)
         elif channel_type == 'im':
