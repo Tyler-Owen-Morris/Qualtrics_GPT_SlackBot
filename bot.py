@@ -14,13 +14,15 @@ load_dotenv(dotenv_path=envpath)
 # setup Flask server to handle callback events from slack
 app = Flask(__name__)
 slack_event_adapter = SlackEventAdapter(
-    os.environ['SIGNING_SECRET'], '/slack/events', app)
+    os.environ['PROD_SIGNING_SECRET'], '/slack/events', app)
 
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
 
 # setup the slack client
-client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
+client = slack.WebClient(token=os.environ['PROD_SLACK_TOKEN'])
+CHANNELS = os.environ['CHANNELS'].split(',')
+print("channels:", CHANNELS)
 BOT_ID = client.api_call('auth.test')['user_id']
 print(BOT_ID)
 
@@ -30,16 +32,18 @@ last_msg = ''
 @slack_event_adapter.on('message')
 def message(payload):
     event = payload.get('event', {})
-    # print("event:", event)
+    print("event:", event)
     channel_id = event.get('channel')
     print("channel:", channel_id)
     channel_type = event.get('channel_type')
     print("channel type:", channel_type)
     user_id = event.get('user')
     text = event.get('text')
+    ts = event.get('ts')
     print("user msg:", text)
     print("check string", text.lower()[:14])
-    if user_id != BOT_ID and "<@"+BOT_ID+">" in text[:14]:
+    # if it's a DM OR the user
+    if (user_id != BOT_ID and "<@"+BOT_ID+">" in text[:14] and channel_id in CHANNELS) or (channel_type == 'im' and user_id != BOT_ID):
         global last_msg
         if text == last_msg:
             return
@@ -51,9 +55,12 @@ def message(payload):
                                     text="Resetting the conversation and dumping memory")
             return
         # SEEDED CHAT OPTION
-        text = text[14:]  # drop the bot opening from history and henceforth
+        if channel_type in ['group', 'channel']:
+            # drop the bot opening from history and henceforth
+            text = text[14:]
         full_msgs = construct_chat_history(user_id, text)
         print("full message with history:", full_msgs)
+
         completion = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
             messages=full_msgs
@@ -61,8 +68,12 @@ def message(payload):
         resp = completion.choices[0].message.content
 
         print(resp)
-        client.chat_postMessage(channel=channel_id,
-                                text=resp)
+        if channel_type in ['group', 'channel']:
+            client.chat_postMessage(
+                channel=channel_id, text=resp, thread_ts=ts)
+        elif channel_type == 'im':
+            client.chat_postMessage(channel=channel_id,
+                                    text=resp)
         append_and_save_conversation(user_id, text, resp)
 
 
