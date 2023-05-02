@@ -51,26 +51,14 @@ def message(payload):
                                     text="Resetting the conversation and dumping memory")
             return
         # SEEDED CHAT OPTION
-        text = text[4:]  # drop the bot opening from history and henceforth
+        text = text[14:]  # drop the bot opening from history and henceforth
         full_msgs = construct_chat_history(user_id, text)
         print("full message with history:", full_msgs)
         completion = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
-            # model='curie:ft-personal-2023-04-28-05-11-33',
-            # messages=[{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. Reply with OK if you understand."},
-            #           {"role": "assistant", "content": "OK"},
-            #           {"role": "user", "content": text}]
             messages=full_msgs
         )
         resp = completion.choices[0].message.content
-
-        # FINE-TUNED SINGLE COMPLETION OPTION
-        # completion = openai.Completion.create(
-        #     model='curie:ft-personal-2023-04-28-05-11-33',
-        #     prompt=text,
-        #     max_tokens=1000
-        # )
-        # resp = completion.choices[0].text
 
         print(resp)
         client.chat_postMessage(channel=channel_id,
@@ -136,21 +124,6 @@ def start_new_conversation(user_id):
     with open(file_name, "w") as json_file:
         json.dump(data, json_file)
 
-# def append_and_save_new_conversation(user_id, user_string, bot_string):
-#     data = load_or_create_json_file(user_id)
-#     file_name = f"conversations/{user_id}.json"
-#     convo = []
-
-#     user_message = {"role": "user", "content": user_string}
-#     bot_message = {"role": "assistant", "content": bot_string}
-
-#     convo.append(user_message)
-#     convo.append(bot_message)
-#     data.append(convo)
-
-#     with open(file_name, "w") as json_file:
-#         json.dump(data, json_file)
-
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run('0.0.0.0', debug=True)  # 0.0.0.0 allows run on public server
