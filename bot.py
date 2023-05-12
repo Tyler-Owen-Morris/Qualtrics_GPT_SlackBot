@@ -171,5 +171,33 @@ def count_conversation_tokens(conversation):
     return total_tokens
 
 
+def determine_tweet_subject(question):
+    subjects = list(load_primed_data().keys())
+    subjs = ",".join(subjects)
+    print("eligible subjects:", subjs)
+    completion = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        messages=[{"role": "system", "content": f"You are a classification bot. The user will feed you a question and you will return which subjects it relates to with ONLY the name of the subjects. The only eligible subjects are: {subjs}. you will not elaborate. you will not add extra words. You will JUST reply with the single subject or comma separated list of subjects. The subject(s) you reply with MUST be in the provided list: {subjs}. You will not invent new subjects- the subject(s) will ONLY be one of these: {subjs}. If the question is not related to any of these subjects you will reply with the string 'None'. Reply with 'OK' if you understand."},
+                  {"role": "assistant", "content": "OK"},
+                  {"role": "user", "content": question}]
+    )
+    resp = completion.choices[0].message.content
+    print("bot thinks this question is to do with this subject:", resp)
+    return resp
+
+
+def load_primed_data():
+    file_name = "data/primed_created.json"
+    try:
+        # Read the file data
+        with open(file_name, "r") as json_file:
+            data = json.load(json_file)
+        # returns a dictionary of the historical tweets
+        return data
+    except Exception as e:
+        print("file-load failed - loading nothing", e)
+        return {}
+
+
 if __name__ == "__main__":
     app.run('0.0.0.0', debug=True)  # 0.0.0.0 allows run on public server
