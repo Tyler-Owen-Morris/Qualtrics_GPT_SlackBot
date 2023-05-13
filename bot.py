@@ -95,7 +95,7 @@ def construct_chat_history(uuid, chat):
     subj = determine_msg_subject(chat)
     mysubjs = determine_subject(subj)
     # must return an array of the chat history
-    base = [{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. Reply with OK if you understand."},
+    base = [{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. The system will give you data on the specific subject of the user's question - the data from the system will override any other information you have on the subject. The data from the system will be formatted with a URL where the information was found followed by a summary of the information. You will use this data to more accurately answer the users question. Reply with OK if you understand."},
             {"role": "assistant", "content": "OK"}]
     subj_data = load_subj_data(mysubjs)
     new = {'role': 'user', 'content': chat}
@@ -119,6 +119,8 @@ def construct_chat_history(uuid, chat):
 
 
 def load_subj_data(subjs):
+    if subjs == None:
+        return []
     data = load_primed_data()
     text = ""
     for subj in subjs:
@@ -217,7 +219,7 @@ def determine_msg_subject(question):
 
 
 def load_primed_data():
-    file_name = "data/primed_created.json"
+    file_name = "data/primed_created-1.json"
     try:
         # Read the file data
         with open(file_name, "r") as json_file:
