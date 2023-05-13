@@ -68,7 +68,7 @@ def message(payload):
             # drop the bot opening from history and henceforth
             text = text[14:]
         full_msgs, warn = construct_chat_history(user_id, text)
-        # print("full message with history:", full_msgs)
+        print("full message with history:", full_msgs)
 
         completion = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
@@ -92,13 +92,17 @@ def message(payload):
 def construct_chat_history(uuid, chat):
     tokens = 0
     warn = False
+    subj = determine_msg_subject(chat)
+    mysubjs = determine_subject(subj)
     # must return an array of the chat history
     base = [{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. Reply with OK if you understand."},
             {"role": "assistant", "content": "OK"}]
+    subj_data = load_subj_data(mysubjs)
     new = {'role': 'user', 'content': chat}
     new_tokens = count_conversation_tokens([new])
     base_tokens = count_conversation_tokens(base)
-    tokens += base_tokens + new_tokens
+    primed_tokens = count_conversation_tokens(subj_data)
+    tokens += base_tokens + new_tokens + primed_tokens
     data = load_or_create_json_file(uuid)
     if len(data) > 0:
         data_tokens = count_conversation_tokens(data)
@@ -109,8 +113,35 @@ def construct_chat_history(uuid, chat):
                   tokens + count_conversation_tokens(data))
             data = data[1:]
         base += data
+    base += subj_data
     base.append(new)
     return base, warn
+
+
+def load_subj_data(subjs):
+    data = load_primed_data()
+    text = ""
+    for subj in subjs:
+        text += data[subj]+" "
+    ret = [{"role": "system", "content": "data: "+text}]
+    return ret
+
+
+def determine_subject(subj):
+    loaded = load_primed_data()
+    subj = subj.split(",")
+    accum = []
+    found = False
+    for subject in list(loaded.keys()):
+        for sub in subj:
+            print("comparing:", subject, "|", sub)
+            if sub.lower().replace(' ', '') in subject.lower().replace(" ", "") or subject.lower().replace(' ', '') in sub.lower().replace(' ', ''):
+                accum.append(subject)
+                found = True
+    if found:
+        return accum
+    else:
+        return None
 
 
 def load_or_create_json_file(user_id):
@@ -122,7 +153,6 @@ def load_or_create_json_file(user_id):
     # Read the file data
     with open(file_name, "r") as json_file:
         data = json.load(json_file)[-1]
-
     return data
 
 
@@ -171,13 +201,13 @@ def count_conversation_tokens(conversation):
     return total_tokens
 
 
-def determine_tweet_subject(question):
+def determine_msg_subject(question):
     subjects = list(load_primed_data().keys())
     subjs = ",".join(subjects)
     print("eligible subjects:", subjs)
     completion = openai.ChatCompletion.create(
         model='gpt-3.5-turbo',
-        messages=[{"role": "system", "content": f"You are a classification bot. The user will feed you a question and you will return which subjects it relates to with ONLY the name of the subjects. The only eligible subjects are: {subjs}. you will not elaborate. you will not add extra words. You will JUST reply with the single subject or comma separated list of subjects. The subject(s) you reply with MUST be in the provided list: {subjs}. You will not invent new subjects- the subject(s) will ONLY be one of these: {subjs}. If the question is not related to any of these subjects you will reply with the string 'None'. Reply with 'OK' if you understand."},
+        messages=[{"role": "system", "content": f"You are a classification bot. The user will feed you a question and you will return which subjects it relates to with ONLY the name of the subject(s). The only eligible subjects are: {subjs}. you will not elaborate. you will not add extra words. You will JUST reply with the single subject or comma separated list of up to 5 subjects. The subject(s) you reply with MUST be in the provided list: {subjs}. You will not invent new subjects- the subject(s) will ONLY be a maximum of 5 of these: {subjs}. If the question is not related to any of these subjects you will reply with the string 'None'. Reply with 'OK' if you understand."},
                   {"role": "assistant", "content": "OK"},
                   {"role": "user", "content": question}]
     )
