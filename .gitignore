@@ -30,6 +30,7 @@ replies.json
 result.json
 output.csv
 data/
+conversations/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
