@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from dotenv import load_dotenv
 from time import sleep
-from qdoc_map import document_map
+from qdoc_map_adhoc import document_map
 
 # load environment variables and setup openai auth
 envpath = Path('.') / '.env'
@@ -15,6 +15,7 @@ openai.api_key = os.environ['OPENAI_KEY']
 
 # load the data from the other file into the input variable for this file
 inpts = document_map
+output_file = "data/primed_created-1.json"
 
 
 def run():
@@ -31,7 +32,7 @@ def run():
 
 
 def write_summary(subject, summary):
-    file_name = "data/primed_created-1.json"
+    file_name = output_file
     data = load_or_create_json_file()
     if subject in data:
         data[subject] += summary+" "
@@ -78,7 +79,7 @@ def get_text_from_url(url):
 
 
 def load_or_create_json_file():
-    file_name = "data/primed_created-1.json"
+    file_name = output_file
     # Write the empty file if it doesn't exist
     if not os.path.exists(file_name):
         with open(file_name, "w") as json_file:
