@@ -63,6 +63,19 @@ def message(payload):
             client.chat_postMessage(channel=channel_id,
                                     text="Resetting the conversation and dumping memory")
             return
+        if "--subjects" in text.lower():
+            subjs = "*\n*".join(list(load_primed_data().keys()))
+            print(">>>>>> SUBJECTS::>>>>>\n", subjs)
+            response = f"I currently have data on the subjects: \n *{subjs}*"
+            if channel_type in ['group', 'channel']:
+                ts = thread_ts
+                client.chat_postMessage(
+                    channel=channel_id, text=response, thread_ts=ts)
+            elif channel_type == 'im':
+                client.chat_postMessage(channel=channel_id,
+                                        text=response)
+            return
+
         # SEEDED CHAT OPTION
         if channel_type in ['group', 'channel']:
             # drop the bot opening from history and henceforth
@@ -95,7 +108,7 @@ def construct_chat_history(uuid, chat):
     subj = determine_msg_subject(chat)
     mysubjs = determine_subject(subj)
     # must return an array of the chat history
-    base = [{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. The system will give you data on the specific subject of the user's question - the data from the system will override any other information you have on the subject. The data from the system will be formatted with a URL where the information was found followed by a summary of the information. You will use this data to more accurately answer the users question. Reply with OK if you understand."},
+    base = [{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. The system will give you data on the specific subject of the user's question - the data from the system will override any other information you have on the subject. The data from the system will be formatted with a URL where the information was found, followed by a summary of the information. You will not give the user URLs that the system has not provided. You will not make up URLs. You will use the data from the system to more accurately answer the users question. Reply with OK if you understand."},
             {"role": "assistant", "content": "OK"}]
     subj_data = load_subj_data(mysubjs)
     new = {'role': 'user', 'content': chat}
@@ -103,28 +116,35 @@ def construct_chat_history(uuid, chat):
     base_tokens = count_conversation_tokens(base)
     primed_tokens = count_conversation_tokens(subj_data)
     tokens += base_tokens + new_tokens + primed_tokens
-    data = load_or_create_json_file(uuid)
-    if len(data) > 0:
-        data_tokens = count_conversation_tokens(data)
-        print('data tokens:', data_tokens)
-        while tokens + count_conversation_tokens(data) > 4096:
+    history_data = load_or_create_json_file(uuid)
+    if len(history_data) > 0:
+        data_tokens = count_conversation_tokens(history_data)
+        print('historical conversation tokens:', data_tokens)
+        while tokens + count_conversation_tokens(history_data) > 4096:
             warn = True
             print(">>>>>>>>>>>>>conversation too long<<<<<<<<<<<<,",
-                  tokens + count_conversation_tokens(data))
-            data = data[1:]
-        base += data
+                  tokens + count_conversation_tokens(history_data))
+            history_data = history_data[1:]
+        base += history_data
     base += subj_data
     base.append(new)
     return base, warn
 
 
 def load_subj_data(subjs):
+    # return empty array for no subjects
     if subjs == None:
         return []
+    # load the full subject data
     data = load_primed_data()
     text = ""
     for subj in subjs:
         text += data[subj]+" "
+    # limit the token count
+    while count_conversation_tokens([{'content': "data:"+text}]) > 3000:
+        print("shortening loaded data:", len(text))
+        text = text[15:]
+    # Construct
     ret = [{"role": "system", "content": "data: "+text}]
     return ret
 
