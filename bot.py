@@ -65,10 +65,11 @@ def message(payload):
             return
         if "--subjects" in text.lower():
             subjs = "*\n*".join(list(load_primed_data().keys()))
-            print(">>>>>> SUBJECTS::>>>>>\n", subjs)
+            # print(">>>>>> SUBJECTS::>>>>>\n", subjs)
             response = f"I currently have data on the subjects: \n *{subjs}*"
             if channel_type in ['group', 'channel']:
-                ts = thread_ts
+                if thread_ts != None:
+                    ts = thread_ts  # reply in the thread
                 client.chat_postMessage(
                     channel=channel_id, text=response, thread_ts=ts)
             elif channel_type == 'im':
