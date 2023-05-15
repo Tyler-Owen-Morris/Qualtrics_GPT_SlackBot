@@ -7,21 +7,29 @@ from dotenv import load_dotenv
 from flask import Flask
 from slackeventsapi import SlackEventAdapter
 from transformers import GPT2Tokenizer
+import string
 
 # Load Environment variables
 envpath = Path('.') / '.env'
 load_dotenv(dotenv_path=envpath)
+# Local variable for environment:
+environment = os.environ['ENVIRONMENT']
 
 # setup Flask server to handle callback events from slack
 app = Flask(__name__)
-slack_event_adapter = SlackEventAdapter(
-    os.environ['SIGNING_SECRET'], '/slack/events', app)
 
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
 
 # setup the slack client
-client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
+if environment == "PROD":
+    slack_event_adapter = SlackEventAdapter(
+        os.environ['PROD_SIGNING_SECRET'], '/slack/events', app)
+    client = slack.WebClient(token=os.environ['PROD_SLACK_TOKEN'])
+else:
+    slack_event_adapter = SlackEventAdapter(
+        os.environ['SIGNING_SECRET'], '/slack/events', app)
+    client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 CHANNELS = os.environ['CHANNELS'].split(',')
 print("channels:", CHANNELS)
 BOT_ID = client.api_call('auth.test')['user_id']
@@ -64,9 +72,13 @@ def message(payload):
                                     text="Resetting the conversation and dumping memory")
             return
         if "--subjects" in text.lower():
-            subjs = "*\n*".join(list(load_primed_data().keys()))
+            primed_data = list(load_primed_data().keys())
+            primed_data.sort()
+            print("**************primed data:\n", primed_data)
+            subjs = "*\n•*".join(string.capwords(s)
+                                 for s in primed_data)
             # print(">>>>>> SUBJECTS::>>>>>\n", subjs)
-            response = f"I currently have data on the subjects: \n *{subjs}*"
+            response = f"I currently have data on the subjects:\n*•{subjs}*"
             if channel_type in ['group', 'channel']:
                 if thread_ts != None:
                     ts = thread_ts  # reply in the thread
@@ -253,6 +265,11 @@ def load_primed_data():
 
 
 if __name__ == "__main__":
-    from waitress import serve
-    serve(app, host='0.0.0.0', port=5000)
-    # app.run('0.0.0.0', debug=True)  # 0.0.0.0 allows run on public server
+
+    if environment == "PROD":
+        from waitress import serve
+        # WSGI server is required for production to allow simultaneous requests
+        serve(app, host='0.0.0.0', port=5000)
+    else:
+        # Development server runs as default
+        app.run('0.0.0.0', debug=True)  # 0.0.0.0 allows run on public server
