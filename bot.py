@@ -68,8 +68,14 @@ def message(payload):
             last_msg = text
         if "--reset" in text.lower():
             start_new_conversation(user_id)
-            client.chat_postMessage(channel=channel_id,
-                                    text="Resetting the conversation and dumping memory")
+            if channel_type in ['group', 'channel']:
+                if thread_ts != None:
+                    ts = thread_ts  # reply in the thread
+                client.chat_postMessage(channel=channel_id,
+                                        text="Resetting the conversation and dumping memory", thread_ts=ts)
+            elif channel_type == 'im':
+                client.chat_postMessage(channel=channel_id,
+                                        text="Resetting the conversation and dumping memory")
             return
         if "--subject" in text.lower():
             primed_data = list(load_primed_data().keys())
@@ -269,9 +275,9 @@ def load_primed_data():
 
 
 if __name__ == "__main__":
+    from waitress import serve
     if environment == "PROD":
         # WSGI server is required for production to allow simultaneous requests
-        from waitress import serve
         serve(app, host='0.0.0.0', port=5000)
     else:
         # Development server runs as default
