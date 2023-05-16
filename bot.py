@@ -21,7 +21,7 @@ app = Flask(__name__)
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
 
-# setup the slack client
+# setup the slack client based on environment
 if environment == "PROD":
     slack_event_adapter = SlackEventAdapter(
         os.environ['PROD_SIGNING_SECRET'], '/slack/events', app)
@@ -71,14 +71,14 @@ def message(payload):
             client.chat_postMessage(channel=channel_id,
                                     text="Resetting the conversation and dumping memory")
             return
-        if "--subjects" in text.lower():
+        if "--subject" in text.lower():
             primed_data = list(load_primed_data().keys())
             primed_data.sort()
             print("**************primed data:\n", primed_data)
-            subjs = "*\n•*".join(string.capwords(s)
+            subjs = "* • *".join(string.capwords(s)
                                  for s in primed_data)
             # print(">>>>>> SUBJECTS::>>>>>\n", subjs)
-            response = f"I currently have data on the subjects:\n*•{subjs}*"
+            response = f"I currently have data on the subjects:\n*{subjs}*"
             if channel_type in ['group', 'channel']:
                 if thread_ts != None:
                     ts = thread_ts  # reply in the thread
@@ -93,7 +93,7 @@ def message(payload):
         if channel_type in ['group', 'channel']:
             # drop the bot opening from history and henceforth
             text = text[14:]
-        full_msgs, warn = construct_chat_history(user_id, text)
+        full_msgs, warn, subject_list = construct_chat_history(user_id, text)
         print("full message with history:", full_msgs)
 
         completion = openai.ChatCompletion.create(
@@ -103,7 +103,10 @@ def message(payload):
         resp = completion.choices[0].message.content
         if warn == True:
             resp += "\n\n WARNING: Chat history is too long. Use the --reset command to clear cache and start fresh."
-        print(resp)
+        if subject_list != None:
+            subj_str = ", ".join(list(set(subject_list)))
+            resp = resp+"\n\n_subjects:_\n_["+str(subj_str)+"]_"
+        print("************making response:", resp)
         if channel_type in ['group', 'channel']:
             if thread_ts != None:
                 ts = thread_ts  # reply in the thread
@@ -141,7 +144,7 @@ def construct_chat_history(uuid, chat):
         base += history_data
     base += subj_data
     base.append(new)
-    return base, warn
+    return base, warn, mysubjs
 
 
 def load_subj_data(subjs):
@@ -164,12 +167,13 @@ def load_subj_data(subjs):
 
 def determine_subject(subj):
     loaded = load_primed_data()
-    subj = subj.split(",")
+    subj = set(subj.split(","))
     accum = []
     found = False
+    print("<><><><><><><><><><>subjects FROM AI to sort on:", subj)
     for subject in list(loaded.keys()):
         for sub in subj:
-            print("comparing:", subject, "|", sub)
+            # print("comparing:", subject, "|", sub)
             if sub.lower().replace(' ', '') in subject.lower().replace(" ", "") or subject.lower().replace(' ', '') in sub.lower().replace(' ', ''):
                 accum.append(subject)
                 found = True
@@ -265,10 +269,9 @@ def load_primed_data():
 
 
 if __name__ == "__main__":
-
     if environment == "PROD":
-        from waitress import serve
         # WSGI server is required for production to allow simultaneous requests
+        from waitress import serve
         serve(app, host='0.0.0.0', port=5000)
     else:
         # Development server runs as default
