@@ -47,20 +47,20 @@ def message(payload):
     event = payload.get('event', {})
     # print("event:", event)
     channel_id = event.get('channel')
-    print("channel:", channel_id)
     channel_type = event.get('channel_type')
-    print("channel type:", channel_type)
     user_id = event.get('user')
     text = event.get('text')
     ts = event.get('ts')
     thread_ts = event.get('thread_ts')
-    print("thread_ts", thread_ts)
-    print("user msg:", text)
     if text == None:
         return
-    print("check string", text.lower()[:14])
+    # print("check string", text.lower()[:14])
     # if it's a DM OR the user
     if (user_id != BOT_ID and "<@"+BOT_ID+">" in text[:14] and channel_id in CHANNELS) or (channel_type == 'im' and user_id != BOT_ID):
+        print("channel:", channel_id)
+        print("channel type:", channel_type)
+        print("thread_ts", thread_ts)
+        print("user msg:", text)
         global last_msg
         if text == last_msg:
             return
@@ -100,27 +100,37 @@ def message(payload):
             # drop the bot opening from history and henceforth
             text = text[14:]
         full_msgs, warn, subject_list = construct_chat_history(user_id, text)
-        print("full message with history:", full_msgs)
-
+        # print("full message with history:", full_msgs)
+        print("subject list: ", subject_list)
         completion = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
             messages=full_msgs
         )
         resp = completion.choices[0].message.content
+        response = resp
         if warn == True:
-            resp += "\n\n WARNING: Chat history is too long. Use the --reset command to clear cache and start fresh."
-        if subject_list != None:
-            subj_str = ", ".join(list(set(subject_list)))
-            resp = resp+"\n\n_subjects:_\n_["+str(subj_str)+"]_"
+            response += "\n\n WARNING: Chat history is too long. Use the --reset command to clear cache and start fresh."
+        if subject_list is not None:
+            print("subj List:", subject_list, "\n", len(
+                subject_list), "\n"+resp+"****************")
+            subj_str = ", ".join(list(subject_list))
+            subj_str = "\n\n_subjects:_\n_["+str(subj_str)+"]_"
+            print("subject string:", subj_str)
         print("************making response:", resp)
         if channel_type in ['group', 'channel']:
-            if thread_ts != None:
+            my_resp = resp
+            if thread_ts is not None:
                 ts = thread_ts  # reply in the thread
+            if subject_list is not None:
+                my_resp += subj_str
             client.chat_postMessage(
-                channel=channel_id, text=resp, thread_ts=ts)
+                channel=channel_id, text=my_resp, thread_ts=ts)
         elif channel_type == 'im':
+            my_resp = resp
+            if subject_list is not None:
+                my_resp += subj_str
             client.chat_postMessage(channel=channel_id,
-                                    text=resp)
+                                    text=my_resp)
         append_and_save_conversation(user_id, text, resp)
 
 
@@ -180,7 +190,8 @@ def determine_subject(subj):
     for subject in list(loaded.keys()):
         for sub in subj:
             # print("comparing:", subject, "|", sub)
-            if sub.lower().replace(' ', '') in subject.lower().replace(" ", "") or subject.lower().replace(' ', '') in sub.lower().replace(' ', ''):
+            # if sub.lower().replace(' ', '') in subject.lower().replace(" ", "") or subject.lower().replace(' ', '') in sub.lower().replace(' ', ''):
+            if sub.lower().replace(' ', '') == subject.lower().replace(' ', ''):
                 accum.append(subject)
                 found = True
     if found:
@@ -257,7 +268,7 @@ def determine_msg_subject(question):
                   {"role": "user", "content": question}]
     )
     resp = completion.choices[0].message.content
-    print("bot thinks this question is to do with this subject:", resp)
+    print("----------------- SUBJECT LIST PASS 1:", resp)
     return resp
 
 
