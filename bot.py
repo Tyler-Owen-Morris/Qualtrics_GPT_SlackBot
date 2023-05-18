@@ -6,6 +6,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from flask import Flask
 from slackeventsapi import SlackEventAdapter
+
 from transformers import GPT2Tokenizer
 import string
 
@@ -132,6 +133,100 @@ def message(payload):
             client.chat_postMessage(channel=channel_id,
                                     text=my_resp)
         append_and_save_conversation(user_id, text, resp)
+
+
+# Listen to the app_home_opened Events API event to hear when a user opens your app from the sidebar
+@slack_event_adapter.on("app_home_opened")
+def app_home_opened(payload):
+    event = payload.get('event', {})
+    logger = payload.get('logger', {})
+    user_id = event.get("user")
+
+    try:
+        # Call the views.publish method using the WebClient passed to listeners
+        result = client.views_publish(
+            user_id=user_id,
+            view={
+                # Home tabs must be enabled in your app configuration page under "App Home"
+                # and your app must be subscribed to the app_home_opened event
+                "type": "home",
+                "blocks": [
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": "I am a Qualtrics assistant that uses Chat GPT to answer Qualtrics related questions.\n\nI am still in beta, so don't trust everything I say. Look up my responses to verify!"
+                        },
+                        "accessory": {
+                            "type": "image",
+                            "image_url": "https://imgur.com/IUdjC13.jpg",
+                            "alt_text": "cute cat"
+                        }
+                    },
+                    {
+                        "type": "divider"
+                    },
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Behavior:",
+                            "emoji": True
+                        }
+                    },
+                    {
+                        "type": "context",
+                        "elements": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Direct Message* me your qualtrics related questions and I will respond directly.\n*@ me in Channel* and I will reply in a thread. If I do not reply in thread- that channel is not in my go-list.\n\n"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "image",
+                        "title": {
+                            "type": "plain_text",
+                            "text": "Replies are formatted with the text of what I said first, followed by the subject's I referenced to arrive an an answer:",
+                            "emoji": True
+                        },
+                        "image_url": "https://imgur.com/QMHuG24.jpg",
+                        "alt_text": "Sample Response"
+                    },
+                    {
+                        "type": "divider"
+                    },
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Commands:",
+                            "emoji": True
+                        }
+                    },
+                    {
+                        "type": "context",
+                        "elements": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*--reset*  Dumps chat history and resets the conversation with the bot.\n"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "\n*--subject*  Prompts the bot to report the subjects that it has available."
+                            }
+                        ]
+                    }
+                ]
+            },
+        )
+        # logger.info(result)
+        # print("home loaded >", result)
+        print("HOME loaded...")
+
+    except Exception as e:
+        # logger.error("Error fetching conversations: {}".format(e))
+        print("ERROR loading HOME:", e)
 
 
 def construct_chat_history(uuid, chat):
