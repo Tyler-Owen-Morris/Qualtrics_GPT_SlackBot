@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from dotenv import load_dotenv
 from time import sleep
-from qdoc_map_adhoc import document_map
+from qdoc_map import document_map
 
 # load environment variables and setup openai auth
 envpath = Path('.') / '.env'
@@ -15,7 +15,8 @@ openai.api_key = os.environ['OPENAI_KEY']
 
 # load the data from the other file into the input variable for this file
 inpts = document_map
-output_file = "data/primed_created-1.json"
+# RAW file is for documents to summary before adding corrections.
+output_file = "data/primed_created_raw.json"
 
 
 def run():
@@ -51,7 +52,7 @@ def get_summary_from_text(text):
             messages=full_msg
         )
         resp = completion.choices[0].message.content
-        print("summary:", resp)
+        print("summary:\n", resp, "\n*********")
         return resp
     except Exception as e:
         sleep(30)
