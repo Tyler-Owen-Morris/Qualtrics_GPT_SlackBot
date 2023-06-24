@@ -1,3 +1,4 @@
+from langchain_handler import query_langchain
 import slack
 import openai
 import os
@@ -83,36 +84,17 @@ def message(payload):
         if channel_type in ['group', 'channel']:
             # drop the bot opening from history and henceforth
             text = text[14:]
-        full_msgs, warn, subject_list = construct_chat_history(user_id, text)
-        # print("full message with history:", full_msgs)
-        print("subject list: ", subject_list)
-        completion = openai.ChatCompletion.create(
-            model='gpt-3.5-turbo',
-            messages=full_msgs
-        )
-        resp = completion.choices[0].message.content
-        response = resp
-        if warn == True:
-            response += "\n\n WARNING: Chat history is too long. Use the --reset command to clear cache and start fresh."
-        if subject_list is not None:
-            print("subj List:", subject_list, "\n", len(
-                subject_list), "\n"+resp+"****************")
-            subj_str = ", ".join(list(subject_list))
-            subj_str = "\n\n_subjects:_\n_["+str(subj_str)+"]_"
-            print("subject string:", subj_str)
+
+        resp = query_langchain(text)
         print("************making response:", resp)
         if channel_type in ['group', 'channel']:
             my_resp = resp
             if thread_ts is not None:
                 ts = thread_ts  # reply in the thread
-            if subject_list is not None:
-                my_resp += subj_str
             client.chat_postMessage(
                 channel=channel_id, text=my_resp, thread_ts=ts)
         elif channel_type == 'im':
             my_resp = resp
-            if subject_list is not None:
-                my_resp += subj_str
             client.chat_postMessage(channel=channel_id,
                                     text=my_resp)
         append_and_save_conversation(user_id, text, resp)
