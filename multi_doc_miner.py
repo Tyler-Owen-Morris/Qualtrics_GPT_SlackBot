@@ -26,21 +26,24 @@ def run():
         subject = tpl[0]
         url = tpl[1]
         text = get_text_from_url(url)
-        print("text:",text)
+        # print("text:", text)
+        print("url:", url)
         # Write the summary to the file
-        write_txt_summary(subject, text)
+        write_txt_summary(url, text)
         sleep(3)
 
 
-def write_txt_summary(subject, summary):
+def write_txt_summary(url, summary):
     file_name = txt_output_file
     data = load_or_create_txt_file()
-    if subject in data:
-        data+= summary
-    else:
-        data = summary
+    # if subject in data:
+    #     data+= summary
+    # else:
+    #     data = summary
+    data += "\n"+url+" : "+summary
     with open(file_name, "w") as txt_file:
         json.dump(data, txt_file)
+
 
 def write_json_summary(subject, summary):
     file_name = json_output_file
@@ -69,7 +72,6 @@ def get_text_from_url(url):
             if "thank you for your feedback!" in p_tag.get_text().lower():
                 start = True
                 continue
-    # accum += "\n\ncompress the above as much as you can with symbols, emojis and other short hand, so that it takes as absolutely few tokens as possible, do not use line breaks, but be certain that you retain whatever is necessary for another chatbot like yourself to be able to decompress it and understand it."
     return accum
 
 
@@ -94,6 +96,7 @@ def load_or_create_txt_file():
 
     return data
 
+
 def load_or_create_json_file():
     file_name = json_output_file
     # Write the empty file if it doesn't exist
@@ -105,6 +108,7 @@ def load_or_create_json_file():
         data = json.load(json_file)
 
     return data
+
 
 if __name__ == "__main__":
     run()

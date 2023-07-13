@@ -2,3 +2,5 @@
 xm directory,"to find a contact by Contact ID or CID you must download the directory as a file and then search the file for the CID, or use the API to do a search request.  To do this, you need to create an API token to access the XM Directory API. Once you have the token, you can make a GET request with the CID as a parameter to retrieve the contact with matching CID"
 salesforce extension,"Salesforce for Qualtrics does NOT work with hyperforce."
 survey,"A survey title is limited to 100 characters."
+survey,"Embedded data fields in surveys have a 20kb size limit. There is not a specific character limit - just a byte capacity."
+xm directory,"Embedded data fields in the xm directory are limited to 200 characters for the name of the field and 1024 characters for the value of the field."
