@@ -1,4 +1,7 @@
 conversations/*
+jupyter/
+mining/Screenshots
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
