@@ -71,6 +71,8 @@ def message(payload):
             last_msg = text
         if "--reset" in text.lower():
             start_new_conversation(user_id)
+            analytics.track(user_id, 'Conversation Reset', {
+                'question': text, 'channelType': channel_type, 'channel_id': channel_id})
             if channel_type in ['group', 'channel']:
                 if thread_ts != None:
                     ts = thread_ts  # reply in the thread
@@ -87,6 +89,8 @@ def message(payload):
             subjs = "* • *".join(string.capwords(s)
                                  for s in primed_data)
             # print(">>>>>> SUBJECTS::>>>>>\n", subjs)
+            analytics.track(user_id, 'Subject Query', {
+                'question': text, 'channelType': channel_type, 'channel_id': channel_id, 'subjects': subjs})
             response = f"I currently have data on the subjects:\n*{subjs}*"
             if channel_type in ['group', 'channel']:
                 if thread_ts != None:
