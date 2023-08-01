@@ -8,6 +8,7 @@ from flask import Flask
 from slackeventsapi import SlackEventAdapter
 from slack_home import home_view
 from transformers import GPT2Tokenizer
+import segment.analytics as analytics
 import string
 
 # Load Environment variables
@@ -15,6 +16,7 @@ envpath = Path('.') / '.env'
 load_dotenv(dotenv_path=envpath)
 # Local variable for environment:
 environment = os.environ['ENVIRONMENT']
+analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
 
 # setup Flask server to handle callback events from slack
 app = Flask(__name__)
@@ -118,6 +120,8 @@ def message(payload):
             subj_str = "\n\n_subjects:_\n_["+str(subj_str)+"]_"
             print("subject string:", subj_str)
         print("************making response:", resp)
+        analytics.track(user_id, 'Reply Generated', {
+                        'question': text, 'response': resp, 'channelType': channel_type, 'channel_id': channel_id})
         if channel_type in ['group', 'channel']:
             my_resp = resp
             if thread_ts is not None:
