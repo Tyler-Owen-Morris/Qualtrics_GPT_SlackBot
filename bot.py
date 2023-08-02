@@ -124,8 +124,6 @@ def message(payload):
             subj_str = "\n\n_subjects:_\n_["+str(subj_str)+"]_"
             print("subject string:", subj_str)
         print("************making response:", resp)
-        analytics.track(user_id, 'Reply Generated', {
-                        'question': text, 'response': resp, 'channelType': channel_type, 'channel_id': channel_id})
         if channel_type in ['group', 'channel']:
             my_resp = resp
             if thread_ts is not None:
@@ -140,6 +138,8 @@ def message(payload):
                 my_resp += subj_str
             client.chat_postMessage(channel=channel_id,
                                     text=my_resp)
+        analytics.track(user_id, 'Reply Generated', {
+                        'question': text, 'response': resp, 'channelType': channel_type, 'channel_id': channel_id, 'subject': subject_list})
         append_and_save_conversation(user_id, text, resp)
 
 
