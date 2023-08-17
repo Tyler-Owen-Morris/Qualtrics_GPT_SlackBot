@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#start-button').click(function () {
+                $.ajax({
+                    url: '/start_bot',
+                    type: 'GET',
+                    success: function (response) {
+                        console.log(response);
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+            $('#stop-button').click(function () {
+                $.ajax({
+                    url: '/stop_bot',
+                    type: 'GET',
+                    success: function (response) {
+                        console.log(response);
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <h1>Homepage</h1>
+        <h2>Bot Status:{{status}}</h2>
+        <!-- <form action="start_bot" method="get"><button onclick="submit">start server</button></form>
+        <form action="stop_bot" method="get"><button onclick="submit">stop server</button></form> -->
+        <button id="start-button">START</button>
+        <button id="stop-button">STOP</button>
+        <button id="save">SAVE</button>
+    </div>
+    <div>
+        <form>
+            {% for datum in data %}
+            <!-- <h3>{{datum.subject}}</h3>
+            <p>{{datum.content}}</p> -->
+            <div>
+                <label for="subject_{{ loop.index}}">Subject:</label>
+                <input type="text" id="subject_{{ loop.index}}" name="subject_{{ loop.index}}"
+                    value="{{ datum.subject }}" />
+            </div>
+            <div>
+                <label for="content_{{ loop.index}}">Content:</label>
+                <textarea id="content_{{ loop.index}}" name="content_{{ loop.index}}">{{ datum.content }}</textarea>
+            </div>
+
+            {% endfor %}
+        </form>
+        <!-- {% for datum in data %}
+        <h3>{{datum.subject}}</h3>
+        <p>{{datum.content}}</p>
+        {% endfor %} -->
+    </div>
+</body>
+
+</html>
