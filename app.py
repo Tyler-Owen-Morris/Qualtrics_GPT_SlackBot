@@ -1,6 +1,5 @@
 from flask import Flask, render_template, redirect, request
 from bot import run_bot
-from views import views
 import multiprocessing
 import json
 

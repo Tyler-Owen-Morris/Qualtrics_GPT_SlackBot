@@ -315,7 +315,7 @@ def load_primed_data():
         return {}
 
 
-if __name__ == "__main__":
+def run_bot():
     from waitress import serve
     if environment == "PROD":
         # WSGI server is required for production to allow simultaneous requests
@@ -323,3 +323,7 @@ if __name__ == "__main__":
     else:
         # Development server runs as default
         app.run('0.0.0.0', debug=True)  # 0.0.0.0 allows run on public server
+
+
+if __name__ == "__main__":
+    run_bot()
