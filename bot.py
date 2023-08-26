@@ -330,7 +330,8 @@ def run_bot():
         serve(app, host='0.0.0.0', port=5000)
     else:
         # Development server runs as default
-        app.run('0.0.0.0', debug=False)  # 0.0.0.0 allows run on public server
+        # app.run('0.0.0.0', debug=False)  # 0.0.0.0 allows run on public server
+        serve(app, host='0.0.0.0', port=5000)
 
 
 if __name__ == "__main__":
