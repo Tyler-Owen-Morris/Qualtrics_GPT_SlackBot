@@ -2,6 +2,14 @@ from flask import Flask, render_template, redirect, request
 from bot import run_bot
 import multiprocessing
 import json
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+from waitress import serve
+
+envpath = Path('.') / '.env'
+load_dotenv(dotenv_path=envpath)
+environment = os.environ['ENVIRONMENT']
 
 app = Flask(__name__)
 my_bot = None
@@ -10,7 +18,8 @@ subject_file = "./data/new_subject.json"
 
 
 def run_website():
-    app.run('0.0.0.0', debug=False, port=8000)
+    serve(app, host='0.0.0.0', port=8000)
+    # app.run('0.0.0.0', debug=False, port=8000)
 
 
 website_process = multiprocessing.Process(target=run_website, args=())
