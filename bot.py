@@ -4,7 +4,7 @@ import os
 import json
 from pathlib import Path
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, render_template, redirect, request
 from slackeventsapi import SlackEventAdapter
 from slack_home import home_view
 from transformers import GPT2Tokenizer
@@ -20,6 +20,8 @@ analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
 
 # setup Flask server to handle callback events from slack
 app = Flask(__name__)
+my_bot = None
+subject_file = "./data/new_subject.json"
 
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
@@ -162,6 +164,53 @@ def app_home_opened(payload):
     except Exception as e:
         # logger.error("Error fetching conversations: {}".format(e))
         print("ERROR loading HOME:", e)
+
+
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    if request.method == "POST":
+        # print("form request:", request.form, type(request.form))
+        if request.args.get('new') == 'true':
+            print("this is a new subject load- don't overwrite")
+        print("delete no recieved:", request.args)
+        converted = convert_immutable_multidict(request.form)
+        save_to_json(converted)
+        # print("converted:", converted)
+    global my_bot
+    with open(subject_file, 'r') as file:
+        data = json.load(file)
+    new_list = []
+    for obj in data:
+        # key, value = list(obj.items())[0]
+        # new_dict = {"subject": key, "content": value}
+        # new_list.append(new_dict)
+        new_list.append(obj)
+
+    if (my_bot):
+        print(my_bot.is_alive())
+        return render_template('index.html', status="On", data=new_list)
+    else:
+        return render_template('index.html', status="Off", data=new_list)
+
+
+@app.route("/new_subject", methods=["POST"])
+def create_new_subject():
+    print("new subject called")
+    try:
+        add_empty_object_to_json()
+        return {'passed': True}
+    except:
+        return {'passed': False}
+
+
+@app.route("/delete_subject", methods=["POST"])
+def delete_subject():
+    print("delete subject called", request.args.get('id'))
+    try:
+        remove_dict_from_json_file(request.args.get('id'))
+        return {'passed': True}
+    except:
+        return {'passed': False}
 
 
 def construct_chat_history(uuid, chat):
@@ -323,6 +372,25 @@ def convert_list_of_dicts(data):
     return new_dict
 
 
+def convert_immutable_multidict(data):
+    result = []
+    # get maximum index
+    max_index = max([int(key.split('_')[-1]) for key in data.keys()])
+    for i in range(1, max_index + 1):
+        id_key = f'id_{i}'
+        subject_key = f'subject_{i}'
+        content_key = f'content_{i}'
+
+        if subject_key in data and content_key in data and id_key in data:
+            result.append({
+                'id': data[id_key],
+                'subject': data[subject_key],
+                'content': data[content_key]
+            })
+    print(result)
+    return result
+
+
 def run_bot():
     from waitress import serve
     if environment == "PROD":
@@ -332,6 +400,38 @@ def run_bot():
         # Development server runs as default
         # app.run('0.0.0.0', debug=False)  # 0.0.0.0 allows run on public server
         serve(app, host='0.0.0.0', port=5000)
+
+
+def save_to_json(data, filename=subject_file):
+    with open(filename, 'w') as file:
+        json.dump(data, file)
+
+
+def add_empty_object_to_json(filename=subject_file):
+    with open(filename, 'r') as file:
+        data = json.load(file)
+    data.append({
+        "id": len(data),
+        "subject": None,
+        "content": None
+    })
+    print("after update:", data)
+    with open(filename, 'w') as file:
+        json.dump(data, file)
+
+
+def remove_dict_from_json_file(id_number, filename=subject_file):
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        print(id_number, len(data))
+        data = [d for d in data if d.get("id") != id_number]
+        print("after:", len(data))
+        with open(filename, 'w') as file:
+            json.dump(data, file)
+        return True
+    except:
+        return False
 
 
 if __name__ == "__main__":
