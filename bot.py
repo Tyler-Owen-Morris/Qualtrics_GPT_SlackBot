@@ -219,7 +219,7 @@ def construct_chat_history(uuid, chat):
     subj = determine_msg_subject(chat)
     mysubjs = determine_subject(subj)
     # must return an array of the chat history
-    base = [{"role": "system", "content": "You are a Qualtrics assistant. You will ONLY answer questions about the setup and functionality of the survey platform Qualtrics, and you will do so as accurately and concisely as you can. You will refuse to answer any questions unrelated to Qualtrics. The system will give you data on the specific subject of the user's question - the data from the system will override any other information you have on the subject. The data from the system will be formatted with a URL where the information was found, followed by a summary of the information. You will not give the user URLs that the system has not provided. You will not make up URLs. You will use the data from the system to more accurately answer the users question. Reply with OK if you understand."},
+    base = [{"role": "system", "content": "You are an HR assistant bot. You will use the specific details provided by the system to assist in answering users questions. You will not deliver the user specific information that is not provided by the system. It is imporant that you remain factually correct to the data provided by the system and do not create other facts - reply with OK if you understand and will comply."},
             {"role": "assistant", "content": "OK"}]
     subj_data = load_subj_data(mysubjs)
     new = {'role': 'user', 'content': chat}
