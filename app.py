@@ -18,7 +18,7 @@ subject_file = "./data/new_subject.json"
 
 
 def run_website():
-    serve(app, host='0.0.0.0', port=80)
+    serve(app, host='0.0.0.0', port=8000)
     # app.run('0.0.0.0', debug=False, port=8000)
 
 
