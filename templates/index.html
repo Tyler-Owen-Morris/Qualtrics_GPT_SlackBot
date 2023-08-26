@@ -35,7 +35,39 @@
                     }
                 });
             });
+            $('#new-subject').click(function () {
+                $.ajax({
+                    url: '/new_subject',
+                    type: 'POST',
+                    data: jQuery.param({ purpose: "add" }),
+                    success: function (response) {
+                        console.log(response);
+                        //location.reload();
+                        location.replace("/")
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
         });
+
+        function remove_subject(e) {
+            console.log("remove subj called:", e)
+            $.ajax({
+                url: '/delete_subject',
+                type: 'POST',
+                data: jQuery.param({ purpose: "delete" }),
+                success: function (response) {
+                    console.log(response);
+                    //location.reload();
+                    location.replace("/")
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
     </script>
 </head>
 
@@ -46,15 +78,18 @@
         <!-- <form action="start_bot" method="get"><button onclick="submit">start server</button></form>
         <form action="stop_bot" method="get"><button onclick="submit">stop server</button></form> -->
         <button id="start-button">START</button>
-        <button id="stop-button">STOP</button>
-        <button id="save">SAVE</button>
+        <button id="stop-button">STOP</button><br />
+        <button id="new-subject">New Subject</button>
     </div>
     <div>
-        <form>
+        <form action="/#" method="post">
             {% for datum in data %}
             <!-- <h3>{{datum.subject}}</h3>
             <p>{{datum.content}}</p> -->
             <div>
+                <!-- <label for="subject_{{ loop.index}}">ID:</label> -->
+                <input style="display: none;" type="text" id="id_{{loop.index}}" name="id_{{loop.index}}"
+                    value="{{datum.id}}" />
                 <label for="subject_{{ loop.index}}">Subject:</label>
                 <input type="text" id="subject_{{ loop.index}}" name="subject_{{ loop.index}}"
                     value="{{ datum.subject }}" />
@@ -63,8 +98,10 @@
                 <label for="content_{{ loop.index}}">Content:</label>
                 <textarea id="content_{{ loop.index}}" name="content_{{ loop.index}}">{{ datum.content }}</textarea>
             </div>
+            <!-- <button id="delete-button" name="delete" onclick={{remove_subject}}>delete</button> -->
 
             {% endfor %}
+            <input type="submit" value="submit" />
         </form>
         <!-- {% for datum in data %}
         <h3>{{datum.subject}}</h3>

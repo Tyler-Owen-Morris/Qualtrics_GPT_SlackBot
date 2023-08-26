@@ -6,7 +6,7 @@ import json
 app = Flask(__name__)
 my_bot = None
 # subject_file = "./subject.json"
-subject_file = "./new_subject.json"
+subject_file = "./data/new_subject.json"
 
 
 def run_website():
@@ -126,6 +126,8 @@ def home():
 
 
 def main():
+    global my_bot
+    my_bot = start_bot()
     processes = (my_bot, website_process)
     # processes[0].start()
     processes[1].start()

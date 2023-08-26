@@ -289,6 +289,7 @@ def count_conversation_tokens(conversation):
 
 def determine_msg_subject(question):
     subjects = list(load_primed_data().keys())
+    # subjects = [d.get('subject') for d in load_primed_data()]
     subjs = ",".join(subjects)
     print("eligible subjects:", subjs)
     completion = openai.ChatCompletion.create(
@@ -303,16 +304,23 @@ def determine_msg_subject(question):
 
 
 def load_primed_data():
-    file_name = "data/primed_created-1.json"
+    file_name = "data/new_subject.json"
     try:
         # Read the file data
         with open(file_name, "r") as json_file:
             data = json.load(json_file)
         # returns a dictionary of the historical tweets
-        return data
+        return convert_list_of_dicts(data)
     except Exception as e:
         print("file-load failed - loading nothing", e)
         return {}
+
+
+def convert_list_of_dicts(data):
+    new_dict = {}
+    for d in data:
+        new_dict[d.get("subject")] = d.get("content")
+    return new_dict
 
 
 def run_bot():
@@ -322,7 +330,7 @@ def run_bot():
         serve(app, host='0.0.0.0', port=5000)
     else:
         # Development server runs as default
-        app.run('0.0.0.0', debug=True)  # 0.0.0.0 allows run on public server
+        app.run('0.0.0.0', debug=False)  # 0.0.0.0 allows run on public server
 
 
 if __name__ == "__main__":
