@@ -74,18 +74,24 @@
                 console.log("resetCalled!");
                 location.reload();
             });
+            $(".delete-button").click(function (e) {
+                console.log("delete:", e.currentTarget.id)
+                remove_subject(e.currentTarget.id)
+            })
         });
 
         function remove_subject(e) {
             console.log("remove subj called:", e)
             $.ajax({
-                url: '/delete_subject',
+                url: '/delete_subject?id=' + e,
                 type: 'POST',
-                data: jQuery.param({ purpose: "delete" }),
+                data: jQuery.param({ purpose: "delete", to_delete: e }),
                 success: function (response) {
                     console.log(response);
                     //location.reload();
-                    location.replace("/")
+                    if (response.passed) {
+                        location.replace("/")
+                    }
                 },
                 error: function (error) {
                     console.log(error);
@@ -126,13 +132,13 @@
                     <label for="subject_{{ loop.index}}">Subject:</label>
                     <input type="text" id="subject_{{ loop.index}}" name="subject_{{ loop.index}}"
                         value="{{ datum.subject }}" />
+                    <button class="delete-button" type="button" id="{{datum.id}}">delete</button>
                 </div>
                 <div>
                     <label for="content_{{ loop.index}}">Content:</label>
                     <textarea id="content_{{ loop.index}}" class="contentText"
                         name="content_{{ loop.index}}">{{ datum.content }}</textarea>
                 </div>
-                <!-- <button id="delete-button" name="delete" onclick={{remove_subject}}>delete</button> -->
             </div>
             {% endfor %}
             <div style="display:flex;">

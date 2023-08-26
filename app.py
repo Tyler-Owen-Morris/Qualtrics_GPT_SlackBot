@@ -42,6 +42,20 @@ def add_empty_object_to_json(filename=subject_file):
         json.dump(data, file)
 
 
+def remove_dict_from_json_file(id_number, filename=subject_file):
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        print(id_number, len(data))
+        data = [d for d in data if d.get("id") != id_number]
+        print("after:", len(data))
+        with open(filename, 'w') as file:
+            json.dump(data, file)
+        return True
+    except:
+        return False
+
+
 def convert_immutable_multidict(data):
     result = []
     # get maximum index
@@ -99,15 +113,26 @@ def create_new_subject():
         return {'passed': False}
 
 
+@app.route("/delete_subject", methods=["POST"])
+def delete_subject():
+    print("delete subject called", request.args.get('id'))
+    try:
+        remove_dict_from_json_file(request.args.get('id'))
+        return {'passed': True}
+    except:
+        return {'passed': False}
+
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
     if request.method == "POST":
-        print("form request:", request.form, type(request.form))
+        # print("form request:", request.form, type(request.form))
         if request.args.get('new') == 'true':
             print("this is a new subject load- don't overwrite")
+        print("delete no recieved:", request.args)
         converted = convert_immutable_multidict(request.form)
         save_to_json(converted)
-        print("converted:", converted)
+        # print("converted:", converted)
     global my_bot
     with open(subject_file, 'r') as file:
         data = json.load(file)
@@ -126,8 +151,8 @@ def home():
 
 
 def main():
-    global my_bot
-    my_bot = start_bot()
+    # global my_bot
+    # my_bot = start_bot()
     processes = (my_bot, website_process)
     # processes[0].start()
     processes[1].start()
