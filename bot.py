@@ -22,6 +22,9 @@ analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
 app = Flask(__name__)
 my_bot = None
 subject_file = "./data/new_subject.json"
+# my_model = 'gpt-3.5-turbo'
+# my_model = 'gpt-3.5-turbo-16k-0613'
+my_model = 'gpt-4'
 
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
@@ -112,7 +115,7 @@ def message(payload):
         # print("full message with history:", full_msgs)
         print("subject list: ", subject_list)
         completion = openai.ChatCompletion.create(
-            model='gpt-3.5-turbo',
+            model=my_model,
             messages=full_msgs
         )
         resp = completion.choices[0].message.content
