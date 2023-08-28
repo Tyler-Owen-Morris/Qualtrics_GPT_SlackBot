@@ -345,7 +345,7 @@ def determine_msg_subject(question):
     subjs = ",".join(subjects)
     print("eligible subjects:", subjs)
     completion = openai.ChatCompletion.create(
-        model='gpt-3.5-turbo',
+        model=my_model,
         messages=[{"role": "system", "content": f"You are a classification bot. The user will feed you a question and you will return which subjects it relates to with ONLY the name of the subject(s). The only eligible subjects are: {subjs}. you will not elaborate. you will not add extra words. You will JUST reply with the single subject or comma separated list of up to 5 subjects. The subject(s) you reply with MUST be in the provided list: {subjs}. You will not invent new subjects- the subject(s) will ONLY be a maximum of 5 of these: {subjs}. If the question is not related to any of these subjects you will reply with the string 'None'. Reply with 'OK' if you understand."},
                   {"role": "assistant", "content": "OK"},
                   {"role": "user", "content": question}]
