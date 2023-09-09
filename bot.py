@@ -25,6 +25,7 @@ subject_file = "./data/new_subject.json"
 # my_model = 'gpt-3.5-turbo'
 # my_model = 'gpt-3.5-turbo-16k-0613'
 my_model = 'gpt-4'
+token_limit = 4096  # this controls maximum tokens submitted to OpenAI
 
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
@@ -234,7 +235,7 @@ def construct_chat_history(uuid, chat):
     if len(history_data) > 0:
         data_tokens = count_conversation_tokens(history_data)
         print('historical conversation tokens:', data_tokens)
-        while tokens + count_conversation_tokens(history_data) > 4096:
+        while tokens + count_conversation_tokens(history_data) > token_limit:
             warn = True
             print(">>>>>>>>>>>>>conversation too long<<<<<<<<<<<<,",
                   tokens + count_conversation_tokens(history_data))
@@ -339,6 +340,10 @@ def count_conversation_tokens(conversation):
     return total_tokens
 
 
+def count_string_tokens(my_text):
+    return len(tokenizer.tokenize(my_text))
+
+
 def determine_msg_subject(question):
     subjects = list(load_primed_data().keys())
     # subjects = [d.get('subject') for d in load_primed_data()]
@@ -384,11 +389,22 @@ def convert_immutable_multidict(data):
         subject_key = f'subject_{i}'
         content_key = f'content_{i}'
 
+        my_content = data[content_key]
+        while count_string_tokens(my_content) > int(token_limit/4)*3:
+            print("my string tokens:", count_string_tokens(my_content))
+            subtractor = 10
+            # if the number of tokens difference is too large, we subtract a larger amount of characters than the default 10
+            if count_string_tokens(my_content) - int(token_limit/4)*3 > subtractor:
+                subtractor = count_string_tokens(
+                    my_content) - int(token_limit/4)*3
+            print("subtracting:", subtractor)
+            my_content = my_content[:-subtractor]
+
         if subject_key in data and content_key in data and id_key in data:
             result.append({
                 'id': data[id_key],
                 'subject': data[subject_key],
-                'content': data[content_key]
+                'content': my_content
             })
     print(result)
     return result
