@@ -6,7 +6,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, request
 from slackeventsapi import SlackEventAdapter
-from slack_home import home_view
+from utils.slack_home import home_view
 from transformers import GPT2Tokenizer
 import segment.analytics as analytics
 import string
