@@ -5,6 +5,8 @@ import segment.analytics as analytics
 import os
 from slackeventsapi import SlackEventAdapter
 import slack
+from slackbot.slackbot import run_bot
+import multiprocessing
 
 # Load Environment variables
 envpath = Path('.') / '.env'
@@ -14,35 +16,33 @@ environment = os.environ['ENVIRONMENT']
 analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
 app = create_app()
 
-if environment == "PROD":
-    slack_event_adapter = SlackEventAdapter(
-        os.environ['PROD_SIGNING_SECRET'], '/slack/events', app)
-    client = slack.WebClient(token=os.environ['PROD_SLACK_TOKEN'])
-else:
-    slack_event_adapter = SlackEventAdapter(
-        os.environ['SIGNING_SECRET'], '/slack/events', app)
-    client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 
-BOT_ID = client.api_call('auth.test')['user_id']
-print(BOT_ID)
-
-
-@slack_event_adapter.on('message')
-def message(payload):
-    event = payload.get('event', {})
-    print("event:", event)
-
-
-def run_app():
+def run_website():
     from waitress import serve
+    print("starting website")
     if environment == "PROD":
         # WSGI server is required for production to allow simultaneous requests
         serve(app, host='0.0.0.0', port=os.environ['WEBSITE_PORT'])
     else:
         # Development server runs as default
-        # app.run('0.0.0.0', debug=False)  # 0.0.0.0 allows run on public server
+        # 0.0.0.0 allows run on public server
+        # app.run('0.0.0.0', debug=False, port=os.environ['WEBSITE_PORT'])
         serve(app, host='0.0.0.0', port=os.environ['WEBSITE_PORT'])
 
 
+def run_slackbot():
+    print("starting slackbot")
+    run_bot()
+
+
+def run_startup_process():
+    websiteProcess = multiprocessing.Process(target=run_website)
+    slackbotProcesss = multiprocessing.Process(target=run_slackbot)
+    websiteProcess.start()
+    slackbotProcesss.start()
+    websiteProcess.join()
+    slackbotProcesss.join()
+
+
 if __name__ == "__main__":
-    run_app()
+    run_startup_process()

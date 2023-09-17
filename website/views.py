@@ -1,17 +1,27 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
-from .models import SubjectContent
+from transformers import GPT2Tokenizer
 from . import db
 import json
 
 views = Blueprint('views', __name__)
 subject_file = "./data/new_subject.json"
+tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+token_limit = 4096
 
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
     data = []
+    if request.method == 'POST':
+        if request.args.get('new') == 'true':
+            print("this is a new subject load- don't overwrite")
+        print("delete no recieved:", request.args)
+        converted = convert_immutable_multidict(request.form)
+        save_to_json(converted)
+        # print("converted:", converted)
+        flash('Subject data updated!!', category='success')
     try:
         print("attempting to load file")
         with open(subject_file, 'r') as file:
@@ -19,47 +29,93 @@ def home():
     except:
         print("pass")
         pass
-    if request.method == 'POST':
-        subject = request.form.get('subject')
-        content = request.form.get('content')
-
-        if len(subject) < 1:
-            flash('Note is too short!', category='error')
-        else:
-
-            # providing the schema for the note
-            new_subject = SubjectContent(
-                subject=subject, content=content, user_id=current_user.id)
-            db.session.add(new_subject)  # adding the note to the database
-            db.session.commit()
-            flash('Note added!', category='success')
 
     return render_template("subjects.html", user=current_user, data=data)
 
 
-# @views.route('/delete-note', methods=['POST'])
-# def delete_note():
-#     # this function expects a JSON from the INDEX.js file
-#     note = json.loads(request.data)
-#     noteId = note['noteId']
-#     note = Note.query.get(noteId)
-#     if note:
-#         if note.user_id == current_user.id:
-#             db.session.delete(note)
-#             db.session.commit()
-
-#     return jsonify({})
+@views.route("/new_subject", methods=["POST"])
+@login_required
+def create_new_subject():
+    print("new subject called")
+    try:
+        add_empty_object_to_json()
+        return {'passed': True}
+    except:
+        return {'passed': False}
 
 
 @views.route('/delete-subject', methods=['POST'])
+@login_required
 def delete_subject():
-    # this function expects a JSON from the INDEX.js file
-    subject = json.loads(request.data)
-    subjectId = subject['subjectId']
-    subject = SubjectContent.query.get(subjectId)
-    if subject:
-        if subject.user_id == current_user.id:
-            db.session.delete(subject)
-            db.session.commit()
+    print("delete subject called", request.args.get('id'))
+    try:
+        remove_dict_from_json_file(request.args.get('id'))
+        return {'passed': True}
+    except:
+        return {'passed': False}
 
-    return jsonify({})
+
+def convert_immutable_multidict(data):
+    result = []
+    # get maximum index
+    max_index = max([int(key.split('_')[-1]) for key in data.keys()])
+    for i in range(1, max_index + 1):
+        id_key = f'id_{i}'
+        subject_key = f'subject_{i}'
+        content_key = f'content_{i}'
+
+        my_content = data[content_key]
+        while count_string_tokens(my_content) > int(token_limit/4)*3:
+            print("my string tokens:", count_string_tokens(my_content))
+            subtractor = 10
+            # if the number of tokens difference is too large, we subtract a larger amount of characters than the default 10
+            if count_string_tokens(my_content) - int(token_limit/4)*3 > subtractor:
+                subtractor = count_string_tokens(
+                    my_content) - int(token_limit/4)*3
+            print("subtracting:", subtractor)
+            my_content = my_content[:-subtractor]
+
+        if subject_key in data and content_key in data and id_key in data:
+            result.append({
+                'id': data[id_key],
+                'subject': data[subject_key],
+                'content': my_content
+            })
+    print(result)
+    return result
+
+
+def save_to_json(data, filename=subject_file):
+    with open(filename, 'w') as file:
+        json.dump(data, file)
+
+
+def count_string_tokens(my_text):
+    return len(tokenizer.tokenize(my_text))
+
+
+def remove_dict_from_json_file(id_number, filename=subject_file):
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        print(id_number, len(data))
+        data = [d for d in data if d.get("id") != id_number]
+        print("after:", len(data))
+        with open(filename, 'w') as file:
+            json.dump(data, file)
+        return True
+    except:
+        return False
+
+
+def add_empty_object_to_json(filename=subject_file):
+    with open(filename, 'r') as file:
+        data = json.load(file)
+    data.append({
+        "id": len(data),
+        "subject": None,
+        "content": None
+    })
+    print("after update:", data)
+    with open(filename, 'w') as file:
+        json.dump(data, file)

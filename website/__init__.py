@@ -6,7 +6,7 @@ from os import path
 from dotenv import load_dotenv
 import os
 import slack
-from .slackbot import run_bot
+import threading
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -36,7 +36,6 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-    run_bot()
 
     @login_manager.user_loader
     def load_user(id):

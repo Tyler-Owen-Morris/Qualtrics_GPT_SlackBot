@@ -37,8 +37,8 @@ if environment == "PROD":
     client = slack.WebClient(token=os.environ['PROD_SLACK_TOKEN'])
 else:
     slack_event_adapter = SlackEventAdapter(
-        os.environ['SIGNING_SECRET'], '/slack/events', app)
-    client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
+        os.environ['DEV_SIGNING_SECRET'], '/slack/events', app)
+    client = slack.WebClient(token=os.environ['DEV_SLACK_TOKEN'])
 CHANNELS = os.environ['CHANNELS'].split(',')
 print("channels:", CHANNELS)
 BOT_ID = client.api_call('auth.test')['user_id']
@@ -449,7 +449,8 @@ def run_bot():
         serve(app, host='0.0.0.0', port=os.environ['SLACKBOT_PORT'])
     else:
         # Development server runs as default
-        # app.run('0.0.0.0', debug=False)  # 0.0.0.0 allows run on public server
+        # 0.0.0.0 allows run on public server
+        # app.run('0.0.0.0', debug=True, port=os.environ['SLACKBOT_PORT'])
         serve(app, host='0.0.0.0', port=os.environ['SLACKBOT_PORT'])
 
 
