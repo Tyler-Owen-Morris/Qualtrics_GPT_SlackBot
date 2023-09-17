@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{{url_for('.static', filename='style.css')}}">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
+    <script src="{{url_for('.static', filename='code.jquery.com_jquery-3.7.1.min.js')}}"></script>
     <script>
         $(document).ready(function () {
             $('#start-button').click(function () {

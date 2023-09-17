@@ -76,9 +76,10 @@
   function remove_subject(e) {
     console.log("remove subj called:", e)
     $.ajax({
-      url: '/delete_subject?id=' + e,
+      url: '/delete_subject',
       type: 'POST',
-      data: jQuery.param({ purpose: "delete", to_delete: e }),
+      contentType: 'application/json',
+      data: JSON.stringify({ purpose: "delete", to_delete: e }),
       success: function (response) {
         console.log(response);
         //location.reload();
@@ -95,43 +96,46 @@
 {% endblock %}
 {% block content
 %}
-<div>
-  <h1 align="center">Subjects</h1>
-  <div style="display:flex;">
-    <div class="newSubjectButtonContainer">
-      <button id="new-subject">New Subject</button>
-    </div>
-    <button class="dataSaveButton" id="reset-button">Reset</button>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Subjects</h1>
+
+  <div class="d-flex justify-content-between mb-3">
+    <button class="btn btn-primary" id="new-subject">New Subject</button>
+    <button class="btn btn-warning" id="reset-button">Reset</button>
   </div>
+
   <form method="POST">
-    <ul class="list-group list-group-flush" id="subjects">
+    <ul class="list-group list-group-flush mb-3" id="subjects">
       {% for item in data %}
-      <div class="subjectListContainer">
-        <div>
-          <!-- <label for="subject_{{ loop.index}}">ID:</label> -->
-          <input style="display: none;" type="text" id="id_{{loop.index}}" name="id_{{loop.index}}"
-            value="{{item.id}}" />
-          <label for="subject_{{ loop.index}}">Subject:</label>
-          <input type="text" id="subject_{{ loop.index}}" name="subject_{{ loop.index}}" value="{{ item.subject }}" />
-          <button class="delete-button" type="button" id="{{item.id}}">delete</button>
+      <li class="list-group-item">
+        <div class="mb-2">
+          <input type="hidden" id="id_{{loop.index}}" name="id_{{loop.index}}" value="{{item.id}}" />
+          <div class="mb-2">
+            <label for="subject_{{ loop.index}}" class="form-label">Subject:</label>
+            <input type="text" class="form-control" id="subject_{{ loop.index}}" name="subject_{{ loop.index}}"
+              value="{{ item.subject }}" />
+          </div>
+
         </div>
+
         <div>
-          <label for="content_{{ loop.index}}">Content:</label>
-          <textarea id="content_{{ loop.index}}" class="contentText"
+          <label for="content_{{ loop.index}}" class="form-label">Content:</label>
+          <textarea id="content_{{ loop.index}}" class="form-control contentText"
             name="content_{{ loop.index}}">{{ item.content }}</textarea>
         </div>
-      </div>
+        <div class="d-flex justify-content-between">
+          <input class="btn btn-success" type="submit" value="Save" />
+          <button class="btn btn-danger btn-sm delete-button" type="button" id="{{item.id}}">Delete</button>
+        </div>
+      </li>
       {% endfor %}
-      <div style="display:flex;">
-        <input class="dataSaveButton" type="submit" value="save" />
-      </div>
     </ul>
+
   </form>
-  <div style="display:flex;">
-    <div class="newSubjectButtonContainer">
-      <button id="new-subject1">New Subject</button>
-    </div>
-    <button class="dataSaveButton" id="reset-button1">Reset</button>
+
+  <div class="d-flex justify-content-between mt-3">
+    <button class="btn btn-primary" id="new-subject1">New Subject</button>
+    <button class="btn btn-warning" id="reset-button1">Reset</button>
   </div>
 </div>
 {% endblock %}

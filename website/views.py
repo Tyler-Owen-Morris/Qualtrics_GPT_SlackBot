@@ -17,13 +17,13 @@ def home():
     if request.method == 'POST':
         if request.args.get('new') == 'true':
             print("this is a new subject load- don't overwrite")
-        print("delete no recieved:", request.args)
+        # print("delete no recieved:", request.args)
         converted = convert_immutable_multidict(request.form)
         save_to_json(converted)
         # print("converted:", converted)
         flash('Subject data updated!!', category='success')
     try:
-        print("attempting to load file")
+        # print("attempting to load file")
         with open(subject_file, 'r') as file:
             data = json.load(file)
     except:
@@ -44,12 +44,14 @@ def create_new_subject():
         return {'passed': False}
 
 
-@views.route('/delete-subject', methods=['POST'])
+@views.route('/delete_subject', methods=['POST'])
 @login_required
 def delete_subject():
-    print("delete subject called", request.args.get('id'))
+    my_id = request.json['to_delete']
+    print("delete subject called",  my_id)
     try:
-        remove_dict_from_json_file(request.args.get('id'))
+        remove_dict_from_json_file(id_number=my_id)
+        flash('Subject Removed.', category='success')
         return {'passed': True}
     except:
         return {'passed': False}
@@ -81,7 +83,7 @@ def convert_immutable_multidict(data):
                 'subject': data[subject_key],
                 'content': my_content
             })
-    print(result)
+    # print(result)
     return result
 
 
@@ -98,9 +100,9 @@ def remove_dict_from_json_file(id_number, filename=subject_file):
     try:
         with open(filename, 'r') as file:
             data = json.load(file)
-        print(id_number, len(data))
+        # print(id_number, len(data))
         data = [d for d in data if d.get("id") != id_number]
-        print("after:", len(data))
+        # print("after:", len(data))
         with open(filename, 'w') as file:
             json.dump(data, file)
         return True
@@ -112,7 +114,7 @@ def add_empty_object_to_json(filename=subject_file):
     with open(filename, 'r') as file:
         data = json.load(file)
     data.append({
-        "id": len(data),
+        "id": str(len(data)),
         "subject": None,
         "content": None
     })

@@ -1,11 +1,17 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, render_template_string, request, flash, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db   ##means from __init__.py import db
+from . import db  # means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
+from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 
 auth = Blueprint('auth', __name__)
+envpath = Path('.') / '.env'
+load_dotenv(dotenv_path=envpath)
+CREATE_USER_KEY = os.environ['USER_CREATE_SECRET_KEY']
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -37,6 +43,9 @@ def logout():
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    key = request.args.get('key')
+    if not key or key != CREATE_USER_KEY:
+        return render_template_string("<h1>Access Denied</h1>"), 403
     if request.method == 'POST':
         email = request.form.get('email')
         first_name = request.form.get('firstName')
@@ -56,7 +65,7 @@ def sign_up():
             flash('Password must be at least 7 characters.', category='error')
         else:
             new_user = User(email=email, first_name=first_name, password=generate_password_hash(
-                password1, method='sha256'))
+                password1, method='scrypt'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
