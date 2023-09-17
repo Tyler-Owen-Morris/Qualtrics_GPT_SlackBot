@@ -170,51 +170,51 @@ def app_home_opened(payload):
         print("ERROR loading HOME:", e)
 
 
-@app.route("/", methods=['GET', 'POST'])
-def home():
-    if request.method == "POST":
-        # print("form request:", request.form, type(request.form))
-        if request.args.get('new') == 'true':
-            print("this is a new subject load- don't overwrite")
-        print("delete no recieved:", request.args)
-        converted = convert_immutable_multidict(request.form)
-        save_to_json(converted)
-        # print("converted:", converted)
-    global my_bot
-    with open(subject_file, 'r') as file:
-        data = json.load(file)
-    new_list = []
-    for obj in data:
-        # key, value = list(obj.items())[0]
-        # new_dict = {"subject": key, "content": value}
-        # new_list.append(new_dict)
-        new_list.append(obj)
+# @app.route("/", methods=['GET', 'POST'])
+# def home():
+#     if request.method == "POST":
+#         # print("form request:", request.form, type(request.form))
+#         if request.args.get('new') == 'true':
+#             print("this is a new subject load- don't overwrite")
+#         print("delete no recieved:", request.args)
+#         converted = convert_immutable_multidict(request.form)
+#         save_to_json(converted)
+#         # print("converted:", converted)
+#     global my_bot
+#     with open(subject_file, 'r') as file:
+#         data = json.load(file)
+#     new_list = []
+#     for obj in data:
+#         # key, value = list(obj.items())[0]
+#         # new_dict = {"subject": key, "content": value}
+#         # new_list.append(new_dict)
+#         new_list.append(obj)
 
-    if (my_bot):
-        print(my_bot.is_alive())
-        return render_template('index.html', status="On", data=new_list)
-    else:
-        return render_template('index.html', status="Off", data=new_list)
-
-
-@app.route("/new_subject", methods=["POST"])
-def create_new_subject():
-    print("new subject called")
-    try:
-        add_empty_object_to_json()
-        return {'passed': True}
-    except:
-        return {'passed': False}
+#     if (my_bot):
+#         print(my_bot.is_alive())
+#         return render_template('index.html', status="On", data=new_list)
+#     else:
+#         return render_template('index.html', status="Off", data=new_list)
 
 
-@app.route("/delete_subject", methods=["POST"])
-def delete_subject():
-    print("delete subject called", request.args.get('id'))
-    try:
-        remove_dict_from_json_file(request.args.get('id'))
-        return {'passed': True}
-    except:
-        return {'passed': False}
+# @app.route("/new_subject", methods=["POST"])
+# def create_new_subject():
+#     print("new subject called")
+#     try:
+#         add_empty_object_to_json()
+#         return {'passed': True}
+#     except:
+#         return {'passed': False}
+
+
+# @app.route("/delete_subject", methods=["POST"])
+# def delete_subject():
+#     print("delete subject called", request.args.get('id'))
+#     try:
+#         remove_dict_from_json_file(request.args.get('id'))
+#         return {'passed': True}
+#     except:
+#         return {'passed': False}
 
 
 def construct_chat_history(uuid, chat):
@@ -361,7 +361,7 @@ def determine_msg_subject(question):
 
 
 def load_primed_data():
-    file_name = "data/new_subject.json"
+    file_name = subject_file
     try:
         # Read the file data
         with open(file_name, "r") as json_file:
@@ -446,11 +446,11 @@ def run_bot():
     from waitress import serve
     if environment == "PROD":
         # WSGI server is required for production to allow simultaneous requests
-        serve(app, host='0.0.0.0', port=5000)
+        serve(app, host='0.0.0.0', port=os.environ['SLACKBOT_PORT'])
     else:
         # Development server runs as default
         # app.run('0.0.0.0', debug=False)  # 0.0.0.0 allows run on public server
-        serve(app, host='0.0.0.0', port=5000)
+        serve(app, host='0.0.0.0', port=os.environ['SLACKBOT_PORT'])
 
 
 if __name__ == "__main__":

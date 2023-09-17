@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 align="center">Subjects</h1>
+<!-- <ul class="list-group list-group-flush" id="subjects">
+  {% for subject in user.subjectContent %}
+  <li class="list-group-item">
+    <h2>{{subject.subject}}</h2>
+    <p>{{subject.content}}</p>
+    <button type="button" class="close" onClick="deleteSubject({{ subject.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul> -->
+<form method="POST">
+  <ul class="list-group list-group-flush" id="subjects">
+    {% for item in data %}
+    <div class="subjectListContainer">
+      <div>
+        <!-- <label for="subject_{{ loop.index}}">ID:</label> -->
+        <input style="display: none;" type="text" id="id_{{loop.index}}" name="id_{{loop.index}}" value="{{item.id}}" />
+        <label for="subject_{{ loop.index}}">Subject:</label>
+        <input type="text" id="subject_{{ loop.index}}" name="subject_{{ loop.index}}" value="{{ item.subject }}" />
+        <button class="delete-button" type="button" id="{{item.id}}">delete</button>
+      </div>
+      <div>
+        <label for="content_{{ loop.index}}">Content:</label>
+        <textarea id="content_{{ loop.index}}" class="contentText"
+          name="content_{{ loop.index}}">{{ item.content }}</textarea>
+      </div>
+    </div>
+    {% endfor %}
+  </ul>
+</form>
+{% endblock %}
