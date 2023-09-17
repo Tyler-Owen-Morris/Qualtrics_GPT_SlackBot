@@ -10,11 +10,15 @@ from .slackbot import run_bot
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
+envpath = Path('.') / '.env'
+load_dotenv(dotenv_path=envpath)
+# Local variable for environment:
+environment = os.environ['ENVIRONMENT']
 
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'ableminjefskijiflminofskidooverksiz'
+    app.config['SECRET_KEY'] = os.environ['LOGIN_SECRET_KEY']
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 
