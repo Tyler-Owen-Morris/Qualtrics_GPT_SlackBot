@@ -170,53 +170,6 @@ def app_home_opened(payload):
         print("ERROR loading HOME:", e)
 
 
-# @app.route("/", methods=['GET', 'POST'])
-# def home():
-#     if request.method == "POST":
-#         # print("form request:", request.form, type(request.form))
-#         if request.args.get('new') == 'true':
-#             print("this is a new subject load- don't overwrite")
-#         print("delete no recieved:", request.args)
-#         converted = convert_immutable_multidict(request.form)
-#         save_to_json(converted)
-#         # print("converted:", converted)
-#     global my_bot
-#     with open(subject_file, 'r') as file:
-#         data = json.load(file)
-#     new_list = []
-#     for obj in data:
-#         # key, value = list(obj.items())[0]
-#         # new_dict = {"subject": key, "content": value}
-#         # new_list.append(new_dict)
-#         new_list.append(obj)
-
-#     if (my_bot):
-#         print(my_bot.is_alive())
-#         return render_template('index.html', status="On", data=new_list)
-#     else:
-#         return render_template('index.html', status="Off", data=new_list)
-
-
-# @app.route("/new_subject", methods=["POST"])
-# def create_new_subject():
-#     print("new subject called")
-#     try:
-#         add_empty_object_to_json()
-#         return {'passed': True}
-#     except:
-#         return {'passed': False}
-
-
-# @app.route("/delete_subject", methods=["POST"])
-# def delete_subject():
-#     print("delete subject called", request.args.get('id'))
-#     try:
-#         remove_dict_from_json_file(request.args.get('id'))
-#         return {'passed': True}
-#     except:
-#         return {'passed': False}
-
-
 def construct_chat_history(uuid, chat):
     tokens = 0
     warn = False
