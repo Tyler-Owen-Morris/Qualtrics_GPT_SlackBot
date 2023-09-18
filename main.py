@@ -25,7 +25,7 @@ def run_website():
         serve(app, host='0.0.0.0', port=os.environ['WEBSITE_PORT'])
     else:
         # Development server runs as default
-        # 0.0.0.0 allows run on public server
+        # 0.0.0.0 allows run on public server.
         # app.run('0.0.0.0', debug=False, port=os.environ['WEBSITE_PORT'])
         serve(app, host='0.0.0.0', port=os.environ['WEBSITE_PORT'])
 
