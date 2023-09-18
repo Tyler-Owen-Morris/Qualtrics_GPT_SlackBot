@@ -402,7 +402,7 @@ def run_bot():
         serve(application, host='0.0.0.0')
     else:
         # Development server runs as default
-        # 0.0.0.0 allows run on public server
+        # 0.0.0.0 allows run on public server.
         # application.run('0.0.0.0', debug=True, port=os.environ['SLACKBOT_PORT'])
         serve(application, host='0.0.0.0')
 
