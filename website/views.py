@@ -6,7 +6,7 @@ import boto3
 import json
 
 views = Blueprint('views', __name__)
-subject_file = "./data/new_subject.json"
+subject_file = "new_subject.json"
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 token_limit = 4096
 s3 = boto3.client('s3')
