@@ -21,8 +21,8 @@ phases:
     commands:
       - echo "Post build steps..."
       # If you want to automatically deploy after building, you can use the EB CLI here.
-      - eb init -r us-east-2 -p "python-3.11" walker-chatbot-host-1 # Initialize EB for your application.
-      - eb deploy Walker-chatbot-host-env-5 # Deploy your application.
+      # - eb init -r us-east-2 -p "python-3.11" walker-chatbot-host-1 # Initialize EB for your application.
+      # - eb deploy Walker-chatbot-host-env-5 # Deploy your application.
 
 artifacts:
   files:
