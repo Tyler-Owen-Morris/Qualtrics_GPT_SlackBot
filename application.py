@@ -21,7 +21,7 @@ analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
 # setup Flask server to handle callback events from slack
 application = Flask(__name__)
 my_bot = None
-subject_file = "./data/new_subject.json"
+subject_file = "new_subject.json"
 # my_model = 'gpt-3.5-turbo'
 # my_model = 'gpt-3.5-turbo-16k-0613'
 my_model = 'gpt-4'
