@@ -63,7 +63,9 @@ def delete_subject():
 
 def load_s3_file():
     data = s3.get_object(Bucket=bucket, Key=subject_file)
+    print("data object", data)
     contents = data['Body'].read()
+    print("contents object:", contents)
     return json.load(contents.decode('utf-8'))
 
 
