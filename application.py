@@ -303,7 +303,7 @@ def count_string_tokens(my_text):
 
 def determine_msg_subject(question):
     subjects = list(load_primed_data().keys())
-    print("SUBJECTS LOADED:",subjects)
+    print("SUBJECTS LOADED:", subjects)
     # subjects = [d.get('subject') for d in load_primed_data()]
     subjs = ",".join(subjects)
     print("eligible subjects:", subjs)
@@ -324,12 +324,13 @@ def load_primed_data():
         # Read the file data
         s3 = boto3.resource('s3')
         my_bucket = s3.Bucket(bucket)
+        print("loading objects:", my_bucket)
         for obj in my_bucket.objects.all():
             print("keys:", obj.key)
             bucketobj = s3_client.get_object(Bucket=bucket, Key=obj.key)
             body = bucketobj['Body'].read().decode('utf-8')
             data = json.load(StringIO(body))
-        print("data loaded:",data)
+        print("data loaded:", data)
         return convert_list_of_dicts(data)
     except Exception as e:
         print("file-load failed - loading nothing", e)
@@ -340,6 +341,7 @@ def convert_list_of_dicts(data):
     new_dict = {}
     for d in data:
         new_dict[d.get("subject")] = d.get("content")
+    print('after organization of dict', new_dict)
     return new_dict
 
 
