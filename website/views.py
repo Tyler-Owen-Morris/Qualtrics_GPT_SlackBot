@@ -4,12 +4,13 @@ from transformers import GPT2Tokenizer
 from . import db
 import boto3
 import json
+from io import StringIO
 
 views = Blueprint('views', __name__)
 subject_file = "new_subject.json"
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 token_limit = 4096
-s3 = boto3.client('s3')
+s3_client = boto3.client('s3')
 bucket = 'gpt-chatbot-files'
 
 
@@ -62,11 +63,18 @@ def delete_subject():
 
 
 def load_s3_file():
-    data = s3.get_object(Bucket=bucket, Key=subject_file)
-    print("data object", data)
-    contents = data['Body'].read()
-    print("contents object:", contents)
-    return json.load(contents.decode('utf-8'))
+    s3 = boto3.resource('s3')
+    my_bucket = s3.Bucket(bucket)
+    for obj in my_bucket.objects.all():
+        print("keys:", obj.key)
+        bucketobj = s3_client.get_object(Bucket=bucket, Key=obj.key)
+        body = bucketobj['Body'].read().decode('utf-8')
+        return json.load(StringIO(body))
+    # data = s3.get_object(Bucket=bucket, Key=subject_file)
+    # print("data object", data)
+    # contents = data['Body'].read().decode('utf-8')
+    # print("contents object:", contents)
+    # return json.load(contents)
 
 
 def convert_immutable_multidict(data):
