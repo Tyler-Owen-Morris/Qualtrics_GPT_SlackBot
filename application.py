@@ -10,6 +10,8 @@ from utils.slack_home import home_view
 from transformers import GPT2Tokenizer
 import segment.analytics as analytics
 import string
+import boto3
+from io import StringIO
 
 # Load Environment variables
 envpath = Path('.') / '.env'
@@ -26,6 +28,8 @@ subject_file = "new_subject.json"
 # my_model = 'gpt-3.5-turbo-16k-0613'
 my_model = 'gpt-4'
 token_limit = 4096  # this controls maximum tokens submitted to OpenAI
+s3_client = boto3.client('s3')
+bucket = 'gpt-chatbot-files'
 
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
@@ -317,13 +321,28 @@ def load_primed_data():
     file_name = subject_file
     try:
         # Read the file data
-        with open(file_name, "r") as json_file:
-            data = json.load(json_file)
+        s3 = boto3.resource('s3')
+        my_bucket = s3.Bucket(bucket)
+        for obj in my_bucket.objects.all():
+            print("keys:", obj.key)
+            bucketobj = s3_client.get_object(Bucket=bucket, Key=obj.key)
+            body = bucketobj['Body'].read().decode('utf-8')
+            data = json.load(StringIO(body))
         # returns a dictionary of the historical tweets
         return convert_list_of_dicts(data)
     except Exception as e:
         print("file-load failed - loading nothing", e)
         return {}
+
+
+# def load_s3_file():
+#     s3 = boto3.resource('s3')
+#     my_bucket = s3.Bucket(bucket)
+#     for obj in my_bucket.objects.all():
+#         print("keys:", obj.key)
+#         bucketobj = s3_client.get_object(Bucket=bucket, Key=obj.key)
+#         body = bucketobj['Body'].read().decode('utf-8')
+#         return json.load(StringIO(body))
 
 
 def convert_list_of_dicts(data):
