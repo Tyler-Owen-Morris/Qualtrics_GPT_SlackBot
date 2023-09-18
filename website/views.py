@@ -23,7 +23,7 @@ def home():
             print("this is a new subject load- don't overwrite")
         # print("delete no recieved:", request.args)
         converted = convert_immutable_multidict(request.form)
-        save_to_json(converted)
+        save_json_to_s3(converted)
         # print("converted:", converted)
         flash('Subject data updated!!', category='success')
     try:
@@ -70,11 +70,12 @@ def load_s3_file():
         bucketobj = s3_client.get_object(Bucket=bucket, Key=obj.key)
         body = bucketobj['Body'].read().decode('utf-8')
         return json.load(StringIO(body))
-    # data = s3.get_object(Bucket=bucket, Key=subject_file)
-    # print("data object", data)
-    # contents = data['Body'].read().decode('utf-8')
-    # print("contents object:", contents)
-    # return json.load(contents)
+
+
+def save_json_to_s3(data):
+    json_data = json.dumps(data)
+    print("writing data:", json_data)
+    s3_client.put_object(Body=json_data, Bucket=bucket, Key=subject_file)
 
 
 def convert_immutable_multidict(data):
@@ -107,9 +108,9 @@ def convert_immutable_multidict(data):
     return result
 
 
-def save_to_json(data, filename=subject_file):
-    with open(filename, 'w') as file:
-        json.dump(data, file)
+# def save_to_json(data, filename=subject_file):
+#     with open(filename, 'w') as file:
+#         json.dump(data, file)
 
 
 def count_string_tokens(my_text):
@@ -131,13 +132,11 @@ def remove_dict_from_json_file(id_number, filename=subject_file):
 
 
 def add_empty_object_to_json(filename=subject_file):
-    with open(filename, 'r') as file:
-        data = json.load(file)
+    data = load_s3_file()
     data.append({
         "id": str(len(data)),
         "subject": None,
         "content": None
     })
     print("after update:", data)
-    with open(filename, 'w') as file:
-        json.dump(data, file)
+    save_json_to_s3(data)
