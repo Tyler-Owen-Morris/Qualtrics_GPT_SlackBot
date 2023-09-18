@@ -44,5 +44,17 @@ def run_startup_process():
     slackbotProcesss.join()
 
 
+class CustomApplicationObj:
+
+    def __init__(self) -> None:
+        pass
+
+    def run(self, *args, **kwargs):
+        run_startup_process()
+
+
+application = CustomApplicationObj()
+
 if __name__ == "__main__":
-    run_startup_process()
+    # run_startup_process()
+    application.run()
