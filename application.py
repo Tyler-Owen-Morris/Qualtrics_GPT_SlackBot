@@ -180,7 +180,7 @@ def construct_chat_history(uuid, chat):
     subj = determine_msg_subject(chat)
     mysubjs = determine_subject(subj)
     # must return an array of the chat history
-    base = [{"role": "system", "content": "You are an HR assistant bot. You will use the specific details provided by the system to assist in answering users questions. You will not deliver the user specific information that is not provided by the system. It is imporant that you remain factually correct to the data provided by the system and do not create other facts - reply with OK if you understand and will comply."},
+    base = [{"role": "system", "content": "You are an knowledge assistant chatbot bot. Users will give you questions, the system will provide supplemental data about the users question. You will use the specific details provided by the system to assist in answering users questions. You will not reply with information that is not provided by the system. It is imporant that you remain factually correct to the data provided by the system and do not create other facts or mainpulate details like urls - reply with OK if you understand and will comply."},
             {"role": "assistant", "content": "OK"}]
     subj_data = load_subj_data(mysubjs)
     new = {'role': 'user', 'content': chat}
