@@ -2,12 +2,15 @@ from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from transformers import GPT2Tokenizer
 from . import db
+import boto3
 import json
 
 views = Blueprint('views', __name__)
 subject_file = "./data/new_subject.json"
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 token_limit = 4096
+s3 = boto3.client('s3')
+bucket = 'gpt-chatbot-files'
 
 
 @views.route('/', methods=['GET', 'POST'])
@@ -23,9 +26,10 @@ def home():
         # print("converted:", converted)
         flash('Subject data updated!!', category='success')
     try:
-        # print("attempting to load file")
-        with open(subject_file, 'r') as file:
-            data = json.load(file)
+        print("attempting to load file")
+        # with open(subject_file, 'r') as file:
+        #     data = json.load(file)
+        data = load_s3_file()
     except:
         print("pass")
         pass
@@ -55,6 +59,12 @@ def delete_subject():
         return {'passed': True}
     except:
         return {'passed': False}
+
+
+def load_s3_file():
+    data = s3.get_object(Bucket=bucket, Key=subject_file)
+    contents = data['Body'].read()
+    return json.load(contents.decode('utf-8'))
 
 
 def convert_immutable_multidict(data):
