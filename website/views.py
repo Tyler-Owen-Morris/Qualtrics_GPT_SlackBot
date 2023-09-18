@@ -137,8 +137,8 @@ def add_empty_object_to_json(filename=subject_file):
     data = load_s3_file()
     data.append({
         "id": str(len(data)),
-        "subject": None,
-        "content": None
+        "subject": "",
+        "content": ""
     })
     print("after update:", data)
     save_json_to_s3(data)
