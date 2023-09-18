@@ -340,6 +340,7 @@ def convert_list_of_dicts(data):
     new_dict = {}
     for d in data:
         new_dict[d.get("subject")] = d.get("content")
+    print('after organization of dict',new_dict)
     return new_dict
 
 
