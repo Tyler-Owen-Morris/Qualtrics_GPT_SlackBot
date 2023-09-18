@@ -119,13 +119,15 @@ def count_string_tokens(my_text):
 
 def remove_dict_from_json_file(id_number, filename=subject_file):
     try:
-        with open(filename, 'r') as file:
-            data = json.load(file)
+        # with open(filename, 'r') as file:
+        #     data = json.load(file)
+        data = load_s3_file()
         # print(id_number, len(data))
         data = [d for d in data if d.get("id") != id_number]
         # print("after:", len(data))
-        with open(filename, 'w') as file:
-            json.dump(data, file)
+        # with open(filename, 'w') as file:
+        #     json.dump(data, file)
+        save_json_to_s3(data)
         return True
     except:
         return False
