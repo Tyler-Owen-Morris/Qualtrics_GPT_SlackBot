@@ -22,11 +22,17 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if user:
+            print("found user:", user.password,
+                  generate_password_hash(password, method='scrypt'))
+            print("lenths:", len(user.password), len(
+                generate_password_hash(password, method='scrypt')))
+            print(check_password_hash(user.password, password))
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
+                print("not found")
                 flash('Incorrect password, try again.', category='error')
         else:
             flash('Email does not exist.', category='error')

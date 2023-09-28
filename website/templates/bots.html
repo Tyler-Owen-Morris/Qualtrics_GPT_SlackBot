@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% block header%}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.SelectBot').click(function (e) {
+            select_bot(e.currentTarget.id)
+        });
+        function select_bot(id) {
+            console.log("select bot event!!", id)
+            $.ajax({
+                url: '/select_bot',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ bot_id: id }),
+                success: function (response) {
+                    console.log(response);
+                    //location.reload();
+                    location.replace("/")
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+{% block content
+%}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Bots</h1>
+
+    <!-- <div class="d-flex justify-content-between mb-3">
+        <button class="btn btn-primary" id="new-subject">New Subject</button>
+        <button class="btn btn-warning" id="reset-button">Reset</button>
+    </div> -->
+
+    <ul class="list-group list-group-flush mb-3" id="bots">
+        {% if not data %}
+        <div class="list-group-item d-flex align-items-center">
+            <h3>You do not have any bots currently assigned</h3>
+        </div>
+        {% endif %}
+        {% for item in data %}
+        <li class="list-group-item mb-3"> <!-- Added margin-bottom for spacing between records -->
+            <div class="mb-2">
+                <label for="subject_{k{ loop.index}}" class="form-label d-block mb-1">
+                    <!-- Added d-block and margin-bottom for better spacing -->
+                    <strong>BOT:</strong> {{item.display_name}}
+                </label>
+                <!-- Assuming `item.description` exists for the description -->
+                <p class="text-muted mb-2">hosted at: {{item.subdomain}}.walker-chatbot.com</p>
+                <!-- Display description with a muted text style -->
+                <button class="btn btn-primary SelectBot" type="button" id="{{item.id}}">Select Bot</button>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+
+    <!-- <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-primary" id="new-subject1">New Bot</button>
+        <button class="btn btn-warning" id="reset-button1">Reset</button>
+    </div> -->
+</div>
+{% endblock %}

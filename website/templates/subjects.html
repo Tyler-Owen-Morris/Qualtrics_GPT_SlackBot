@@ -70,9 +70,30 @@
     $(".delete-button").click(function (e) {
       console.log("delete:", e.currentTarget.id)
       remove_subject(e.currentTarget.id)
-    })
+    });
+    $('#unselect-bot').click(function (e) {
+      console.log("unselect:", e.currentTarget.id)
+      unselect_bot(e.currentTarget.id)
+    });
   });
 
+
+  function unselect_bot(e) {
+    console.log("unselect bot event!!", e)
+    $.ajax({
+      url: '/unselect_bot',
+      type: 'POST',
+      contentType: 'application/json',
+      success: function (response) {
+        console.log(response);
+        //location.reload();
+        location.replace("/")
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
   function remove_subject(e) {
     console.log("remove subj called:", e)
     $.ajax({
@@ -97,8 +118,9 @@
 {% block content
 %}
 <div class="container mt-5">
+  <button class="btn btn-secondary" id="unselect-bot">Switch Bot</button>
   <h1 class="text-center mb-4">Subjects</h1>
-
+  <h3 class="text-center"><strong>Selected:</strong> {{bot.display_name}}</h3>
   <div class="d-flex justify-content-between mb-3">
     <button class="btn btn-primary" id="new-subject">New Subject</button>
     <button class="btn btn-warning" id="reset-button">Reset</button>

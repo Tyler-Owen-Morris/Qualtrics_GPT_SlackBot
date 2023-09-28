@@ -9,17 +9,25 @@ import slack
 import threading
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
+# DB_NAME = "database.db"
 envpath = Path('.') / '.env'
 load_dotenv(dotenv_path=envpath)
 # Local variable for environment:
 environment = os.environ['ENVIRONMENT']
 
+db_endpoint = os.environ['DB_DOMAIN']
+db_username = os.environ['DB_USERNAME']
+db_password = os.environ['DB_PASSWORD']
+db_name = os.environ['DB_NAME']
+# db_table = os.environ['DB_TABLE_NAME']
+
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = os.environ['LOGIN_SECRET_KEY']
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/{}'.format(
+        db_username, db_password, db_endpoint, db_name)
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
     from .views import views
@@ -28,7 +36,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Note
+    from .models import User, Bot, BotOwnership, SubjectContent
 
     with app.app_context():
         db.create_all()
@@ -45,6 +53,5 @@ def create_app():
 
 
 def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database!')
+    db.create_all(app=app)
+    print('Created Database!')
