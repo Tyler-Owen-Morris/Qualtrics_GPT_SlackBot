@@ -1,5 +1,7 @@
 import slack
 import openai
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 import os
 import json
 from pathlib import Path
@@ -20,19 +22,63 @@ load_dotenv(dotenv_path=envpath)
 environment = os.environ['ENVIRONMENT']
 analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
 my_model = os.environ['MODEL']
+# this controls maximum tokens submitted to OpenAI
+token_limit = os.environ['MODEL_TOKEN_LIMIT']
+# setup the openapi auth
+openai.api_key = os.environ['OPENAI_KEY']
 
 # setup Flask server to handle callback events from slack
 application = Flask(__name__)
 my_bot = None
-subject_file = "new_subject.json"
-# my_model = 'gpt-3.5-turbo'
-# my_model = 'gpt-3.5-turbo-16k-0613'
-token_limit = 4096  # this controls maximum tokens submitted to OpenAI
-s3_client = boto3.client('s3')
-bucket = 'gpt-chatbot-files'
+my_bot_id = os.environ['MY_BOT_ID']
+db = SQLAlchemy()
+db_endpoint = os.environ['DB_DOMAIN']
+db_username = os.environ['DB_USERNAME']
+db_password = os.environ['DB_PASSWORD']
+db_name = os.environ['DB_NAME']
+application.config['SECRET_KEY'] = os.environ['LOGIN_SECRET_KEY']
+application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/{}'.format(
+    db_username, db_password, db_endpoint, db_name)
+application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(application)
+with application.app_context():
+    db.create_all()
 
-# setup the openapi auth
-openai.api_key = os.environ['OPENAI_KEY']
+
+def create_database(app):
+    db.create_all(app=app)
+    print("Created database!")
+
+
+class SubjectContent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    subject = db.Column(db.String(250))
+    content = db.Column(db.String(10000))
+    bot_id = db.Column(db.Integer, db.ForeignKey('bot.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+
+class Bot(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    display_name = db.Column(db.String(150))
+    subdomain = db.Column(db.String(100))
+    subject_content = db.relationship('SubjectContent')
+
+
+class BotOwnership(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    bot_id = db.Column(db.Integer, db.ForeignKey('bot.id'))
+
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))
+    first_name = db.Column(db.String(150))
+    bots = db.relationship('BotOwnership')
+    subjectContent = db.relationship('SubjectContent')
+
 
 # setup the slack client based on environment
 if environment == "PROD":
@@ -319,19 +365,12 @@ def determine_msg_subject(question):
 
 
 def load_primed_data():
-    file_name = subject_file
     try:
         # Read the file data
-        s3 = boto3.resource('s3')
-        my_bucket = s3.Bucket(bucket)
-        print("loading objects:", my_bucket)
-        for obj in my_bucket.objects.all():
-            print("keys:", obj.key)
-            bucketobj = s3_client.get_object(Bucket=bucket, Key=obj.key)
-            body = bucketobj['Body'].read().decode('utf-8')
-            data = json.load(StringIO(body))
-        print("data loaded:", data)
-        return convert_list_of_dicts(data)
+        mysubjects = SubjectContent.query.filter_by(bot_id=my_bot_id).all()
+        for sub in mysubjects:
+            print("sub:", sub.subject, sub.content)
+        return convert_list_of_dicts(mysubjects)
     except Exception as e:
         print("file-load failed - loading nothing", e)
         return {}
@@ -339,8 +378,9 @@ def load_primed_data():
 
 def convert_list_of_dicts(data):
     new_dict = {}
+    print("incoming data", data)
     for d in data:
-        new_dict[d.get("subject")] = d.get("content")
+        new_dict[d.subject] = d.content
     print('after organization of dict', new_dict)
     return new_dict
 
@@ -373,38 +413,6 @@ def convert_immutable_multidict(data):
             })
     print(result)
     return result
-
-
-def save_to_json(data, filename=subject_file):
-    with open(filename, 'w') as file:
-        json.dump(data, file)
-
-
-def add_empty_object_to_json(filename=subject_file):
-    with open(filename, 'r') as file:
-        data = json.load(file)
-    data.append({
-        "id": len(data),
-        "subject": None,
-        "content": None
-    })
-    print("after update:", data)
-    with open(filename, 'w') as file:
-        json.dump(data, file)
-
-
-def remove_dict_from_json_file(id_number, filename=subject_file):
-    try:
-        with open(filename, 'r') as file:
-            data = json.load(file)
-        print(id_number, len(data))
-        data = [d for d in data if d.get("id") != id_number]
-        print("after:", len(data))
-        with open(filename, 'w') as file:
-            json.dump(data, file)
-        return True
-    except:
-        return False
 
 
 def run_bot():
