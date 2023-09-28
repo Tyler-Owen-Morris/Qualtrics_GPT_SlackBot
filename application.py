@@ -23,7 +23,7 @@ environment = os.environ['ENVIRONMENT']
 analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
 my_model = os.environ['MODEL']
 # this controls maximum tokens submitted to OpenAI
-token_limit = os.environ['MODEL_TOKEN_LIMIT']
+token_limit = int(os.environ['MODEL_TOKEN_LIMIT'])
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
 
