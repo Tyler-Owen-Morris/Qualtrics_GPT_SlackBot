@@ -19,6 +19,7 @@ load_dotenv(dotenv_path=envpath)
 # Local variable for environment:
 environment = os.environ['ENVIRONMENT']
 analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
+my_model = os.environ['MODEL']
 
 # setup Flask server to handle callback events from slack
 application = Flask(__name__)
@@ -26,7 +27,6 @@ my_bot = None
 subject_file = "new_subject.json"
 # my_model = 'gpt-3.5-turbo'
 # my_model = 'gpt-3.5-turbo-16k-0613'
-my_model = 'gpt-4'
 token_limit = 4096  # this controls maximum tokens submitted to OpenAI
 s3_client = boto3.client('s3')
 bucket = 'gpt-chatbot-files'
