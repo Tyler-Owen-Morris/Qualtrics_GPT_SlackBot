@@ -92,7 +92,7 @@ else:
 CHANNELS = os.environ['CHANNELS'].split(',')
 print("channels:", CHANNELS)
 BOT_ID = client.api_call('auth.test')['user_id']
-print(BOT_ID)
+print("MYBOTID::::::", BOT_ID)
 
 # setup tokenizer for counting tokens
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
@@ -111,11 +111,12 @@ def message(payload):
     text = event.get('text')
     ts = event.get('ts')
     thread_ts = event.get('thread_ts')
+    print("USERID:", user_id, "  | BOTID:", BOT_ID)
     if text == None:
         return
-    # print("check string", text.lower()[:14])
+    print("check string", text.lower()[:14])
     # if it's a DM OR the user
-    if (user_id != BOT_ID and "<@"+BOT_ID+">" in text[:14] and channel_id in CHANNELS) or (channel_type == 'im' and user_id != BOT_ID):
+    if (user_id != BOT_ID and "<@"+BOT_ID+">" in text[:14] and channel_id in CHANNELS) or (channel_type == 'im' and user_id != BOT_ID and user_id != None):
         print("channel:", channel_id)
         print("channel type:", channel_type)
         print("thread_ts", thread_ts)
