@@ -27,7 +27,6 @@ token_limit = int(os.environ['MODEL_TOKEN_LIMIT'])
 gpt_system_prompt = os.environ['GPT_SYSTEM_PROMPT']
 # setup the openapi auth
 openai.api_key = os.environ['OPENAI_KEY']
-SYSTEM_ROLE_CONTENT = os.environ['']
 
 # setup Flask server to handle callback events from slack
 application = Flask(__name__)
