@@ -46,7 +46,7 @@ def select_bot():
         chosen_bot = Bot.query.filter_by(id=bot_id).first()
         if chosen_bot:
             session['selected_bot'] = chosen_bot.id
-            print("my new selected bot value:", selected_bot)
+            print("my new selected bot value:", session["selected_bot"])
         return {'passed': True}
     except:
         return {'passed': False}
