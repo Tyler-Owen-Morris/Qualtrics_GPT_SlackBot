@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, session
 from flask_login import login_required, current_user
 from transformers import GPT2Tokenizer
 from . import db
@@ -10,7 +10,7 @@ from io import StringIO
 views = Blueprint('views', __name__)
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 token_limit = 4096
-selected_bot = None
+# selected_bot = None
 
 
 @views.route('/', methods=['GET', 'POST'])
@@ -26,11 +26,13 @@ def home():
         # print("converted:", converted)
         flash('Subject data updated!!', category='success')
     mybots = load_user_bots_from_database()
-    if selected_bot == None:
+    if 'selected_bot' in session:
+        selected_bot = session['selected_bot']
+        print("loading selected bot", selected_bot)
+        data, bot = load_subject_data_from_database(selected_bot)
+    else:
         print("rendering bot page")
         return render_template("bots.html", user=current_user, data=mybots)
-    print("loading selected bot", selected_bot)
-    data, bot = load_subject_data_from_database(selected_bot)
 
     return render_template("subjects.html", user=current_user, data=data, bot=bot)
 
@@ -38,13 +40,12 @@ def home():
 @views.route("/select_bot", methods=["POST"])
 @login_required
 def select_bot():
-    global selected_bot
     print("select bot called")
     bot_id = request.json['bot_id']
     try:
         chosen_bot = Bot.query.filter_by(id=bot_id).first()
         if chosen_bot:
-            selected_bot = chosen_bot.id
+            session['selected_bot'] = chosen_bot.id
             print("my new selected bot value:", selected_bot)
         return {'passed': True}
     except:
@@ -54,10 +55,10 @@ def select_bot():
 @views.route("/unselect_bot", methods=["POST"])
 @login_required
 def unselect_bot():
-    global selected_bot
     print("unselect bot called")
     try:
-        selected_bot = None
+        if 'selected_bot' in session:
+            del session['selected_bot']
         return {'passed': True}
     except:
         return {'passed': False}
