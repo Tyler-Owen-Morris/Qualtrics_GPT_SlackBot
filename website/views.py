@@ -69,8 +69,7 @@ def unselect_bot():
 def create_new_subject():
     print("new subject called")
     try:
-        global selected_bot
-        add_blank_subject_to_database(selected_bot)
+        add_blank_subject_to_database(session['selected_bot'])
         return {'passed': True}
     except:
         return {'passed': False}
