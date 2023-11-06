@@ -127,6 +127,18 @@ def message(payload):
             return
         else:
             last_msg = text
+        if "--model" in text.lower():
+            analytics.track(user_id, 'Model Query', {
+                'question': text, 'channelType': channel_type, 'channel_id': channel_id})
+            if channel_type in ['group', 'channel']:
+                if thread_ts != None:
+                    ts = thread_ts  # reply in the thread
+                client.chat_postMessage(channel=channel_id,
+                                        text="I am currently using the model:"+my_model, thread_ts=ts)
+            elif channel_type == 'im':
+                client.chat_postMessage(channel=channel_id,
+                                        text="I am currently using the model:"+my_model)
+            return
         if "--reset" in text.lower():
             start_new_conversation(user_id)
             analytics.track(user_id, 'Conversation Reset', {

@@ -66,6 +66,10 @@ home_view = {
                 {
                     "type": "mrkdwn",
                     "text": "\n*--subject*  Prompts the bot to report the subjects that it has available."
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "\n*--model*  Prompts the bot to report the current model of GPT that is in use."
                 }
             ]
         }
