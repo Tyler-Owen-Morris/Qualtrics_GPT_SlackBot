@@ -6,10 +6,17 @@ from .models import SubjectContent, Bot, User, BotOwnership
 import boto3
 import json
 from io import StringIO
+from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+# Load Environment variables
+envpath = Path('.') / '.env'
+load_dotenv(dotenv_path=envpath)
 
 views = Blueprint('views', __name__)
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-token_limit = 4096
+token_limit = os.environ['MODEL_TOKEN_LIMIT']
 # selected_bot = None
 
 
