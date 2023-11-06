@@ -16,7 +16,7 @@ load_dotenv(dotenv_path=envpath)
 
 views = Blueprint('views', __name__)
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-token_limit = os.environ['MODEL_TOKEN_LIMIT']
+token_limit = int(os.environ['MODEL_TOKEN_LIMIT'])
 # selected_bot = None
 
 
