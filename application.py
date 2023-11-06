@@ -134,10 +134,10 @@ def message(payload):
                 if thread_ts != None:
                     ts = thread_ts  # reply in the thread
                 client.chat_postMessage(channel=channel_id,
-                                        text="I am currently using the model:"+my_model, thread_ts=ts)
+                                        text="I am currently using the model: "+my_model, thread_ts=ts)
             elif channel_type == 'im':
                 client.chat_postMessage(channel=channel_id,
-                                        text="I am currently using the model:"+my_model)
+                                        text="I am currently using the model: "+my_model)
             return
         if "--reset" in text.lower():
             start_new_conversation(user_id)
