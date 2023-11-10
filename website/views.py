@@ -95,6 +95,19 @@ def delete_subject():
         return {'passed': False}
 
 
+@views.route('/save_subject', methods=['POST'])
+@login_required
+def save_subject():
+    my_id = request.json['to_save']
+    my_content = request.json['content']
+    my_subject = request.json['subject']
+    res = update_subject_content(my_id, my_content, my_subject)
+    if res:
+        return {'passed': True}
+    else:
+        return {'passed': False}
+
+
 def load_user_bots_from_database():
     myownership = BotOwnership.query.filter_by(user_id=current_user.id).all()
     mybots = []
@@ -153,6 +166,22 @@ def convert_immutable_multidict(data):
 
 def count_string_tokens(my_text):
     return len(tokenizer.tokenize(my_text))
+
+
+def update_subject_content(subj_id, new_content, new_subject):
+    subj_to_update = SubjectContent.query.get(subj_id)
+    if subj_to_update:
+        # Update the 'content' attribute of the found subject
+        subj_to_update.content = new_content
+        subj_to_update.subject = new_subject
+        print("modified:", subj_to_update)
+        # Commit the change to the database
+        db.session.commit()
+        print(f"Content for record with id:{subj_id} has been updated.")
+        return True
+    else:
+        print(f"No record found with id:{subj_id}")
+        return False
 
 
 def remove_subject_from_database(subj_id):
