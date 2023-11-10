@@ -24,14 +24,6 @@ token_limit = int(os.environ['MODEL_TOKEN_LIMIT'])
 @login_required
 def home():
     data = []
-    if request.method == 'POST':
-        if request.args.get('new') == 'true':
-            print("this is a new subject load- don't overwrite")
-        # print("delete no recieved:", request.args)
-        converted = convert_immutable_multidict(request.form)
-        save_json_to_database(converted)
-        # print("converted:", converted)
-        flash('Subject data updated!!', category='success')
     mybots = load_user_bots_from_database()
     if 'selected_bot' in session:
         selected_bot = session['selected_bot']
@@ -40,8 +32,7 @@ def home():
     else:
         print("rendering bot page")
         return render_template("bots.html", user=current_user, data=mybots)
-
-    return render_template("subjects.html", user=current_user, data=data, bot=bot)
+    return render_template("subjects.html", user=current_user, data=data, bot=bot, max_tokens=str(int(token_limit/4)))
 
 
 @views.route("/select_bot", methods=["POST"])
@@ -124,46 +115,6 @@ def load_subject_data_from_database(bot_id):
     return mysubjects, bot
 
 
-def save_json_to_database(data):
-    print("input :", (data))
-    for subj_data in data:
-        rec_to_update = SubjectContent.query.get(subj_data['id'])
-        rec_to_update.subject = subj_data['subject']
-        rec_to_update.content = subj_data['content']
-    db.session.commit()
-    return
-
-
-def convert_immutable_multidict(data):
-    result = []
-    # get maximum index
-    max_index = max([int(key.split('_')[-1]) for key in data.keys()])
-    for i in range(1, max_index + 1):
-        id_key = f'id_{i}'
-        subject_key = f'subject_{i}'
-        content_key = f'content_{i}'
-
-        my_content = data[content_key]
-        while count_string_tokens(my_content) > int(token_limit/4)*3:
-            print("my string tokens:", count_string_tokens(my_content))
-            subtractor = 10
-            # if the number of tokens difference is too large, we subtract a larger amount of characters than the default 10
-            if count_string_tokens(my_content) - int(token_limit/4)*3 > subtractor:
-                subtractor = count_string_tokens(
-                    my_content) - int(token_limit/4)*3
-            print("subtracting:", subtractor)
-            my_content = my_content[:-subtractor]
-
-        if subject_key in data and content_key in data and id_key in data:
-            result.append({
-                'id': data[id_key],
-                'subject': data[subject_key],
-                'content': my_content
-            })
-    # print(result)
-    return result
-
-
 def count_string_tokens(my_text):
     return len(tokenizer.tokenize(my_text))
 
@@ -171,9 +122,18 @@ def count_string_tokens(my_text):
 def update_subject_content(subj_id, new_content, new_subject):
     subj_to_update = SubjectContent.query.get(subj_id)
     if subj_to_update:
+        # Reduce the count of tokens
+        while count_string_tokens(new_content) > (token_limit/4):
+            subtractor = 10
+            if count_string_tokens(new_content) - int(token_limit/4) > subtractor:
+                subtractor = count_string_tokens(
+                    new_content) - int(token_limit/4)
+            print("subtracting:", subtractor)
+            new_content = new_content[:-subtractor]
         # Update the 'content' attribute of the found subject
         subj_to_update.content = new_content
         subj_to_update.subject = new_subject
+        subj_to_update.tokens = count_string_tokens(new_content)
         print("modified:", subj_to_update)
         # Commit the change to the database
         db.session.commit()
@@ -198,7 +158,7 @@ def add_blank_subject_to_database(bot_id):
     print("add new subject hit")
     mybot = Bot.query.filter_by(id=bot_id).first()
     new_subject = SubjectContent(
-        subject='', content='', bot_id=bot_id, user_id=current_user.id)
+        subject='', content='', tokens=0, bot_id=bot_id, user_id=current_user.id)
     db.session.add(new_subject)
     db.session.commit()
     return

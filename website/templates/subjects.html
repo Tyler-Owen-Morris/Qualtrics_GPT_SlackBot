@@ -148,6 +148,7 @@
   <button class="btn btn-secondary" id="unselect-bot">Switch Bot</button>
   <h1 class="text-center mb-4">Subjects</h1>
   <h3 class="text-center"><strong>Selected:</strong> {{bot.display_name}}</h3>
+  <h5 class="text-center"><strong>Max Tokens per-content:</strong> {{max_tokens}}</h5>
   <div class="d-flex justify-content-between mb-3">
     <button class="btn btn-primary" id="new-subject">New Subject</button>
     <button class="btn btn-warning" id="reset-button">Reset</button>
@@ -171,9 +172,9 @@
           <label for="content_{{ loop.index}}" class="form-label">Content:</label>
           <textarea id="content_{{ item.id}}" class="form-control contentText"
             name="content_{{ loop.index}}">{{ item.content }}</textarea>
+          <p class="mb-2" id="token_count_{{ item.id}}">tokens: {{item.tokens}}</p>
         </div>
         <div class="d-flex justify-content-between">
-          <!-- <input class="btn btn-success" type="submit" value="Save" /> -->
           <button class="btn btn-success save-button" type="button" id="{{item.id}}">Save</button>
           <button class="btn btn-danger btn-sm delete-button" type="button" id="{{item.id}}">Delete</button>
         </div>

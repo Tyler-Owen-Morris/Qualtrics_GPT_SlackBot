@@ -6,7 +6,8 @@ from sqlalchemy.sql import func
 class SubjectContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String(250))
-    content = db.Column(db.String(10000))
+    content = db.Column(db.String(250000))
+    tokens = db.Column(db.Integer)
     bot_id = db.Column(db.Integer, db.ForeignKey('bot.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
