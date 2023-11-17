@@ -16,7 +16,7 @@ openai.api_key = os.environ['OPENAI_KEY']
 # load the data from the other file into the input variable for this file
 inpts = document_map
 # RAW file is for documents to summary before adding corrections.
-output_file = "data/primed_created_raw.json"
+output_file = "data/primed_created_raw-everything.json"
 
 
 def run():
@@ -26,9 +26,9 @@ def run():
         url = tpl[1]
         text = get_text_from_url(url)
         # make the summary
-        summary = get_summary_from_text(text)
+        # summary = get_summary_from_text(text)
         # Write the summary to the json file
-        write_summary(subject, url+" "+summary)
+        write_summary(subject, url+" "+text)
         sleep(3)
 
 
@@ -43,20 +43,20 @@ def write_summary(subject, summary):
         json.dump(data, json_file)
 
 
-def get_summary_from_text(text):
-    try:
-        full_msg = [{'role': 'system', 'content': 'you are a summary assistant. You will take in a large block of text from Qualtrics documentation and compress it into the fewest tokens possible while allowing a large language model to understand the content. do not remove important technical details. Retain comprehension of detailed instructions. say OK if you understand.'}, {
-            'role': 'assistant', 'content': 'OK'}, {'role': 'user', 'content': text}]
-        completion = openai.ChatCompletion.create(
-            model='gpt-3.5-turbo',
-            messages=full_msg
-        )
-        resp = completion.choices[0].message.content
-        print("summary:\n", resp, "\n*********")
-        return resp
-    except Exception as e:
-        sleep(30)
-        return get_summary_from_text(text)
+# def get_summary_from_text(text):
+#     try:
+#         full_msg = [{'role': 'system', 'content': 'you are a summary assistant. You will take in a large block of text from Qualtrics documentation and compress it into the fewest tokens possible while allowing a large language model to understand the content. do not remove important technical details. Retain comprehension of detailed instructions. say OK if you understand.'}, {
+#             'role': 'assistant', 'content': 'OK'}, {'role': 'user', 'content': text}]
+#         completion = openai.ChatCompletion.create(
+#             model='gpt-3.5-turbo',
+#             messages=full_msg
+#         )
+#         resp = completion.choices[0].message.content
+#         print("summary:\n", resp, "\n*********")
+#         return resp
+#     except Exception as e:
+#         sleep(30)
+#         return get_summary_from_text(text)
 
 
 def get_text_from_url(url):
@@ -75,8 +75,9 @@ def get_text_from_url(url):
             if "thank you for your feedback!" in p_tag.get_text().lower():
                 start = True
                 continue
-    accum += "\n\ncompress the above as much as you can with symbols, emojis and other short hand, so that it takes as absolutely few tokens as possible, do not use line breaks, but be certain that you retain whatever is necessary for another chatbot like yourself to be able to decompress it and understand it."
-    return accum
+    # accum += "\n\ncompress the above as much as you can with symbols, emojis and other short hand, so that it takes as absolutely few tokens as possible, do not use line breaks, but be certain that you retain whatever is necessary for another chatbot like yourself to be able to decompress it and understand it."
+
+    return accum.replace("Thank you for your feedback!", '').replace("/2\n                    Ready to learn more about Qualtrics?\n\ncompress the above as much as you can with symbols, emojis and other short hand, so that it takes as absolutely few tokens as possible, do not use line breaks, but be certain that you retain whatever is necessary for another chatbot like yourself to be able to decompress it and understand it.", "")
 
 
 def load_or_create_json_file():
