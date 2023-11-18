@@ -1,0 +1,1427 @@
+id;subject;content;bot_id;user_id;tokens
+2;"Onboard | Transition from Sales";"This page is under the Onboard section of the SharePoint  To find files and documentation related on the topic of how to review an SOW and proposals of work that can be done, this is the link to get there: https://walkerinfo.sharepoint.com/ClientServiceKnowledgeBase/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2FClientServiceKnowledgeBase%2FShared%20Documents%2FProposal%20%26%20SOW%20Review&FolderCTID=0x012000BE77E589DBF30D468E27E91CB5ECC054";1;3;139
+3;"Onboard | Proposal & SOW Review";"This page is under the Onboard section of the SharePoint To find files and documentation related on the topic of how to review an SOW and proposals of work that can be done, this is the link to get there: https://walkerinfo.sharepoint.com/ClientServiceKnowledgeBase/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2FClientServiceKnowledgeBase%2FShared%20Documents%2FProposal%20%26%20SOW%20Review&FolderCTID=0x012000BE77E589DBF30D468E27E91CB5ECC054";1;3;138
+4;"Onboard Section of SharePoint";"This section is at the top of the SharePoint. The content within this section are as follows, Transition from Sales, Proposal & SOW Review, Project Set-Up & Schedule, and Client Kick-Off & Status Updates. If you want specific links, please ask for one of these topics specifically.";1;3;62
+5;"Onboard | Project Set-Up & Schedule";"This page is under the Onboard section of the Sharepoint. To find files and documentation related on the topic of how to setup a project timeline, schedule meetings, and different types of project examples and what they would look like, this is the link to get there: https://walkerinfo.sharepoint.com/ClientServiceKnowledgeBase/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2FClientServiceKnowledgeBase%2FShared%20Documents%2FProject%20Set%2DUp%20%26%20Schedule&FolderCTID=0x012000BE77E589DBF30D468E27E91CB5ECC054";1;3;150
+6;"Onboard | Client Kick-Off & Status Updates";"This page is under the Onboard section of the Sharepoint\r\nTo find files and documentation related on the topic of how to setup the client kickoff, provide status updates throughout the project and different email tips when sending follow ups, this is the link to get there: https://walkerinfo.sharepoint.com/ClientServiceKnowledgeBase/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2FClientServiceKnowledgeBase%2FShared%20Documents%2FClient%20Kick%2DOff%20%26%20Status%20Updates&FolderCTID=0x012000BE77E589DBF30D468E27E91CB5ECC054";1;3;155
+7;"Plan Section of SharePoint";"This section is at the top of the SharePoint. The content within this section are as follows, Strategy & Governance, Governance Planning Workshop MURAL Template, Governance Workshop MURAL Template, Maturity Assessment, CX Skills Assessment Workshop MURAL Template, Journey Mapping, Journey Mapping Workshop Day 1 MURAL Template, Journey Mapping Workshop Day 2 MURAL Template, Journey Mapping Workshop Day 3 MURAL Template, Journey Mapping Day 4 MURAL Template, Journey Mapping Library MURAL Template, Listening Architecture, and Listening Architecture Workshop MURAL Template. If you want specific links, please ask for one of these topics.";1;3;140
+8;"SharePoint | Home Page";"The is the home page of the Walker Client Service Knowledge Base SharePoint which contains many different phases of the customer journey including: Onboard, Plan, Design, Listen, Understand, Act, Partner, Renew. This page also contains resources including Cross Journey Resources and Technology Resources. This is the home where you can find training materials, templates, client examples, and Qualtrics Resources. You can also submit new potential content by submitting an online form. \r\nHere is the link to the home page of the Walker Client Service Knowledge Base SharePoint: https://walkerinfo.sharepoint.com/ClientServiceKnowledgeBase/SitePages/Home.aspx";1;3;134
+9;"Walker Hub";"The Walker Hub is where you can find all related walker content including employee photos, guild content, content resources, red tasks, and HR related topics. Here is the link to the hub: https://hub.walkerinfo.com/";1;3;48
+10;"Plan | Governance Planning Workshop MURAL Template";"This page is under the Plan section of the SharePoint. This content is related to this MURAL template and what that would like like when planning governance. Here is the link to Governance Planning Workshop MURAL Template: https://app.mural.co/template/918681a4-ab07-4951-b92e-f22ffd3bb044/b6288790-9469-41c6-8683-5c4e4b2de88d";1;3;106
+11;"Plan | Strategy & Governance";"This page is under the Plan section of the SharePoint\r\nTo find files and documentation related on the topic of how governance and strategy, this is the link to get there: https://walkerinfo.sharepoint.com/ClientServiceKnowledgeBase/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2FClientServiceKnowledgeBase%2FShared%20Documents%2FClient%20Kick%2DOff%20%26%20Status%20Updates&FolderCTID=0x012000BE77E589DBF30D468E27E91CB5ECC054";1;3;137
+12;"Survey Settings or configuration";"Surveys titles have a maximum of 100 characters. There is no limit to the number of blocks or questions in a survey, but large surveys tend to degrade performance for the user. The back button is off by default. To enable the back button navigate settings page, and then general, and then enable back button. Surveys are not public until they have been published. The system keeps track of a preview or working version of the survey and a public or published version of the survey - to make the current changes available to the public simply publish the changes. Add embedded data to the survey by navigating to the survey flow, adding a new block of 'embedded data' to the flow, and entering the keys for the new embedded data fields - one can also enter values for embedded data, but this will set the values in the survey when normally they are set from other inbound sources like XMD or a website intercept. \r\n\r\nSingle response report links are available after a response has been recorded or updated via api. if a response has been recorded without saving the single response report link it's possible to add it to the response by setting up a workflow that triggers on an API update to the response, and writes the single response report link to embedded data using an API call - however it is important to not create an infinite loop when doing this, and setup workflow logic that stops infinite looping.
+Brand administrators can recover deleted surveys by going to the Admin section > Users tab > locate the user that deleted their survey, and inside that user click "View Account Use Info" at the top. Here you should see the deleted survey and be able to un-delete it.";1;3;343
+13;"Salesforce connection";"The Salesforce extension can handle data connections to Salesforce in both directions. Data from salesforce can trigger events and send data to Qualtrics, and events in Qualtrics can send data to Salesforce objects. The first step to setting up this connection is to configure your salesforce user and create those user credentials in Qualtrics. When setting up this user in Salesforce it is important that the user has access to all relevant objects and fields planned to be used in the connection (read and write as needed).
+1. Login to the salesforce environment with the user account you wish to make the connection with.
+2. Login to Qualtrics as the Brand Admin you want in control of the account connection. Navigate to Admin > Extensions , and then locate the Salesforce [(sandbox) if connecting to SFDC sandbox environment, or regular 'Salesforce' if production]. 
+3. Inside the correct version of the SFDC extension, Select "add account", give your account a name in Qualtrics, and then approve the connection. If you have not logged into Salesforce you will instead be asked to login now - do so with the credentials of the Salesforce service account, not your own user.
+4. You may now share these credentials with other Qualtrics users that may need to create interactions with this same account.
+
+To trigger Qualtrics surveys from SFDC the process involves setting up a trigger on the Salesforce side that detects the correct record, and then posts the data to Qualtrics - at which point Qualtrics reaches back for the data it needs, and then sends the survey accordingly. To set up this behavior:
+1. Create a new stand-alone workflow. Select Salesforce as the trigger, and select the service account we created in the setup steps. Set the Salesforce object to the object you wish to trigger the survey send. All default fields for that object will be mapped in, but if you need fields from adjacent objects you will need to map them in in this trigger setup. Once setup is complete, Qualtrics will give you a URL - save this for the Salesforce configuration.
+2. Setup the next step of behavior you're after - be it sending a survey with reminders, or simply storing the contact information. You will need to pipe the salesforce fields from the trigger into the second task. 
+3. Login as the Salesforce integration user. Setup your workflow conditions on the same object you setup on the Qualtrics side, but here you will be setting the specific field conditions to send this data to Qualtrics. Step 2 in the X-flow will be to post the data to a URL - paste the URL you got from the Qualtrics setup here.
+";1;3;565
+14;"Custom Validation with Javascript";"If Qualtrics validation is unable to capture the complexity of your data and validate a response is valid, it may be required to use a hidden validation question and some JavaScript to achieve your desired outcome.
+The steps to set this up are as follows:
+1. Create a question below the question you are actually validating. Set this question to multiple choice single answer. Create 2 answers "PASS" and "FAIL". Set the default choice to "FAIL" and set the question validation to require that pass is selected.
+2. Take note of your question ID for this question. Navigate to the "look and feel" > styles section and then the custom CSS. on a new line enter the CSS code, replacing the # with the number of the QID you created in step1: 
+'''
+#QID# > div.Inner.BorderColor.SAVR {
+	display: none;
+}
+''' 
+3. Return to the question in the survey editor, and select the "add javascript" option. Write your javascript to return true/false based on the complex logic that you require, and then you can change the value of the question to pass or fail accordingly:
+'''
+Qualtrics.SurveyEngine.addOnPageSubmit(function() {
+	var isvalid= myComplicatedLogicFunction();
+	
+	if (isvalid) {
+		this.setChoiceValueByRecodeValue(1, true);
+	} else {
+		this.setChoiceValueByRecodeValue(2, true);
+	}
+
+});
+'''
+Note: this code assumes that the recode value for pass is 1 and 2 is fail. If you setup your question in reverse, then you just need to reverse the integers.";1;3;378
+15;"info for survey takers";"https://www.qualtrics.com/support/survey-platform/information-survey-takers/ Qualtrics = survey tool, not liable for issues or compensation for participants. Read message on screen carefully and follow directions. If survey no longer available or ended sooner than expected, you may have been screened out. Contact survey creator if you have questions. Modify answers or contact survey owner if wrong answer entered. Sensitive information warning means survey not recorded yet, click modify answers to edit. Contact survey owner for EX project issues. Contact survey creator first for technical issues. Contact Qualtrics support only for suspected malicious activity (includes phishing, fraud, identity theft, hate speech). Contact company customer service for other issues. Different XM Solutions available for various needs. Custom XM Solutions available for organization needs.";2;NULL;169
+16;"projects overview";"https://www.qualtrics.com/support/survey-platform/my-projects/my-projects-overview/ Projects page: Shows XM projects created/shared, 2 ways to access, sort/filter projects by type. Different project types with unique software strengths. Typical project has survey, distribution record, responses, reports. New projects created on Catalog page. Projects page displays at-a-glance info, project actions dropdown menu. Collaborating: click Collaborate, share with people with proper permissions, determine security level, shared projects folder. XM Solution project types: Experience Design, Employee Journey Analytics, Supply Continuity Pulse, Digital XM Solution for Commerce, EX25, Managing Custom Solutions.";2;NULL;149
+17;"survey basics";"https://www.qualtrics.com/support/survey-platform/survey-module/survey-module-overview/ Create/edit surveys in Qualtrics survey builder -> Open Survey tab from Projects page -> Block-based creation and storage of questions -> Default Question Block -> Block elements: question, instructional text, display logic, and skip logic -> Multiple blocks allow advanced survey flow -> Multiple question types, editing options, and formatting -> Design options, security settings, and logic structures in toolbars -> Preview, publish, search survey functions -> Yellow banner reminder for publishing changes -> Multiple user editing warning banner -> Exceeding 10MB warning banner -> Web accessibility standards warning banner -> XM Solutions for employee journey analytics, supply continuity, and digital commerce.";2;NULL;156
+18;"workflow setup";"https://www.qualtrics.com/support/survey-platform/actions-module/setting-up-actions/ 🔹Workflows trigger tasks based on events
+🔹Events can occur inside or outside Qualtrics
+🔹Workflows can be created in a project or a stand-alone page 
+🔹Conditions and tasks are defined for each workflow 
+🔹Scheduled workflows run on a recurring basis 
+🔹Events-based workflows are triggered by specific Qualtrics events 
+🔹Conditions can be added to events-based workflows 
+🔹Tasks can be added to workflows, including ETL and calculate metric tasks. 
+🔹Templates are available to simplify workflow creation 
+🔹Your workflows can be managed in the Your workflows section 
+🔹Run history shows the status of workflows 
+🔹Revision history tracks changes made to workflows 
+🔹Notifications can be set up for workflow success/failure 
+🔹Sharing and permissions can be managed for workflows";2;NULL;242
+19;"survey response workflow event";"https://www.qualtrics.com/support/survey-platform/actions-module/survey-response-events/ 💼Integrate #Salesforce with #Qualtrics survey response event to automate your lead generation✔️Notify updates via Qualtrics API✔️Conditional statements define trigger for task✔️Based on response data✔️Specify language✔️Explore Qualtrics Solutions #EXSolutions";2;NULL;95
+20;"global workflows";"https://www.qualtrics.com/support/survey-platform/actions-page/actions-in-global-navigation/ Global workflows page: centralized hub to view all workflows' info. Click 'Workflows' on navigation menu. Create non-project workflows by clicking 'Create workflow' on global workflows page. Dashboard shows all account workflows and key metrics. 'Workflows in projects' table for associated workflows. 'Stand-alone workflows' table for non-project workflows with 2 viewing options. Use these tables to edit/view workflow info. For more info, see 'Workflows Basic Overview'. 'Experience Design for Workplaces: Hybrid XM Solution' supports location/flex work policy implementation. 'Microsoft Dynamics task' links Qualtrics survey for response mapping/web to lead capabilities. Customize fields to highlight key info.";2;NULL;182
+21;"ticket event";"https://www.qualtrics.com/support/survey-platform/actions-module/ticket-events/ Ticket events can trigger actions based on ticket activity. You can use conditional statements to filter actions based on criteria. Example: any(condition). Actions can be based on various ticket features. Qualtrics has pre-built XM solutions for different use cases such as hybrid work, employee journey analytics, supply continuity, and digital commerce. EX25 is a pre-built employee engagement program.";2;NULL;103
+22;"survey definition event";"https://www.qualtrics.com/support/survey-platform/actions-page/survey-definition-events/ 📊🔔 Survey Definition Events ⏰🔔: Trigger Workflows based on changes to survey status (published, activated, or closed). Use conditions to customize events based on fields like Experience Design for Workplaces, Employee Journey Analytics, Supply Continuity Pulse, Commerce, and EX25. 🔎🔍Managing Custom Solutions.";2;NULL;102
+23;"servicenow event";"https://www.qualtrics.com/support/survey-platform/actions-page/servicenow-events/ ServiceNow event → begin workflows based on record update/insertion. 
+E.g., IT ticket closed → record update → workflow starts to send feedback survey → employee who filed ticket. 
+
+Permissions required for new ServiceNow event setup. If insufficient, error message → event not created. Permissions for table read/write required. Contact administrator for help. 
+
+Creator of workflow → access to ServiceNow credentials needed for proper run. 
+
+Workflow conditions → based on: 
+
+Additional admins grantable to Qualtrics users. 
+
+Experience Design for Workplaces: Hybrid XM Solution → location/flexible work policies development support. 
+
+Employee Journey Analytics → combine existing employee data from multiple projects into single dataset for analysis. 
+
+Supply Continuity Pulse XM S → validate business continuity/recovery plans, understand risk exposure. 
+
+Digital XM Solution for Commerce → pre-built surveys, intercepts, and dashboards for digital CX program, customer preference/need understanding insights for improved conversion/retention. 
+
+Learn more about Qualtrics.";2;NULL;265
+24;"json event";"https://www.qualtrics.com/support/survey-platform/actions-module/json-events/ Compressing Qualtrics documentation: 
+- 🌐🎟️🎫👨‍💻 JSON events allow external software to trigger Qualtrics workflows via HTTP request. 
+- 🔑 Use X-API-TOKEN header for authentication. 
+- 📄 JSONPath Syntax helps parse data from post body. 
+- 🐶 Freshdesk and ServiceNow events can trigger Qualtrics tasks. 
+- 💻 Microsoft Dynamics and Genesys PureCloud integration. 
+- 🏢😌👨‍💼 Experience Design for Workplaces and Employee Journey Analytics to measure engagement and wellbeing. 
+- 📈📉📊 Supply Continuity Pulse XM Solution for risk exposure analysis. 
+- 💻💸👩‍💻 Digital XM Solution for Commerce improves customer conversion and retention.";2;NULL;220
+25;"salesforce workflow rule event";"https://www.qualtrics.com/support/survey-platform/actions-module/salesforce-workflow-rule-event/ In Workflows tab: Auto-send surveys w/ Flow Conditions in Salesforce → Trigger email invites.
+Choose XM Dir. task to send survey or email task for follow-up.
+See Triggering & Emailing Surveys page for more.";2;NULL;84
+26;"XM directory funnel event";"https://www.qualtrics.com/support/survey-platform/actions-page/xm-directory-funnel-event/ XM Directory Event App -> start workflows based on events in XM Directory: opt in/out, email bounce.
+At least one condition must be added for XM Directory event to trigger.
+Conditions based on specific fields in Respondent Funnel.
+Experience Design for Workplaces: Hybrid XM Solution -> determine location/flexible work policies.
+Employee Journey Analytics -> combine employee data from multiple projects for analysis.
+Supply Continuity Pulse XM Solution -> prepare for supply disruptions.
+Digital XM Solution for Commerce -> pre-built digital CX program.
+EX25 XM Solution -> measure employee sentiment to drive improvement.
+Custom XM Solutions -> made for org needs, locked.
+Qualtrics -> learn more?";2;NULL;186
+27;"experience ID segments event";"https://www.qualtrics.com/support/survey-platform/actions-page/events/experience-id-segments-events/ 👥 Segments ➡️ 🤖 Tasks (📧, 🎫, etc.) ➡️ ⚙️ Workflow ➡️ 📊 Analyze Employee Journey ➡️ 📉 Supply Chain Risk Assessment ➡️ 🛍️ Digital Customer Experience ➡️ 💼 Employee Experience. Manage Custom Solutions. Learn more about Qualtrics.";2;NULL;122
+28;"data set record event";"https://www.qualtrics.com/support/survey-platform/actions-page/events/dataset-record-events/ Data set event: trigger workflow based on changes to dataset. Experience Design for Workplaces: Hybrid XM Solution: support leaders in determining location and work policies. Employee Journey Analytics: combine employee data for analysis. Supply Continuity Pulse XM Solution: validate BCP and understand risk exposure. Digital XM Solution for Commerce: pre-built CX program. EX25 XM Solution: measure employee sentiment.";2;NULL;113
+29;"experience id change event";"https://www.qualtrics.com/support/survey-platform/actions-page/events/experience-id-change-event/ Automatically trigger tasks (e.g. notifications, tickets) for contact and transaction data changes. Setup Experience ID Change Event and configure for data additions, updates, or deletions. Use conditional statements (All/Any) to determine task triggers. Conditions based on contact info. Qualtrics offers XM Solutions for hybrid workplaces, employee journey analytics, supply continuity, and digital commerce. Also offers pre-built EX engagement program and custom solutions. Ready to learn more?";2;NULL;127
+30;"ticket task";"https://www.qualtrics.com/support/survey-platform/actions-module/ticketing/tickets-task/ 🎟️ = assign ownership to task
+👥 = assign to role or individual
+📋 = create/manage tickets
+❓ = add follow-up details
+💬 = add text entry or multiple choice questions
+🗑️ = delete a question
+➕ = add a question
+🔍 = view related responses
+📨 = send email
+📊 = analyze data
+🌐 = Digital XM Solution for Commerce";2;NULL;128
+31;"update ticket task";"https://www.qualtrics.com/support/survey-platform/actions-module/ticketing/update-ticket-task/ Auto-updates for Qualtrics ticket w/ ticket key feature available to admins. Ticket key format: T-1234. Ticket changes recorded in activity. Workflows allow event-based task triggering (e.g. opt-out = ticket creation). Experience Design: Hybrid XM Solution for flexible work policies. Employee Journey Analytics combines data to measure employee experience (engagement, wellbeing, attrition risk).";2;NULL;113
+32;"email task";"https://www.qualtrics.com/support/survey-platform/actions-module/email-task/ Email tasks allow sending email notifications based on Qualtrics events. Most common is for a survey response. Provides summary and PDF export of the response. Customize response report link, set expiration and language. Headers include recipient data, response summary, and embedded data. Troubleshoot with resource links. Use cases: Experience Design for Workplaces, Employee Journey Analytics, Supply Continuity Pulse XM, Digital XM Solution for Commerce, EX25 XM Solution. Ready to learn more?";2;NULL;125
+33;"xm directory task";"https://www.qualtrics.com/support/survey-platform/actions-module/xm-directory-task/ XM Directory task: 
+- Save contact info and transactions to XM Directory
+- Distribute surveys to individuals/lists 
+- Useful for follow-ups/updating contacts
+- Add attributes to XM Directory entries
+- Individual: send to 1 dynamic recipient using piped text 
+- Contact List: send to entire list 
+- Dynamic Contact List: dynamically change contact list 
+- SMS Surveys: invitations, 2-way, update tx data 
+- Use transactional data to retain initial field values";2;NULL;137
+34;"notifications feed task";"https://www.qualtrics.com/support/survey-platform/actions-module/notifications-feed-task/ 📣💻 Qualtrics Notifications: info hub, customizable by survey responses or event behavior.🏢💬 Experience Design for Workplaces: Hybrid XM Solution supports location & flexible work policies.👩‍💼📈 Employee Journey Analytics: combine data from multiple projects, analyze key moments of employee experience.📦🌪️ Supply Continuity Pulse XM: plan for supply disruptions due to remote work forces.🛍️💻 Digital XM Solution for Commerce: pre-built surveys, digital intercepts, and dashboards to improve customer conversion & retention.🧑‍💼📈 EX25 XM Solution: measure employee sentiment for continuous improvement.";2;NULL;182
+35;"single instance incentives";"https://www.qualtrics.com/support/survey-platform/actions-module/single-instance-incentives/ Incentivize respondents with BHN Rewards or Tango Card. Qualtrics-Rybbon integration is available. For guidance, use Solutions or Employee Journey Analytics. Want more?";2;NULL;67
+36;"code task";"https://www.qualtrics.com/support/survey-platform/actions-module/code-task/ Code task + JS → data manipulation, format & calculate → input/output
+Execution limits: max CPU time, max memory usage → failure = check Workflows Reporting
+Best JS practices: quotes around string, follow scope rules, test individually
+Example: multiple/single results (code snippets)
+Use code task + web service task to transform survey response to API-friendly code → API call → human-friendly response
+Example: restaurant finder → fully built URL with parameters (sort_by, location)
+Experience Design for Workplaces: Hybrid XM Solution → support hybrid work policies
+Employee Journey Analytics → combine EX data for analysis
+Supply Continuity Pulse XM Solution → prepare for supply chain disruptions
+Digital XM Solution for Commerce → pre-built digital CX program";2;NULL;186
+37;"extract data from qualtrics file service";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-extractor-tasks/extract-data-from-qualtrics-file-service-task/ Use Qualtrics File Service API (IT/Engineering Team integration), follow support page instructions for unique HTTPS call. To extract data consider; XM Directory Best Practices, Text iQ-Powered Survey Flows, Experience Design for Workplaces, and Employee Journey Analytics. Qualtrics complies with data privacy laws. More? ⬇️";2;NULL;124
+38;"extract data from sftp files task";"https://www.qualtrics.com/support/survey-platform/actions-page/extract-data-from-sftp-files-task/ Extract data from SFTP files = import data from SFTP server.
+Combine with Load data to XM Directory task.
+Connect SFTP account before use.
+2 authentication options.
+Brand admin or personal use.
+Possible pickup directories.
+Wrong delimiter = 1 column import.
+Example files for data import.
+XM Directory = customer database for personalized experiences.
+Experience Design for Workplaces = hybrid work solutions for leaders.
+Employee Journey Analytics = combine employee data for analysis.
+Supply Continuity Pulse = risk assessments for supply disruptions.
+Digital XM Solution for Commerce = pre-built CX program.
+EX25 XM Solution = employee engagement program.
+Ready to learn more about Qualtrics?";2;NULL;189
+39;"extract data from salesforce task";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-extractor-tasks/extract-data-from-salesforce-task/ Extract data from Salesforce task 📊
+• Imports Salesforce data to Qualtrics
+• Use a data loader task to save data 🔖
+• Two versions: production and sandbox
+• Check reporting & history for errors 🔄
+
+Experience Design for Workplaces: Hybrid XM Solution 🤝
+• Helps develop location and flexible work policies
+• Understands hybrid employee preferences 🙋‍♂️
+
+Employee Journey Analytics 🏃‍♂️
+• Combines employee data from multiple projects
+• Analyzes employee experience for engagement and wellbeing
+
+Supply Continuity Pulse XM Solution 💼
+• Helps prepare for supply disruptions
+• Validates business continuity plans and measures risk exposure 📉 
+
+Digital XM Solution for Commerce 🛍️
+• Launches a digital CX program 
+• Uses customer insights for conversion and retention 🕵️‍♀️ 
+
+EX25 XM Solution 📆
+• Measures employee sentiment and feedback 
+• Drives action and improvement across employee experience 🚀 
+
+Managing Custom Solutions 🔨
+• Guides project creation 
+• Custom XM Solutions meet organization's needs.";2;NULL;308
+40;"extract data from google drive task";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-extractor-tasks/extract-data-from-google-drive-task/ Qualtrics ↔️ Google Drive import for XM Directory, employees & CX Dashboard. Connect account before use. Admins add for users (see permissions). Add for personal use by following steps, set conditions based on extracted data (e.g. # of rows). Export 💻 raw data from conjoint analysis in Reports tab. Digital XM Solutions for Commerce, Workplaces, EX25, Supply Continuity Pulse. Employee Journey Analytics: combine employee data into single dataset.";2;NULL;149
+41;"import salesforce report data task";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-extractor-tasks/import-salesforce-report-data-task/ Import Salesforce Report data -> import data from Salesforce -> use data loader task to save on platform.Exporting & Importing Conjoints -> export explicit design -> platformExperience Design for Workplaces -> Hybrid XM Solution -> support leaders in developing location / flexible work policies.Employee Journey Analytics -> combine EX data into single dataset -> analyze -> investigate business questionsSupply Continuity Pulse XM Solution -> help businesses prepare for supply disruptionsDigital XM Solution for Commerce -> pre-built surveys, intercepts, and dashboards for launching digital CX.EX25 XM Solution -> holistic measure of employee feedback to drive improvement. Ready to learn more?";2;NULL;179
+42;"extract response from a survey task";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-extractor-tasks/extract-responses-from-a-survey-task/ Create automatic workflow for Qualtrics data -> ETL task "Extract responses from survey"" to specify destination -> add data upload task (e.g. to SFTP) -> see Available Loader Tasks for options -> edit survey in Survey tab -> configure Conjoint Queries -> use Topics in Text iQ for tagging feedback -> Employee Journey Analytics for EX programs -> Supply Continuity Pulse for BCP validation. Check out EX25 XM Solution for employee feedback."";2;NULL;145
+45;"Map data imported into Qualtrics to your XM Directory";" including transactional data. Use UTC dates or include time zone. Manually map or upload a CSV/TSV file for values. Retain accurate contact info for effective customer targeting. XM Directory contains customer and prospect profiles for personalized experiences at scale. Conjoint analysis set-up is important for accurate question presentation. Edit survey look and behavior. Experience Design for Workplaces supports hybrid work models. #Qualtrics"";2;NULL;85
+46;"load users into ex directory";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-loader-tasks/load-users-into-ex-directory-task/ Load Users into EX Directory task 📁 - save employee data to Qualtrics directory. Require data extractor task. Extract Employee Data from SuccessFactors task 🤖 - export employee data from SuccessFactors. Import data to Qualtrics and use data loader task (load users into EX directory task). User, Group and Division Permissions 🔑. Best Practices for XM Directories 📈 - keep contact data up-to-date for personalized experiences. Experience Design for Workplaces 🏢 - support hybrid models. Employee Journey Analytics 📊 - combine employee data from multiple projects to understand engagement, wellbeing, attrition risks, etc.";2;NULL;182
+47;"load users into cx directory";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-loader-tasks/load-users-into-cx-directory-task/ 🔄💾💼 = 🆕🧑‍💼 💾 to 👥 in 🆔. 💼↪️💾📤 1⃣st. 👥📥2⃣👈🆕 🔍🧑‍💼=💾. 👨‍💼✅🔍🧑‍💼📥=💾🌐. Common 🆘: ⚠️🧑‍💼💼🆕. Want to learn more? 🔜Qualtrics!";2;NULL;194
+48;"load into a data project";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-loader-tasks/load-into-a-data-project-task/ "Load data extractor output into Qualtrics project to analyze with Stats iQ or dashboard. Keep customer data up-to-date with XM Directory. Hybrid XM for workplace location policies. Employee Journey Analytics combines EX data for insights. Supply Continuity Pulse validates BCP and risk exposure. Digital XM Solution improves customer experience. EX25 XM measures employee sentiment for improvement. Want more on Qualtrics?"""";2;NULL;134
+49;"load into a data set task";"https://www.qualtrics.com/support/survey-platform/actions-page/etl-workflows/data-loader-tasks/load-into-a-data-set-task/ Load into Data Set: Import previously imported data and save into Qualtrics. Use to add/update records. Can merge with existing datasets.
+
+Customer Care: Load data from third-party sources. Fields required.
+
+Custom: Define own data schema. Choose file or add manually.
+
+Best Practices: XM Directory has rich customer/prospect profiles. Keep contact data updated for correct targeting.
+
+Building Surveys: Conjoint/MaxDiff questions set up. Edit survey in Survey tab. Determine behavior/theme.
+
+Experience Design for Workplaces: Helps with location and flexible work policies. Understand what employees want.
+
+Employee Journey Analytics: Combine employee data from multiple projects into one dataset. Analyze to understand employee experience.
+
+Supply Continuity Pulse: Helps prepare for supply disruptions due to remote/furloughed workforces. Validate BCP.";2;NULL;234
+51;"text iq";"https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/text-iq/text-iq-functionality/ 📊Text iQ: Qualtrics' data analytics tool for text. Upload feedback for analysis, use sentiment analysis, and view dynamic widgets. Edit topics & sentiment, apply changes, and review. Lemmatization & spellcheck help with responses. Dataset updates may take up to 48 hrs. Topics are useful for tagging feedback. Best practices for text analysis. #Qualtrics #TextIQ";2;NULL;119
+52;"text iq topics";"https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/text-iq/topics-in-text-iq/ 🔍 Topics=tag text feedback, 🔍Search=create auto-topics, 🤖Logical strings=exact/lemmatization, 🔍Related Terms=suggested, 🗑️Delete=entire hierarchy/selected topics, 🌳Hierarchy=up to 5 levels, 🔍Inheritance=query logic, 📤Export=JSON file, 📥Import=from starter pack/experts, 👨‍💼XM Solutions=Experience Design/Hybrid Workplaces, Employee Journey Analytics, Supply Continuity Pulse.";2;NULL;164
+53;"sentiment analysis";"https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/text-iq/sentiment-analysis/ Qualtrics sentiment analysis assigns sentiment labels (Very Negative, Negative, Neutral, Positive, Very Positive or Mixed) and scores (Sentiment-Score) based on user feedback. Sentiment is influenced by the question text. The accuracy improves as users correct mistakes and Sensitivity includes question text. Topic Sentiment allows filtering by sentiment label and score and are included in exports. New versions of the model will not update old data. Qualtrics' cross-lingual transformer model optimizes 16 languages. Experience Design for Workplaces supports remote work analysis, and Employee Journey Analytics can combine employee data.";2;NULL;154
+54;"text iq widgets";"the support documentation for text iq widgets is at: https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/text-iq/widgets-in-text-iq/ Widgets in Text iQ help visualize sentiment breakdown of topics. Bubble widgets show sentiment types, and parent topics appear as bubbles. Topic and sentiment change widgets compare data over time. Topic coverage change shows percentage of comments covered by topics. Word Clouds list 50 most-used words, with size indicating frequency. Other widgets include Experience Design for Workplaces, Employee Journey Analytics, Supply Continuity Pulse, and Digital XM Solution for Commerce.";2;NULL;136
+55;"text iq in cx dashboards";"https://www.qualtrics.com/support/vocalize/dashboard-settings-cx/text-analysis-cx/ 📊 Dashboard 💬 Text iQ 👥 CX, brand and pulse dashboards, not available in other EmployeeXM dashboards ⚙️ 2 ways to find: settings page or Text iQ button 📝 Ensure correct mapping of text entry questions to Open Text 📈 Text analysis automatically mapped onto dashboard fields: Topics and Sentiment 🎨 Rename fields as needed, can't delete or change mapping 📊 Use widgets specifically for text analysis in CX Dashboards 📑 Each sentiment assigned a score by Text iQ model 📚 Links for step-by-step instructions in Survey Platform";2;NULL;161
+56;"creating a website & app feedback project";"https://www.qualtrics.com/support/website-app-feedback/creating-website-app-feedback-project/ 🌐&📱💬 = 🆕👀💡
+🎨 = 👀📏🌞🌟📌
+🚨❗️🚨 = 🌐&📱👉📝💭
+🆔 = 🎨 & 🚨❗️🚨
+👉📝💭 = 🤔🔎💼💻 
+👩‍💻👨‍💻 = ❌ 🆕🆔📤.
+🚀🔜 = 🆕👀💬➡️🤔💭.
+💡👀=📏🌞🌟📌 OR 📱📏🌞🌟📌.
+🆓💻📱 = 🤚💬, ℹ️, 📣 & 🆎.";2;NULL;260
+57;"building a creative";"https://www.qualtrics.com/support/website-app-feedback/getting-started-with-website-app-feedback/step-3-building-your-creative/ 💭Think visual for creatives!✍️Choose creative type: Feedback buttons 📊👍or sliders 🎚️👎 Customize in Edit: Design, Options, and Preview. 🌐Publish once ready. Other Qualtrics tools: Experience Design for Workplaces 🏢, Employee Journey Analytics 🚶‍♀️🚶‍♂️, Supply Continuity Pulse 🚚💼, Digital XM Solution for Commerce 💻, EX25 XM Solution 🤝";2;NULL;161
+58;"intercept setup";"https://www.qualtrics.com/support/website-app-feedback/getting-started-with-website-app-feedback/step-4-setting-up-your-intercept/ To create an intercept: choose creative, select target URL, define logic, add action sets, and use intercept options. Consider organizing by website section. Use XM Directory for specific segment targeting. Action set options impact intercept. A/B testing compares design versions. Edit components after deployment.";2;NULL;105
+59;"website app feedback technical documentation";"https://www.qualtrics.com/support/website-app-feedback/getting-started-with-website-app-feedback/website-app-feedback-technical-documentation/ Qualtrics Website/App Feedback feature allows website owners to gather feedback from visitors using surveys. Tip: Allowlist *qualtrics.com in your Content Security Policy to ensure functionality. Deployment code is asynchronous, dynamic, and can be added to a Tag Management system. Use Global Header/Footer to apply the code to an entire site. Use Current URL logic to control which pages an intercept appears on. Qualtrics offers Guided Solutions, such as the Experience Design for Workplaces and Supply Continuity Pulse XM Solutions, to help with employee engagement and supply chain management respectively. EX25 XM Solution for measuring employee sentiment is also available.";2;NULL;180
+60;"xm directory";"https://www.qualtrics.com/support/iq-directory/getting-started-iq-directory/getting-started-with-iq-directory/ XM Directory: Build in-house panel with customer profiles 🤝 View contacts' touchpoints 📊 Create & update contact info in central database 📝 Send surveys to mailing lists or segments 📨 Prevent duplicates and opt-outs 🚫 Limit contact frequency 🕒 Get started in global navigation 🌍 Glossary: Step /2 💬";2;NULL;111
+61;"distributing to contacts in xm directory";"https://www.qualtrics.com/support/iq-directory/getting-started-iq-directory/first-distribution-xm-directory/step-2-distributing-to-contacts-in-xm-directory/ Create and send survey invites through XM Directory - Distributions tab - Create distribution - choose link type - customize email, send test, view statistics, actions (view, delete, CSV download, reminder/thank you email) - SMS/WhatsApp distributions - Web and app intercepts - XM Directory for personalized experiences through Segments, Journeys, Dashboards - ensure contact data is up-to-date - configure Conjoint analysis features and levels, exclusions, question format.";2;NULL;154
+62;"directory maintenance and organization tips";"https://www.qualtrics.com/support/iq-directory/getting-started-iq-directory/xm-directory-maintenance-organization-tips/ Brand & directory admins can use features to organize & manage directory access, allowing for segmentation & different settings. Roles control access, contact frequency rules prevent fatigue, merging duplicates cleans up the directory, removing unused contacts keeps it running smoothly. XM Solutions support hybrid work policies, combine employee data, validate BCPs, launch digital CX programs, and measure employee sentiment for continuous improvement.";2;NULL;117
+63;"finding qualtrics ids";"https://www.qualtrics.com/support/integrations/api-integration/finding-qualtrics-ids/ API requests need parameters (IDs). Most can be found in Qualtrics IDs tab. Some require Inspect Element. Here are common IDs: Org ID, survey ID, datacenter ID, PoolID. Also, Qualtrics offers many XM solutions, like Employee Journey Analytics and Supply Continuity Pulse. Custom and premade surveys available.";2;NULL;99
+64;"api documentation";"https://www.qualtrics.com/support/integrations/api-integration/using-qualtrics-api-documentation/ Qualtrics API Doc: API overview; pagination; IP allowlist; datacenter ID; IDs localization; auth; passing params; HTTP response codes; code snippets for workflows; reference for limits, subscriptions; requests categorized; tables with params and response; "Try It Out"" wizard; examples of successful responses. XM Solutions: Employee Journey Analytics; Supply Continuity Pulse; Digital XM Solution for Commerce; EX25 XM; Custom Solutions. 😎👉📝💻🔍👥💬📊👨‍💻"";2;NULL;154
+65;"Historical Data Imports";"Survey data from non-Qualtrics sources can be added to Qualtrics via the use of a Shell Survey. A Shell Survey is simply a survey project without any questions where all of the responses are imported, and all of the fields are embedded fields. The instructions to set this up are:
+1. First you will need to create a CSV file with UTF-8 encoding containing your historical data. Headers must be unique, as well. This file will be required to create the historical data shell survey.
+2. First create a new survey project. It is best practice to include the word "shell" somewhere in the name to indicate that this is not an active survey project being sent to users.
+3. The first question in this new survey will be set to a multiple choice question. It's best practice to change this to a rich text question, and make a more detailed note here explaining that this survey holds historical data, and any other details other users may need to comprehend the data contained therein.
+4. Go to the survey flow, add an embedded data object to the flow and declare empty embedded data fields for each of your headers. It's best practice to copy the headers from the input file to prevent confusion, but it is possible to call the column something different within Qualtrics. Apply the changes once all fields are entered.
+5. Navigate to the Data & Analysis tab. Click the "import/export" button, and choose to import responses. Select your CSV UTF-8 file that you created in step 1; In the data mapping interface that is presented, map the columns to the embedded data fields that were created in the previous step. NOTE: If you plan to repeat this process you can export a mapping file that can automate this mapping step in the future. Use the import options to find these import/export options.
+
+After this import is complete the survey can be imported into dashboards and the historical data can be used in future reports!";1;3;405
+67;"Surgery and Imaging Discount Program – KISx";"The Walker Benefits Guide introduces the "KISx Card," a surgery and imaging program offered by employers for the most common surgical and imaging procedures. This includes Orthopedic and General Surgery, Colonoscopies, MRIs, CT scans, and PET scans.
+
+Key Features of the KISx Card:
+
+No Cost Procedures: Utilizing the KISx Card means patients will not bear any out-of-pocket expenses for the covered procedures.
+Assistance in Finding Facilities: The KISx Card Nurse assists in locating the right facility for procedures.
+Scheduling Aid: The KISx Card Nurse aids in scheduling the procedure and provides a voucher for the initial consultation.
+Post-Procedure Follow-Up: After undergoing a procedure with a KISx Card Provider, the KISx Card Nurse conducts a follow-up to ensure a full recovery.
+Contact Information:
+
+General Contact: (800)435-5694, memberadvocacy@pbaclaims.com.
+KISx Card Nurse: Phone: 877-GET-KISX, Email: info@getKISx.com.
+Additional Details:
+
+Patients are urged to download the Spruce Health App (link) for push notifications and communication.
+For those with HSA Plans, first-dollar coverage is required from the patient before the procedure, up to the IRS Minimum. Afterward, program incentives are received.
+The guide emphasizes the benefits of the KISx Card in ensuring hassle-free, cost-effective procedures and a commitment to patient health and recovery.
+
+Medical insurance is through PBA.
+More information in the benefit guide pages 12-14 and found here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;371
+68;"Parental Leave";"In support of all growing Walker families, the following parental leave will be provided for the birth or adoption of a child. A total of 12 weeks is allowed under FMLA.
+Mother/Father Bonding Time for birth or adoption of child/children is up to 4 weeks time and Birth Mother recovery time is up to 4 weeks time under the Parental Leave policy. This is covered in full by Walker and you use the time entry code ZNC-15 - Paid Parental Leave in SAP. 
+Under FMLA you have a total of 12 weeks time off so after the parental leave time is used you can use your QTO bank. After utilizing all of that time, you can use your current bank of PTO and if needed go unpaid after that. 
+To use Parental Leave or QTO you must complete FMLA paperwork. This can be found at: J:\Shared\human resources\Benefits\FMLA\FMLA Request for Leave Forms. Forms are to be turned in to Human Resources. Set up a meeting with HR to discuss what needs to be completed before going on Parental Leave. ";4;5;229
+69;"customer journey mapping";"Customer journey mapping is best done with multiple stakeholders in an expensive workshop.  Bayer's customer experience department leveraged Walker's services for journey mapping and they said, "Walker has such great expertise and made the whole process very easy and smooth."
+
+Link to blog article:  https://cxleaderpodcast.com/the-human-digital-balance/";3;3;73
+72;"unipolar vs bipolar scale";"Short Answer – For most cases, we prefer to use unipolar scales over bipolar.  Our usual experience rating scale naturally follows this format.  Bipolar scales are susceptible to positivity bias, gravitation towards positive sounding answers due to social norms, thus restricting data distribution.  Supporting articles and details in resources.  Overall, the distributions are not the same so they are not comparable if considering changing an existing metric.  Changing from one to the other would break any sense of trending.
+
+Resources – 
+
+Sauro, J. (2019). “Five Scales to Measure Customer Satisfaction”.  Measuring U.  Link: https://measuringu.com/csat-scales/  
+
+Hohne, J.K., Krebs, D., & Kuhnel, S.M.  (2022).  “Measuring Income (In)equality: Comparing Survey Questions With Unipolar and Bipolar Scales in a Probability-Based Online Panel”.  Social Science Computer Review 2022, Vol. 40(1) 108–123. Doi: https://doi.org/10.1177/0894439320902461 
+
+Bipolar agreement likert scales lead to more positive agreement than unipolar.  Specifically increasing responses for the ‘Somewhat agree’ category.  Suggests people may be averse to being overly negative/critical or ambivalent (‘Neither’) in their responses. 
+
+Found that unipolar leads to more responses in the middle (‘Moderate x’) area of the scale, decreasing the positivity bias. 
+
+Found that The latent constructs for Unipolar and Bipolar answer sets (for the same question) are NOT comparable.  Caution – changing will invalidate trending/historical comparisons. 
+
+Found that The semantic distance between answer choices is more equidistant for Unipolar scales than for Bipolar. Indicates that the Unipolar scale is more reliably continuous.  Suggests that for Bipolar, the distances between scale points are different between the positive side and negative side. 
+
+Schaeffer N.C & Dykema, J. (2020). “Advances in the Science of Asking Questions”. Annual Review of Sociology, 46: 10.1-10.24, doi: https://doi.org/10.1146/annurev-soc-121919- 054544 
+
+Sturgis, P., Roberts, C., & Smith, P. (2012). “Middle Alternatives Revisited: How the neither/nor Response Acts as a Way of Saying ‘I Don’t Know’?”. Sociological Methods & Research, vol. 43 (1). doi: https://doi.org/10.1177/0049124112452527 
+
+Full text at https://eprints.soton.ac.uk/197457/1/SMRrevised4.pdf 
+
+Lam, T.C.M. & Green, K.E. “Likert Scale: Misuse of Mid-Point Anchor”. doi: http://scholar.googleusercontent.com/scholar?q=cache:QF2TL1BCq9EJ:scholar.google.com/+interpretation+of+bipolar+rating+scale+mid-point&hl=en&as_sdt=0,15 
+
+Nadler, J.T., Weston, R., & Voyles, E.C. (2015). “Stuck in the Middle: The Use and Interpretation of Mid-Points in Items on Questionnaires”. The Journal of General Psychology, vol. 142 (2), p.71-89. doi: https://doi.org/10.1080/00221309.2014.994590 ";3;4;835
+73;"Bereavement (Funeral) leave ";"In the event of the death of an immediate family member, a full time or part-time 30+ associate will be provided with up to three days of paid leave. Part-time 20 and interns may take time off without pay. For purposes of this plan, an immediate family member is defined as follows: Spouse, Step-sibling, Child, Step-child, Parent, Grandparent, Step-parent, Grandchild, Sibling, Member of Household.
+In the event of the death of a non-immediate family member, a full time or part-time 30+ associate will be provided with up to one day of paid leave. Part-time 20 and interns may take time off without pay. For purposes of this policy, a non-immediate family member is defined as follows:Parent-in-law, Nephew, Daughter-in-law, Niece, Son-in-law, Aunt, Sister-in-law, Uncle, Brother-in-law, Cousin, Grandparent-in-law
+Great Grandparent.
+Should time off in addition to funeral leave be necessary, it may be requested as QTO (up to 5 days), PTO, or authorized non-paid time off.To attend the funeral of an individual with a relationship not defined above, an associate may access his or her own PTO or Qualified Time Off bank as available.
+To use Funeral Leave or QTO for time missed during funeral leave, a funeral program, obituary, or other similar documentation is required. This should be turned in to Human Resources. If this information is not easily obtained, an associate may contact Human Resources for assistance in securing the requested information. Use the time entry code ZNC-11 Funeral Leave and if using QTO for funeral leave use the time entry code ZNC-9 in SAP.";4;3;381
+74;"Walker blog article on improve digital experience for value and ROI";"Blog article:  How individuals interact with your digital properties – your websites, mobile websites, mobile applications – is what we call digital experience.
+
+Link:  https://walkerinfo.com/digital-interactions-achieving-the-ideal-human-digital-balance-for-serving-your-customers/
+
+The most basic objective of any digital strategy is to create digital interactions that adjust and adapt to customer needs and intent in real time – they serve up the right content to the right customers at the right time on the right device to ensure they can effortlessly and effectively achieve their objectives.
+
+A well-constructed digital channel benefits your company and your customers by providing a proactive, tailored experience that effortlessly guides customers through their journey in a manner that delivers the brand experiences and emotional connections your company intends.
+
+A changed world
+It doesn’t take a rocket scientist to see or understand that the pandemic changed the world and really accelerated the digital transformation.
+
+Overnight, we learned how to work remotely through digital channels. We learned how to buy our groceries online. We learned how to do yoga courses online. All of the things that we were doing in person before the pandemic now had a digital spin. It’s something that is here and it’s not going away.
+
+Recent studies from the XM Institute indicate that people do not expect to do any less of what they’re doing online than they are today. They actually expect in the future to be doing even more online. We call this digital momentum, and it ultimately is the idea that not only are we going to be doing stuff online, but we’re going to be doing more stuff online in the future.
+
+The Human/Digital Balance
+Listen to Walker expert Elliott Moran discuss the importance of balancing human and digital interactions.
+
+The Human/Digital Balance
+THE CX LEADER PODCAST WITH STEVE WALKER
+The Human/Digital BalanceReleased: October 18, 2022
+What is digital customer experience management?
+Digital customer experience management involves listening to customer perceptions about their digital experiences and analyzing their sentiment, intentions, and actual website usage data. These data allow you to understand what customers are trying to accomplish, what feels broken or is getting in the way, and where improvements need to be made.
+
+With this approach we are engaging with customers in real time, while they’re performing the actions necessary to achieve the objective of their visit. We can learn a lot about customers by asking questions at the appropriate time, but we can also make use of the data they supply in their interactions – called “zero-party data.” These are data associated with the individual that they are freely offering to the business as they pursue the objective of their visit. Customers are willing to share this information because they want and expect companies to deliver a seamless, personalized experience.
+
+Digital Experience Metrics
+Three metrics have emerged as the primary Key Performance Indicators for digital interactions.
+
+Success: Was the customer able to accomplish what they came to do?
+Effort: How easy or difficult was it to accomplish their task?
+Emotion: How did it make them feel?
+All these data sources – customer sentiment, user intention, digital activity, zero-party data, etc. – allow companies to understand the needs, emotions, and behaviors of their customers in deep and new ways, but only if the company makes full use of them, and that requires a focused, resourced, and mature experience management team.
+
+How to get that digital momentum going?
+To start or build momentum for your digital experience management, it’s important to start with an objective in mind. What are you seeking to solve for? That answer is going to be different depending on who you speak to within the organization. Seek out your key users, think about how they understand the business, and talk to them in their language.
+
+You might talk to an IT director who just wants to understand what customers think about their page load speed so they know whether to budget more for server space. You might talk to a marketer who wants to know which buttons are actually creating enhanced calls to action. Your contact center leader might want to understand how to effectively deflect more calls to digital channels. Working with a number of stakeholders at the organization will help you get a clear understanding of all the things you could learn through digital listening.
+
+And then what’s the path to make that happen? At Walker, we use a three-phased approach. We typically start with a “track and diagnose” phase where we stand up some intercepts on your website and determine the most common or problematic journeys. We essentially identify what we need to fix within this digital property.
+
+Then we pivot to something called a journey-based deep dive. Now that we understand which are the common and problematic journeys, how do we fix them? We send out very targeted, specific, quick-hit surveys with two to five questions to identify the action steps and how we actually go about fixing a certain digital journey. For example: Why did you abandon your cart? What was most difficult about signing up for our newsletter?
+
+Since the digital experience is monitored in real time, negative experiences can be stopped in their tracks.
+
+For example, we can look at dwell time and trigger an intercept after someone’s been looking for a long time at how to go about solving their issue. And we can serve a piece of content that says, “Do you need more help?” We’re taking an inferred signal to help support that experience in real time. That can be done in any number of different ways: product, product delivery, or service and support delivery.
+
+The third phase as an organization matures is to move into what we call the activate and transform phase. We’re already delivering the information we gather through our listening posts to our dev teams to improve the experience itself. But how can we take that a step deeper by integrating some of this zero-party data and actually help? This is where we start thinking about how to personalize this experience and serve content that gets them to a service channel, support channel, a different kind of product, or a recommender. It’s about creating a multi-path set of interactions that guides customers to where both parties (the customer and the company) want the journey to go. It really is the next step in the final evolution of the digital customer experience journey.
+
+ROI of digital interactions
+Improving and expanding your digital channel has a strong positive impact on company performance. Self-service is key to cost reduction, and digital channels are highly optimized for it, but it’s critical to maintain optimal experiences when shifting customers to self-service. Digital listening can ensure you are maintaining customer satisfaction.
+
+Research by the XM Institute has shown that digital experience gaps cost companies an average 8% loss in revenue across industries. This gap is closed by improving customer emotions, ease, and success – three things that a great digital channel can deliver – which has a big impact on customer spend. Extremely satisfied customers spend 37% more. Customers who have an easy experience spend 23% more.
+
+Developing and executing a strong digital strategy that is focused on creating emotional connections and effortless experiences will be substantially more beneficial to your company than just focusing on the cost savings of the digital channel.
+
+Conclusion
+The value of digital customer experience listening is that it allows us to capture massive sums of data while the interaction is happening  – and that data lets us get to know the person on the other side of the screen and connect with them.
+
+You’re not just asking how a transaction went. You also have all of the connected information, the operational data that’s occurring in real time. This allows us to connect this information across the enterprise and personalize the experience, creating those positive and emotive experiences that produce loyalty outcomes and ultimately drive revenue and business objectives.";3;4;1657
+75;"Walker blog article on website digital experience focus areas to create value";"Blog article:  Digital Customer Experience Strategy: 6 Key Areas to Focus your Efforts
+POSTED ON DECEMBER 29, 2021 - DIGITAL EXPERIENCE
+
+Link to article:  https://walkerinfo.com/digital-customer-experience-strategy/
+
+The presence and power of the digital experience are undeniable. Consumers have come to expect the simplified experience of the one-click digital transaction.
+
+
+What’s the difference between DX and DCX?
+Digital Experience (DX) refers to a wide range of individual digital touchpoints or interactions. DX is commonly the domain of user experience (UX) professionals, who strive to optimize every digital interaction with customers.
+
+Digital Customer Experience (DCX) refers to customers’ overall experience interacting with all your digital channels to access data, request help, purchase items, check status, and much more. While DX is concentrated on individual interactions, DCX is focused on the collective experience of all digital touchpoints – the holistic journey your customers experience.
+
+What does it mean for CX leaders? Now more than ever, customer experience leaders must monitor and assess the overall digital customer experience to ensure it meets the demands of their customers. What’s more, they must work side by side with UX professionals to ensure the consistent quality of each digital interaction.
+
+The Value of Digital CX
+Digital CX helps you better understand the “why” behind customer behavior at the moments that matter to both your customers and your business and respond quickly to drive improvements.
+
+At organizations with higher levels of CX maturity, CX professionals become key influencers in digital transformation. Using relevant customer insights, CX can help companies evaluate where digital experiences should be integrated in the customer journey to improve the experience and help meet company goals.
+
+Not every experience should be handled digitally. Armed with customer insights, CX can work alongside digital and customer experience teams to find the human-digital, online-offline balance that leads to better, easier, and more seamless customer experiences.
+
+Some customers value the speed and ease of digital ordering and only need an account manager for complex orders. Digital takes some of the pressure off front-line employees when the digital path is carefully thought out, plotted, and programmed.
+
+Making Digital Customer Experiences Work
+Now more than ever, customer loyalty depends on a company’s ability to design emotionally engaging digital interactions. For companies to start improving their digital experiences, they must develop Digital CX capabilities. DCX helps companies better understand the “why” behind customer behavior at the moments that matter to customers and the business. This enables companies to respond quickly to drive improvements. As a Digital CX listening program is developed, CX professionals and teams play an important role by monitoring and validating digital implementation with customer listening.
+
+Compare digital and human touchpoints.
+Deploy CX listening around key digital touchpoints and their in-person counterpart touchpoints to compare and contrast the experiences. For example, measure the experiences customers are having with all support channels, not just the call center experience. This allows businesses to understand the circumstances in which each channel provides the best experience for customers.
+
+Keep listening and monitoring.
+Work with the digital team to continue listening and measuring after implementing a new or updated digital interaction to ensure it has a positive impact and meets customer expectations. At a minimum, companies should have an always-on, passive feedback mechanism on their website so customers can provide comments. The ideal scenario, however, is to actively seek targeted input from customers on new features or changes to the digital touchpoint.
+
+Assess and assign experiences.
+In consultation with the company’s digital team, evaluate and determine the experiences that can be digitized and made easier and which ones are more complex and require human interaction and expertise. Relationship and baseline surveys can help with this. Journey mapping can uncover pain points; then determine whether they can be effectively digitized to benefit the customer.
+
+To assess and assign the experiences that can be effectively moved to digital and those that should remain governed by human interaction, companies will need:
+
+A map of the customer journey with an explicit digital path.
+Insight from customers on the interactions and touchpoints they find difficult or time consuming.
+Deep-dive insights and a thorough understanding of the circumstances under which troublesome interactions can and should be moved to a digital channel. For example, complex or high-value support cases should go directly to escalation teams, while basic cases like billing requests could be handled digitally.
+Foster ongoing collaboration with digital teams.
+Designate a CX team member to work with the company’s digital transformation team and ensure a representative from the digital team sits on the CX team. The value the CX team brings is the voice of the customer— integrating customer feedback and insights into the digital transformation in a broad, systematic, and ongoing fashion. When CX and digital transformation teams collaborate, there’s a better chance the customer perspective will influence digital design and drive ongoing iterations to make the company’s digital experience the best it can be.
+
+
+
+7 primary use cases of digital customer experience technology
+Overall Site Experience
+This is a gauge of the customer’s overall experience across your website. Customers visit your site for a reason – and the first question of an overall site experience survey usually asks, “What was the primary purpose of your visit to walkerinfo.com today?”
+
+Common primary purposes customers visit a website to complete are:
+
+Make a purchase
+Make a payment
+Get support
+Research or browse
+Manage their account
+Each of these purposes has a separate journey associated with it – customers are looking for different information/options, and they will see different parts of the site based on their reason for visiting.
+
+The key indicators of a good overall site experience are:
+
+Task completion. No matter which journey customers take, they went to your site to get something done. Ask whether your customers were able to complete their task successfully.
+Ease of use. How difficult of a time did the customer have navigating the site and finding information?
+Satisfaction. How satisfied is the customer with the site overall?
+Additional questions may be asked to drill down into what influenced the score customers gave their digital experience on your site and their likelihood to return.
+
+The overall site experience survey uses a combination of the responsive dialog and pop-under creatives.
+
+Persistent Feedback
+Persistent feedback is “always-on” – the option to provide feedback on the digital customer experience is available any time the customer would like to use it. This option is meant for customers to self-report problems they see on the website. It’s a way to determine which pages or journeys are working well and which need attention. As such, the option to provide this feedback should be built into every page of your site.
+
+The first question on the persistent feedback survey should ask why the customer wants to provide feedback. The survey will branch based on whether the customer wants to give website feedback or report an issue. If the company has a customer service department, contacting it may be an option. The “other” option should also be offered so customers can report something else.
+
+Customers usually use the persistent feedback button when they have a problem with a journey point. For example, a coupon code may not be working, or their shopping cart may not be updating, a product may not be available, or the customer may have trouble checking out. A simplified version of the overall site experience survey may follow.
+
+The persistent feedback option frequently looks like a tab on the side of the site or a text link in the site’s footer. On a mobile site, it may be a moving tab or in the site’s main menu.
+
+
+Embedded Feedback
+Embedded feedback is a quick and simple way of gauging whether a piece of content was helpful or not.
+
+It’s frequently displayed as a two-point rating scale of yes/no or thumbs-up/thumbs-down. Sometimes a 5-point scale of stars or emojis is used. An open-ended question can help to clarify the reason behind negative digital experiences.
+
+This survey is embedded in the text next to the content it’s referencing.
+
+
+
+Site Abandonment
+This form of digital customer experience survey tries to measure why customers leave your website. Gauging whether a customer is abandoning a site can be difficult. The survey is frequently triggered when the customer’s cursor goes up to the top of the browser window; however, the customer may simply be using a back arrow or opening a new tab.
+
+The main questions on a site abandonment survey are whether customers could complete their primary purpose for visiting the site and why they’re leaving.
+
+In general, abandonment popups are overused on websites, so avoid annoying your customers by overusing this approach. When it is used, it’s frequently an information bar (shown) or a pop-up.
+
+
+Cart Abandonment
+When customers have added items to their cart and appear to be leaving the website without checking out, the cart abandonment survey pops up. It may also be used when a customer goes to fill out a form and abandons it.
+
+Since judging when customers are leaving the site is difficult, this survey gives customers the option to give feedback immediately or later; if they choose the “later’ option, a pop-under appears for completion after the custome";3;4;1979
+76;"Walker podcast on digital experience and using data";"URL:  https://cxleaderpodcast.com/the-human-digital-balance/
+The CX Leader Podcast:  "The Human/Digital Balance"
+DIGITAL MOMENTUM
+All of the things that we were doing in person before the pandemic now had a digital and digital spin to it. And so it’s something that is here and it’s not going away. And some studies that the XM Institute has recently put out actually indicate that people do not expect to do any less of what they’re doing online than they are today. They actually expect in future to be doing even more online. We call this digital momentum, and it ultimately is the idea that not only are we going to be doing stuff online, but we’re going to be doing more stuff online in future, right.
+HOW DO YOU GET STARTED?
+Elliott: You know, you got to start with an objective in mind, right? What are we seeking to solve for? Right. And that answer is going to be different depending on who you speak to within the organization. You might talk to an IT director that just wants to understand how quickly the pages are loading so that they can get more budget for service space. We might talk to a marketer who says, you know, I need to understand what buttons are actually creating enhanced call to action, right? And so working with a number of stakeholders at the organization is going to help you get a clear understanding of what are all of the things that we could learn through this and then what’s the path to actually go about and make that happen.";3;4;340
+77;"Walker podcast on digital experience B2B support and self-service";"URL:  https://cxleaderpodcast.com/the-self-service-experience/
+The CX Leader Podcast: "The Self-service Experience"
+HIGHLIGHTS
+PEOPLE DON’T WANT TO TALK
+“You know, to put it in simple words, people don’t want to talk to anyone. They don’t want to talk to anyone as consumers at home when they watch Netflix or buy on Amazon or an Uber. They want a self-serve. They want to do everything themselves and the same thing in the B2B world. People don’t want to talk to anyone. So that consumerization of the enterprise experience is a very big trend.”
+EVERY COMPANY IS BECOMING A TECH COMPANY
+“Every company is a tech company today. Whether you’re a hardware, software, franchise company, everyone in every company is becoming a tech. And when you’re becoming a tech company [you] usually have products, you have content around those products. Digital is becoming very, very important. So the pain of so many companies has the same pain… and the need to to provide great digital, just like we’re using, we’re experiences as consumers and at our home. Almost every company that we know today and B2B, they have the same need.”";3;4;294
+78;"Walker podcast on B2B digital experience and using data and AI for personalization";"The CX Leader Podcast: "Cutting Through the Digital Noise"
+URL: https://cxleaderpodcast.com/cutting-through-the-digital-noise/
+CUT OUT THE “NOISE”
+“…there’s so much noise in the digital ecosystem when customers are trying to complete a transaction, whether it’s make purchase or watch a show or make a bank transaction, that personalizing those experiences based on the customer’s needs at that point in time is really critical to solving for that speed and simplicity problem. If you don’t, there’s just too much for customers to try to wade through to get to what it is they’re trying to accomplish. And the more effectively you can help understand what a customer’s intent is and personalize that experience, based on that intent, the happier the customer is going to be, the greater the loyalty and the better of the business outcomes.”
+USE THE TECH!
+“It’s impossible at the kind of scale that we’re talking about with today’s digital businesses for humans to be able to create individual experiences in real time. So technologies like artificial intelligence and machine learning can be leveraged to help navigate the vast volumes of data and the complexities that are required to create digital personalization in real time. And you can do this without using the customer demographics. You could look at where visitors came from, what they’re clicking on your website, how long they’re staying on various pages, and what your trajectory is to really understand their browsing behavior and even look for areas of friction that are creating problems within that journey and try to avoid those.”";3;4;359
+80;"Dashboard Export Language";"Data exports from the dashboard will default to the source language of the survey at the time that the survey was mapped into the dashboard. If you change the language of the survey, then the responses will be automatically recoded into the original language from the time of import. If you need to change this recoding you can simply go to dashboard settings, locate the data that is being recoded, un-map (unset) the field, and reset the field. This will remove the automatic re-mapping and allow exports to be in the new default language.";1;3;113
+81;"open ended survey question";"the character limit for an open ended text-entry question is 10000 characters. This character limit can be adjusted by adding character validation to the question. ";1;3;30
+82;"searchable dropdown";"The current standard is to use Select2, a Javascript library, to handle creating searchable dropdown behaviors. In order to import this library into the survey you must first add the HTML to the header. You can find up to date instructions on the select2.js page at: 
+These instructions should be valid without checking the documentation:
+1. under the survey look and feel then the 'general' section, modify the header, enable HTML mode, and add this html-
+'''
+<link href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+'''
+2. Go to the multichoice dropdown question to which you would like to add dropdown search functionality. Select the Javascript option on the question, and under the "OnReady" function add the javascript to enable and control the Select2 to the question. Replace the jQuery selector with the correct question id for the question you are changing.
+'''
+jQuery(".QR-QID21").select2({
+		placeholder: 'Select an Activity',
+		data:[]
+	}).on('select2:open', function (e) {
+		//this removes the default blank option that qualtrics injects on first open
+		if (jQuery(this).find("option:first").text() == "") {jQuery(this).find("option:first").remove();}
+	});
+'''
+If you would like to add options to the dropdown with javascript - you can follow the documentation to modify the data array.
+
+the .on('select2:open', ... function is in place to remove the first empty option that will occur if you are populating the dropdown in code. If you are not populating the dropdown via code - you do not need this code, but it will not break your dropdown.";1;3;541
+83;"Qualified Time Off (QTO)";"A Qualified Time Off (QTO) bank is comprised of unused PTO transferred into the Time Off QTO bank at the end of a plan year. QTO hours are available for extended leaves that qualify under FMLA, for military training (up to 5 days), or for additional approved funeral leave (up to 5 days). QTO time can be used intermittently if requested. The maximum number of hours that can be "banked" in the QTO account is 480 hours.
+Examples of extended Leaves: Extended personal, maternity, personal medical, family (child, parent, spouse) medical, adoption, paternity, or military leaves may be granted on an unpaid basis. For leaves of absence granted pursuant to the Family and Medical Leave Act, an associate must use available QTO, followed by available PTO. After QTO and PTO have been exhausted, short term salary continuation (described later) may be available. Whether the time off is scheduled or unscheduled, QTO should be used first followed by PTO. Approval of QTO use shall begin with receipt of certification from a physician of the serious health condition.
+Separation: An associate who terminates from the company for any reason forfeits all remaining and unused QTO hours. Appropriate consideration will be given for reinstatement of the Qualified Time Off bank for associates who are rehired within 1 year of their resignation or termination from the Company.";4;3;291
+86;"Walker slides digital experience introduction information and program considerations";"Here's the link to download:  https://walkerinfo.sharepoint.com/:p:/g/ClientServiceKnowledgeBase/EZip1Z94rU5FjPjArdw5Wo8BFEdlOXJ9Iiw8DhykHO6vuw?e=etyJbX
+
+This is Walker's perspective on important pieces of information when just starting a digital program.
+
+This slide provides a high level walkthrough of the phases that encompass a successful digital experience program.  It talks about the pros and cons of different digital listening methods and the types of problems each program phase will be tackling.  For example, it outlines to first diagnose high-level problems before getting more sophisticated to identify journey problems.  Once those journey areas have been identified, it mentions how to design to close the loop on issues that emerge.
+
+This is Walker's perspective on important pieces of information when just starting a digital program.";3;4;199
+87;"Advisory Powerpoint on Creating a Organizational Governance Strategy";"Slide deck URL: https://walkerinfo.sharepoint.com/:p:/r/ClientServiceKnowledgeBase/_layouts/15/Doc.aspx?sourcedoc=%7B582AF046-CBE7-459E-BC0B-6A22E282C135%7D&file=CX%20Governance%20Overview%20Template.pptx&action=edit&mobileredirect=true
+
+This is a powerpoint slide deck about the organizational governance strategy for a CX team.  It ties together CX strategy, CX Roadmap, and CX Governance.  It also discusses the different models such as centralized, decentralized, or hub-and spoke as it relates to team structure.  It also highlights the importance of an executive sponsor and a committed team lead.
+";3;4;176
+88;"searchable dropdown";"The current standard is to use Select2, a Javascript library, to handle creating searchable dropdown behaviors. In order to import this library into the survey you must first add the HTML to the header. You can find up to date instructions on the select2.js page at: 
+These instructions should be valid without checking the documentation:
+1. under the survey look and feel then the 'general' section, modify the header, enable HTML mode, and add this html-
+'''
+<link href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+'''
+2. Go to the multichoice dropdown question to which you would like to add dropdown search functionality. Select the Javascript option on the question, and under the "OnReady" function add the javascript to enable and control the Select2 to the question. Replace the jQuery selector with the correct question id for the question you are changing.
+'''
+jQuery(".QR-QID21").select2({
+		placeholder: 'Select an Activity',
+		data:[]
+	}).on('select2:open', function (e) {
+		//this removes the default blank option that qualtrics injects on first open
+		if (jQuery(this).find("option:first").text() == "") {jQuery(this).find("option:first").remove();}
+	});
+'''
+If you would like to add options to the dropdown with javascript - you can follow the documentation to modify the data array.
+
+the .on('select2:open', ... function is in place to remove the first empty option that will occur if you are populating the dropdown in code. If you are not populating the dropdown via code - you do not need this code, but it will not break your dropdown.";2;3;541
+89;"automatically delete personal information";"One can automatically remove personally identifiable information (PII) from qualtrics by using the Data Anonymization Policy. Documentation can be found here: https://www.qualtrics.com/support/survey-platform/sp-administration/data-privacy-tab/data-retention/#Anonymization
+
+Only brand administrators can modify the Data Anonymization policy. There is only one data anonymization policy per brand. You may create exceptions to the brand-wide policy on individual surveys. First navigate to the admin section of your brand. Select the "Data Privacy" tab and then the "Retention Policy" sub-tab. Then you will select the contact fields, meta-data fields, and embedded data fields that you would like to be removed from survey responses automatically. You will then select the option to automatically anonymize, select the date field you would like the system to use to detect the time until removing the data, and then you will select the number of days you would like to pass before the data is removed from the response, and finally you will save this.";2;3;225
+92;"Health Insurance";"What health or medical insurance plans are offered by the company? Walker offers one health or medical plan that is a High Deductible Health Plan through Professional Benefits Administrators (PBA) using the Cigna Network. 
+What are the deductibles for the health or medical plan? For single coverage, the deductible is $3500 and the out-of-pocket maximum is $4500. For coverage with dependents, the deductible is $7000 with an out-of-pocket maximum of $9000. 
+How much is the employee contribution for health insurance for the Aug 1, 2023 – July 31, 2023 year?
+Employee Only contribution is $0 per pay period
+Employee and Spouse contribution is $155 per pay period
+Employee and Child contribution is $127 per pay period
+Employee and Family contribution is $150 per pay period
+Can I add dependents to my health insurance plan? You can add dependents to the health or medical plan at open enrollment or if there is a qualifying event such
+Marital Status Change: Marriage, Divorce, Legal Separation
+Dependent Status Change: Birth, Death, Adoption
+Change in Employment: Full-time to Part-Time or vice versa
+Spouse enrollment
+Walker Information will continue to offer health insurance to eligible spouses, but our offering includes a spousal eligibility provision.
+Any spouse who can gain health insurance coverage through his/her current or former employer (including COBRA*) must access
+coverage through his/her current or former employer and will not be eligible for Walker Information’s insurance benefits.
+*If a spouse is offered COBRA thorugh a former employer, that spouse will remain ineligible for the Walker plan for the duration of
+COBRA eligibility. Please see the "Medical Expense Reimbursement Plan ("MERP") section on page 11 of this guide for further
+details.
+High Deductible Health Plan (HDHP): A qualified health plan that combines very low monthly premiums in exchange for
+higher deductibles and out-of-pocket limits. These plans are often coupled with an HSA.
+Coinsurance: The amount or percentage that you pay for certain covered health care services under your health plan. This is
+typically the amount paid after a deductible is met and can vary based on the plan design.
+Deductible: A specific dollar amount you pay out of pocket before benefits are available through a health plan. Under some plans,
+the deductible is waived for certain services.
+Find more information about Health Insurance in the Benefit Guide on page 6 J:\Shared\human resources\Benefits\Benefit GuideIn-network: Health care received from your primary care physician or from a specialist within an outlined list of health care
+practitioners.
+Inpatient: A person who is treated as a registered patient in a hospital or other health care facility.
+Medically Necessary (or medical necessity): Services or supplies provided by a hospital, health care facility or physician
+that meet the following criteria: (1) are appropriate for the symptoms and diagnosis and/or treatment of the condition, illness, disease or
+injury; (2) serve to provide diagnosis or direct care and/or treatment of the condition, illness, disease or injury; (3) are in accordance with
+standards of good medical practice; (4) are not primarily serving as a convenience; and (5) are considered the most appropriate care
+available.
+Out-of-pocket Expense: Amount that you must pay toward the cost of health care services. This includes deductibles,
+copayments, and coinsurance.
+Out-of-pocket Maximum (OOPM): The highest out-of-pocket amount paid for covered services during a benefit period.";4;5;786
+93;"custom from email domain setup";"To setup a custom from address for email distributions, you will first need to register the domain with qualtrics. To do this you will navigate to the admin section, and then brand settings.
+The email address you use to send email messages from Qualtrics has a large effect on your email deliverability and open rates. By default, emails sent through Qualtrics come from the noreply@qemailserver.com email address. If this does not work for your studies, you can change the address in 3 ways:
+
+Use 1 of the Qualtrics “From” addresses.
+Set up a Custom FROM domain right inside the Qualtrics Admin page.
+Set up a SMTP (Simple Mail Transfer Protocol) Relay.
+Was this helpful?YesNo
+Qualtrics “From“ Addresses
+Qualtrics owns a set of email domains (relevant domains listed below). We can send email messages from any of these domains and maintain high email deliverability. If we were to send email messages from an email domain that we do not own, email providers like Gmail and Yahoo will mark the emails as potentially fraudulent and the emails would likely end up in an individual’s junk or spam folder.
+
+1 of the following domains will be available to you depending on your use case. Simply add your own custom local-part (the text before the @ symbol) to the available domain and change the “From:” field in your email editor to your new email address.
+
+
+Example: mycompany@qemailserver.com is a valid email address.
+EMAIL DOMAINS
+@qemailserver.com
+@qualtrics-survey.com
+@qualtrics-research.com
+Was this helpful?YesNo
+Configuring a Custom FROM Domain
+With the help of their IT team, Brand Administrators can configure a custom FROM domain, allowing members of the brand to distribute emails using their organization’s email domain. Brand Administrators can configure multiple domains if desired.
+
+Custom FROM domains are set at the level of the entire brand. They cannot be restricted from user to user.
+
+
+Attention: Only clients who have a branded license (i.e., a license with a unique brand id) can configure a custom FROM domain. Check with your Qualtrics Account Executive to see if your license qualifies.
+
+Attention: Adding a custom FROM domain will allow any user within your organization to distribute emails from any email from that domain.
+ADDING A CUSTOM FROM DOMAIN
+A brand administrator will need to complete the steps that take place in the Qualtrics Admin page. When Qualtrics generates DNS information in Step 9, the brand administrator must then share that information with their organization’s IT team, who will configure the MX record and TXT with the DNS information they were given.
+
+How your IT team goes about setting up these records will vary based on your organization. However, once in the organization’s mail settings, IT experts (often called “domain administrators”) should look for keywords like “DNS” or “domains.” They then will see the option to create records that are “MX” or “TXT” type.
+
+
+Attention: Qualtrics generates a unique Custom DKIM key each time the brand administrator configures a domain in the tool. Even if the domain MX record has been configured previously, your organization’s IT team will need to configure the DNS record with the DKIM key to complete the setup. This workflow protects your domains so only your organization can use them with Qualtrics distributions.
+To achieve high deliverability and open rates, Qualtrics emails meet all email-authentication standards. The Sender Policy Framework standard, or SPF, verifies whether Qualtrics IPs are authorized to send emails from the given address. This address is known as Return-Path, Envelope-Sender, and Mail-From. To make all emails compliant with SPF, bounces@bounces.qemailserver.com address is used as Envelope-Sender.
+
+Go to the Admin page.
+Adding a custom domain in the Email tab of the organization settings
+Go to the Organization Settings tab.
+Navigate to the Email section.
+Click Add domain.
+Enter the Domain you wish to use.
+custom from domain
+Choose the Selector for your key. Usually this is “qualtrics,” but can be any value you set.
+Choose the Key size which determines how long the key is. You may choose 1024 or 2048 bits depending on your security requirements.
+Click Add.
+The window will display the MX/DKIM/SPF records. Copy the DNS configuration displayed in the pop-up; make sure you copy the information included in the Domain, Type, and Value columns.
+copying the DNS record information
+
+Qtip: To configure your domain correctly, the domain must contain a top-level domain (e.g., the “.com”, “.org”, etc. at the end of “qualtrics.com”).
+
+Qtip: You may see only 1 field when you complete this step. For example, if you only see the TXT information, chances are your MX record is already correctly set up.
+Send your IT team the DNS information copied in Step 9.
+Have your IT team set up public TXT records with the DKIM information on the website of your domain provider. An SPF entry must also be set up allowing Qualtrics to send emails using the custom domain: v=spf1 include:_spf.qualtrics.com ~all.
+
+Qtip: For TXT records, some domain providers require to wrap the content with quotes. For example, v=DKIM1; k=rsa; p=MIGf should be entered as “v=DKIM1; k=rsa; p=MIGf”.
+Have your IT team make sure they’ve created both MX and SPF records in the DNS.
+reviewing a custom domain in Qualtrics. the MX column is used to find if the MX is verified
+
+Qtip: You will see the domain is marked Verified under MX and SPF if this record exists and is valid. You can validate your MX configurations using the MX Toolbox.
+Click Activate.
+
+Qtip: It may take up to 24 hours until the records are visible for Qualtrics, due to the DNS propagation delay.
+ERROR MESSAGES
+Below are some common error messages you may get during this set up, and what to do to correct the issue. Keep in mind that it may take up to 24 hours until the records are visible for Qualtrics, due to the DNS propagation delay.
+
+No valid MX record present in DNS resource: The MX has not been configured properly.
+
+Qtip: Qualtrics requires any valid MX record. You can validate your MX configuration using the MX Toolbox.
+Unable to retrieve the domain key from the DNS resource record: The DNS record is not configured properly. For example, you may have set it up for the wrong subdomain.
+Failed to validate the DNS resource record for the DKIM key: The DNS record has been found, but it doesn’t match the private key in our platform. A different DNS entry might be used, or there may have been a mistake when copying and pasting the value. The domain name and value can be found on the Activate popup. Make sure this is a TXT record. (See Step 9 above.)
+SPECIFYING A DEFAULT FROM ADDRESS
+Once you’ve configured your custom FROM domain, you can request a default FROM address be added to your brand by contacting Qualtrics Support. The default FROM address will be a dropdown option in all mailings for all users on your brand. The default FROM address will also be used to send collaboration emails and email triggers.
+
+
+Attention: For EmployeeXM projects, the default EmployeeXM FROM address will automatically be applied to email messages.
+Was this helpful?YesNo
+Setting Up an SMTP Relay
+SMTP (Simple Mail Transfer Protocol) is a protocol that allows you to transfer all Qualtrics emails to your own email server first and then send the email to your recipients from your server automatically (and using your own email domains).
+
+Qualtrics supports 2 authentication methods for SMTP relays:
+
+Basic authentication: Connect to your SMTP with a username and password.
+OAuth2: Connect to the SMTP using your OAuth2 information, allowing access without needing to provide login credentials.
+
+Attention: Only clients who have a branded license (i.e, a license with a unique brand id) can set up an SMTP relay with Qualtrics. Check with your Qualtrics Account Executive to see if your license qualifies. Be aware that the Brand Administrator for a license is the only individual who can request an SMTP relay set up for your license.
+BEFORE YOU SET UP AN SMTP CONNECTION
+Before you set up an SMTP connection in Qualtrics, make sure you have the following information ready:
+
+IP Address or Domain (required)
+Server Port (required)
+Authentication information (required, see below)
+The authentication information you need depends on your authentication method:
+
+Basic Authentication
+Username: For security purposes we recommend having a separate username and password specifically for Qualtrics access.
+Password: Usually required, depending on your server configuration.
+OAuth2
+Client ID: ID of the application or application credentials that was set up in the SMTP server provider.
+Client secret: The client secret is created when you set up your OAuth2 authorization.
+Token endpoint: The token endpoint is used to generate access tokens. An example endpoint is: https://login.mycompany.com/common/oauth2/v2.0/token?prompt=consent.
+Authorization endpoint: The authorization endpoint is used to access tokens that allow Qualtrics to send emails on behalf of its users. An example endpoint is: https://login.mycompany.com/common/oauth2/v2.0/authorize.
+Scopes (optional): Scopes are optional depending on your server’s configuration. They are a string or a list of strings that define the ability of Qualtrics to access your SMTP server. Scopes strings are defined on your SMTP server. If you have multiple strings, the strings should be separated by a space.
+Username (for OAuth2 authentication): Username associated with the access token.
+
+Qtip: If using an OAuth2 authentication method, you will need to add a Qualtrics OAuth2 redirect endpoint to your SMTP server provider’s list of allowed redirect URLs. A Qualtrics redirect endpoint URL is https://[dc].qualtrics.com/oauth-client-service/redirect, where [dc] is the datacenter ID of your brand.
+
+Attention: Multi-factor authentication is not supported for SMTP. If your server uses multi-factor authentication, you will need to create an exception for the user whose credentials you are linking to Qualtrics.
+SETTING UP AN SMTP CONNECTION
+The following steps must be completed by a brand administrator.
+
+Go to the Admin page.
+Choosing admin from the top-level navigation in the top-left of every page of the website
+Go to the Extensions tab.
+Image of selecting SMTP option in the extensions tab
+Search “SMTP.”
+Select SMTP Relay.
+Click Add Account.
+Image shows add account button
+Name your credentials. This doesn’t have to be a username or email address, but a way you can identify the purpose of these credentials to other members of your brand.
+giving the connection an name and choosing Oauth
+Choose your Connection type:
+Basic: Connect using a username and password.
+OAuth: Connect using OAuth2, authorizing access without sharing credentials.
+If you chose Basic for your connection type, fill out the following:
+the username and password fields for basic smtp authentication
+Username
+Password
+If you chose OAuth2 for you connection type, fill out the following:
+adding the connection fields for oauth
+Client ID
+Client secret
+Token endpoint
+Authorization endpoint
+Username (for OAuth2 authentication)
+Scopes (optional)
+
+Qtip: Check out the information at the beginning of this section for more details about each of these fields.
+Enter the server DNS or IP address.
+entering the smtp details and clicking Connect
+Enter the email server port.
+Determine whether to use SSL/TLS encryption. You have the following options:
+Yes / 1: Use enforced TLS encryption.
+No / 0: Use opportunistic TLS encryption with STARTTLS.
+
+Qtip: Selecting No / 0 does not mean the SMTP relay will be unencrypted. No / 0 indicates the SMTP relay will use opportunistic TLS encryption, rather than enforced TLS encryption.
+Click Connect Account.
+Next, make sure everyone in your brand has access to this resource. Click Users and then Give access to all users.
+the give access to all users button
+
+Attention: This step is important! You must complete it to make sure all the users in your brand can use these SMTP credentials! These users will not have the ability to edit or delete SMTP credentials.
+
+Qtip: Once SMTP credentials are added to the Extensions page, you will not be able to view their details or edit them. To replace your SMTP relay, delete the old credentials, then follow the steps above to make new ones.
+REACHING OUT TO SUPPORT TO SET A DEFAULT “FROM” ADDRESS
+Once a Brand Administrator has completed the steps above, they must contact Qualtrics Support to set what default “From” address should be used on outgoing emails. See Setting Brandwide Default Options for “From” and Reply-To Email Addresses for more details.
+
+
+Qtip: Generally, we recommend using noreply@yourcompany.com, but you can use other variations, like survey-research@yourcompany.com or customercare@yourcompany.com.
+SMTP CREDENTIALS CREATED BEFORE SELF-SERVICE WAS AVAILABLE
+Before January 26, 2022, all SMTP credentials were set up by representatives at Qualtrics. SMTP credentials added by a Qualtrics representative will not appear on the Extensions page.
+
+If you add an SMTP relay to the Extensions page, these settings will override any existing SMTP relays applied to your brand by a Qualtrics representative. If you remove an SMTP relay from the Extensions page, any past settings added to your brand by a Qualtrics representative will be used again.
+
+To permanently remove credentials that were implemented by a Qualtrics representative, log into the Customer Success Hub to reach out to Qualtrics Support.
+
+OTHER CONSIDERATIONS
+While not required, we strongly recommend allowlisting the Qualtrics’ IP ranges in order to mitigate any additional deliverability issues.
+
+The SMTP server must be a high volume email server capable of:
+
+Handling multiple simultaneous connections from Qualtrics
+Sending multiple emails per second (a <150ms response time is desirable)
+Responding to our requests
+If you have any questions about whether your server meets these specifications, reach out to your organization’s IT department.
+
+Was this helpful?YesNo
+Valid Email Domains
+Valid email domains are used to determine what email addresses people can use when signing up for Qualtrics under your brand.
+
+
+Qtip: This affects brands with self-enrollment, where users can sign up through a URL as well as brands with SSO. It does not affect accounts where users request accounts from administrators.
+Valid email domains are set at the level of the entire brand. They cannot be restricted from user to user.
+
+A brand administrator can add valid email domains by contacting Qualtrics Support.
+
+SUBDOMAINS
+You can specify subdomains if you do not want to use an entire domain. For example, Qualtrics University’s Computer Science Department may want to use just compsci.quni.edu, but not the entirety of quni.edu.
+
+Was this helpful?YesNo
+Setting Brandwide Default Options for “From” and Reply-To Email Addresses
+If you are a Brand Administrator, you can set the “from” or reply-to email addresses that will appear as options in distributions sent out from your brand. You can specify:
+
+Different options for Global, CustomerXM, and / or EmployeeXM distributions.
+
+Example: Both your Customer Satisfaction team and Human Resources department work out of Qualtrics in different types of projects. They want different email addresses connected to their distributions.
+Different options for “From” and “Reply-To” Email Addresses for each of these categories.
+To get these default options modified, log into your Customer Success Hub to reach out to Qualtrics Support.
+
+
+Attention: If you are using custom email addresses, rather than Qualtrics defaults, you must follow the directions on this support page to establish those custom domains using DKIM or an SMTP relay.
+These default options are brand-wide. That means they can be used as the “from” / reply-to for all accounts in the brand that send distributions. Even when you provide default options, users can still change the “from” / reply-to email addresses in their distributions to any valid domains set for the brand.
+
+USING DEFAULT EMAILS
+Once you have contacted support and had the desired email addresses set, users in your brand will be able to select from the list of defaults when they send a distribution. There will be a dropdown with these options next to the “From” and “Reply-To” fields.
+
+Unless you are an EX only brand, all defaults set for the brand will be listed and users will be able to choose accordingly. For example, if you set a global, EX, and CX default, all 3 would appear in the dropdown to all users in the brand. Users can select which email applies to them. If you’re using EX projects, the default EX FROM address will automatically be applied to email messages.
+
+Email distribution window open. Dropdown arrow next to From address and Reply to address. We see a email address provided
+
+
+Qtip: When sending an email via a ticket, the default “from” email will be the CX default email for the brand. If no CX email is set, the “from” email will default to the logged-in user’s email address.
+WHAT EMAILS ARE AFFECTED BY THESE SETTINGS?
+Any email distribution with a dropdown arrow next to the “From” or “Reply-To” field can choose from the defaults set for the brand.
+
+Was this helpful?YesNo
+Key Terms
+As you read through this page, you’ll come across several technical terms. This section is meant to help clarify what each of these settings are called and some other common names for them.
+
+
+Warning: Qualtrics Support cannot set up these features for your organization. You must reach out to a member of your organization’s IT team to get these settings modified on your domain provider’s website.
+DomainKeys Identified Mail (DKIM): DKIM uses public-key cryptography to authenticate the message, send it, and verify that the message content hasn’t been altered. Think of this as an electronic wax seal on your email.
+Domain Name System (DNS): A DNS record indicates that your domain exists. There are many kinds of DNS records, including MX and TXT.
+Mail Exchanger (MX): A type of DNS record that lets recipients know that a domain can receive mail. See more about MX records on the Avoid Being Marked as Spam support page.
+Simple Mail Transfer Protocol (SMTP): An SMTP relay sends all Qualtrics mail to your server first, and then sends emails out from your server to your chosen participants.
+Sender Policy Framework (SPF): A means of authorizing emails. An SPF record can be used to configure your custom domain to be the Envelope-Sender on your emails.
+TXT Record: A type of DNS record that allows you to establish a public record validating your domain’s right to deliver mail in a certain way. TXT records can include a lot of different information, including DKIM and SPF.
+Allowlist: You can allowlist email addresses or IP ranges. Allowlisting allows you to tell your email provider that you trust mail coming from these sources, and can greatly improve your email deliverability. See Allowlist Qualtrics Servers to learn how to allowlist us.
+Was this helpful?YesNo
+TLS Encryption
+
+Qtip: While this information is most relevant to users with an SMTP relay set up, all emails sent from Qualtrics servers use STARTTLS encryption.
+TLS stands for Transport Layer Security, and is the act of encrypting messages being passed between servers so that third parties cannot “eavesdrop” on the messages traveling back and forth. TLS ensures your information is secure and only the intended server (e.g., the email address contacted) will receive those messages.
+
+Qualtrics uses STARTTLS, or opportunistic TLS encryption. This means that if the receiving server supports encryption via TLS, we will encrypt a message when we send it. If the receiving server does not support TLS encryption, we will still send without encryption. Check with your IT team to make sure your settings are up to date, as both servers having TLS encryption increases security.";2;3;4672
+94;"new Subject";"This is the content for my subject.";1;3;8
+104;;;1;3;0
+105;"Paid Time Off (PTO)";"Eligibility: All active full time and part time/30+ associates are eligible for PTO. Temporary help, contractors, intern and part time (less than 20 hours) associates are not eligible for PTO. Associates on an unpaid leave or who are being paid under short term salary continuation or long term disability benefits are considered inactive and will not be considered active until the first day they return to work in a PTO-eligible position. All active full time and part time/20+ associates (including those on paid leave) are eligible for Holiday Paid Time. Interns working 20+ hours per week are eligible for holiday time if they worked the week prior to the holiday and they worked their scheduled shift the week of the holiday. Temporary help and contract associates are not eligible. Plan Year: 1 January - 31 December.
+Full Time: 216 Hours (equiv. of 27 8-hr days)
+Part Time 35: 189 hours (equiv. of 27 7-hr days)
+Part Time 32: 175.5 hours (equiv. of 27 6.5-hr days)
+Part Time 30: 162 hours (equiv. of 6-hr days)
+Accruals: Your allocation of PTO hours will accrue to you as of 1 January and will be available for your use throughout the following 12 months of the plan year (to 31 December of that calendar year). New hires, associates moving into an eligible classification, and associates returning from inactive status will receive a pro-rata share of the plan year amount.
+Use: The PTO program is designed to provide time off with pay to help balance work life and personal life. PTO must first be requested with reasonable notice and then approved by the supervisor for vacations and other events that can be planned. Associates may request PTO for unexpected events, personal illnesses, family illnesses, extreme weather and emergencies by calling their supervisor within a reasonable time frame (generally within an hour of the time an associate is scheduled to start work). PTO can be used in increments of one quarter (.25) of an hour. All associates need to account for their work hours according to their status (i.e. FT, PT/30, etc) for the week. Any regular hours not worked should be supplemented with PTO or approved QTO.
+Trade In/Carryover: PTO can only be used as time off and cannot be traded in (i.e. converted to cash). At the end of the PTO plan year, 31 December, an associate's unused PTO will be transferred to a Qualified Time Off bank.
+Separation:An associate who terminates from the company for any reason forfeits all remaining and unused PTO.";4;5;557
+106;"Family Medical Leave Act (FMLA)";"Purpose: With the passage of the Family and Medical Leave Act of 1993 (FMLA), U.S. employees gained a new flexibility in dealing with health issues affecting their families and themselves.
+Eligibility: An associate is eligible for FMLA leave if he or she has:
+1.Worked for the Company for a total of 12 months or more
+2.Worked at least 1,250 hours during the prior 12 months (approximately 24 hours per week)
+Scope: Under the Family and Medical Leave Act, you have a right for up to 12 weeks of unpaid leave in a 12-month period for:
+1.the birth of a child, or the placement of a child with you for adoption or foster care
+2.a serious health condition that makes you unable to perform the essential functions of your job, or
+3.a serious health condition affecting either your spouse, child or parent for which you are neededto provide care.
+A serious health condition is an illness, injury, impairment or physical or mental condition that results in being unable to work, attend school or perform other regular daily activities and involves:
+1.inpatient care in a hospital, hospice or residential medical care facility
+2.a condition that lasts more than 3 consecutive days and requires at least two treatments from ahealth care provider
+3.a condition that lasts more than 3 consecutive days and requires continuing follow-up treatmentfrom a health care provider
+4.a chronic serious health condition that may recur and requires periodic follow-up treatments by ahealth care provider
+5.a condition that may be permanent or long-term and requires constant supervision of a healthcare provider, or
+6.the need for multiple treatments by a health care provider, including surgery or other medicalinterventions.
+And, as of January 2008, the Act includes the right for up to 26 weeks of leave in a 12-month period for care of a service member that is either your spouse, child, parent, or next blood relative. An employee who fits one of these relationships to a member of the Armed Forces who is being treated for, recuperating from or is on the temporary disability retired list due to a serious injury or illness is classified as a service member caregiver and qualifies for this leave.
+A serious injury or illness in this circumstance is incurred in the line of active duty that may render the member medically unfit to perform the duties of the member's office, grade, rank or rating.
+1.Your health benefits must be maintained during any period of unpaid leave under the same conditionsas if you continued to work.
+2.You must be reinstated to the same or an equivalent job with the same pay, benefits, and terms andconditions of employment on your return from leave.
+If you do not return to work following FMLA leave for a reason other than:
+1.the continuation, recurrence, or onset of a serious health condition which would entitle you toFMLA leave, or
+2.Other circumstances beyond your control
+you may be required to reimburse us for our share of health insurance premiums paid on your behalf during your FMLA leave.
+Use: FMLA time can be taken all at once or intermittently. You will need to notify HR and your supervisor of your plan and also fill out paperwork that should be turned into HR before your leave begins.
+You will be required to first use any or all available QTO and, then if necessary, PTO for this leave. If both banks have been exhausted and you have not been released by your doctor to return to work, you may qualify for Short Term Salary Continuation (contact the Benefits Administrator for details). Unpaid time off would account for any Family Medical Leave time remaining after you have been released by your doctor and all QTO and PTO has been exhausted.
+Holidays during FMLA: Holiday time will be paid for those on FMLA as long as the holiday falls during paid time off with QTO, PTO, or STSC (if on STSC, Holidays will be paid at the same 70% that the STSC leave is being paid). If leave is being taken unpaid at the time that the holiday falls, no holiday time will be paid.
+The effective start date of the leave will be the initial start of the serious health condition. For birth of a child or adoption or foster care of a child, the leave will begin on the date of birth or date of placement of the child. The leave can begin earlier if a doctor’s appointment or testing related to the serious health conditions were needed.
+Regardless of what type of FMLA leave you take, you will be asked to fill out:
+1.Family and Medical Leave of Absence Request Form
+2.Physician's certification of a health need
+3.Family and Medical Leave Payroll Deduction Authorization Form
+Before returning from leave for your own serious health condition, a Fitness for Duty Certification Form needs to be signed by the authorized health care provider and returned to Human Resources.";4;5;1028
+107;"Enrollment for Benefits";"When to Enroll
+OPEN ENROLLMENT: The medical and ancillary benefits are effective August 1, 2023. They will run from August 1, 2023 – July 31, 2024.
+Next Open Enrollment for medical and ancillary benefits will be June/July 2024 for an effective date of August 1, 2024.
+HSA, Limited FSA and Dependent Care FSA benefits are effective for the calendar year January 1- December 31st. Next Open Enrollment
+for HSA and both FSa benefits are November 2023 for an effective date of January 1, 2024.
+You must enroll during Walker Information’s annual Open Enrollment period. If you miss these enrollment opportunities, you must wait until
+next year’s Open Enrollment period unless you have a qualifying life event.
+NEW HIRES: Benefit are effective at date of hire.
+More information in the benefit guide page3 and found here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;209
+108;"Spouse Eligibility for Medical Plan";"Walker Information will continue to offer health insurance to eligible spouses, but our offering includes a spousal eligibility provision.
+Any spouse who can gain health insurance coverage through his/her current or former employer (including COBRA*) must access
+coverage through his/her current or former employer and will not be eligible for Walker Information’s insurance benefits.
+*If a spouse is offered COBRA thorugh a former employer, that spouse will remain ineligible for the Walker plan for the duration of
+COBRA eligibility. Please see the "Medical Expense Reimbursement Plan ("MERP") section on page 11 of the benefit guide for further
+details here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;153
+109;"Dental Coverage";"Walker offers two dental plans for its employees through Anthem Blue Cross Blue Shield. One plan is called the core plan that covers 100% preventative services and 80% of basic restorative services. Major restorative services are not covered under the core plan.  The other plan is called the buy-up plan and it covers 100% preventative , 80% basic restorative services, and 50% of major restorative services. Always have your dentist confirm coverage on the plan before any dental work is done. 
+More information in the benefit guide pages 15 and found here: J:\Shared\human resources\Benefits\Benefit Guide.
+Premiums are bi-weekly and are as follows: 
+Employee Only: Core plan: $7.82 Buy up plan: $16.88
+Employee + Spouse: Core plan $17.19 Buy up plan: $39.28
+Employee + Child(ren): Core plan $19.48 Buy up plan:  $44.76
+Employee + Family: Core plan $30.37 Buy up plan: $70.80
+";4;5;228
+110;"Vision Coverage";"Walker offers two vision plans for its employees through Anthem Blue Cross Blue Shield. One plan is called the core plan that covers:
+Routine Exam (one per 12 months) $5 Copay 
+Lenses (1 pair every 12 months): Single Vision is $50 Copay, Bifocal Vision is $70 Copay, Trifocal Vision is 105 Copay
+Frames (one every 24 months) 20% off Retail 
+Contact Lenses (once every 12 months): Conventional, Disposable, Non-Elective are 15% off Retail
+The other plan is called the buy-up plan and it covers :
+Routine Exam (one per 12 months) $10 Copay
+Lenses (1 pair every 12 months): Single Vision, Bifocal Vision, Trifocal Vision is $20 Copay
+Frames (one every 24 months): $130 Allowances, then 20% off balance
+Contact Lenses (once every 12 months): Conventional, Disposable, Non-Elective is $130 Allowance, then 15% off any remaining balance, $130 Allowance Covered in Full
+Premiums are bi-weekly and are as follows: 
+Employee Only: Core plan: $.69 Buy up plan: $3.50
+Employee + Spouse: Core plan $1.20 Buy up plan: $6.67
+Employee + Child(ren): Core plan $1.26 Buy up plan:  $7.08
+Employee + Family: Core plan $1.89 Buy up plan: $11.00
+More information in the benefit guide pages 16 and found here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;356
+111;"Teladoc - Telemedicine";"Set up your account today to talk to a U.S.-licensed physician for non-emergency medical conditions like the flu, sinus infections, bronchitis, and much more.
+Create an account: Use your phone, the app, or the website to create an account and complete your medical history
+Talk to a Doctor: Request a time and a Teladoc doctor will contact you
+The doctor will diagnose symptoms and send a prescription if necessary
+Talk to a doctor 24/7 for FREE
+Call 1-800-DOC-CONSULT (362-2667)
+or Visit MyDrConsult.com";4;5;128
+112;"Employee Assistance Program (EAP)";"Perspectives Employee Assistance Program (EAP) services are available starting now! Masters-level
+counselors are here to assist employees and their significant others and family members to address the many factors that can affect mental health and success, including work, finances, relationships and beyond. Perspectives is there to support your well-being, confidentially and at no cost to you. Some of the services include:
+Mental Health care: Relationship Issues
+• Anger
+• Depression
+• Grief/Loss
+• Child Custody
+• Addictions/Alcohol/Abuse
+• Family Issues
+• Parenting
+• Stress
+• Budgeting
+• Work-Life Balance
+• Mood Swings
+Worklife Online: 
+Self-Assessments
+• Financial Calculators
+• Career Development/
+Training
+• Elder Care
+• Child Care
+• Legal Forms
+• Day Care
+• Adoption
+• Summer Camps
+• Nursing Home Care
+• Pet Services
+Legal and Financial Services
+Separation/Divorce
+• Will Preparation
+• College Planning
+• Debt Counseling
+• Retirement Planning
+• Tax Consultation
+Contact info: 
+Call or text 800.456.6327
+Schedule an appointment with a counselor or contact us for in-the-moment support.
+Use the “Live Chat” feature
+on your Perspectives Online Portal to instant message with a counselor 7am-9pm CST Monday-Friday.
+Download the Perspectives App
+Search ‘Perspectives Ltd’ in the iOS or Google Play Store. Download for free.
+Log in to your WorkLife Online Portal
+for access to online resources and information. Visit perspectivesltd.com/login and access code is walkerinfo and the password is Perspectives. 
+";4;5;376
+113;"Dependent Care FSA";"What is a Dependent Care FSA?
+A Dependent Care FSA allows you to set aside funds tax-free to pay for day care expenses necessary while you (and your spouse) are working, looking for work or attending school on a full-time basis. Your dependent (child under age 13, disabled spouse, elderly parent or other dependent who is physically or mentally incapable of self-care) must live in your home at least 8 hours a day to qualify.
+For calendar year 2024, the annual maximum amount a family may contribute to the Dependent Care FSA is $5,000 ($2,500 for a married person filing separately). Per IRS regulations, if you do not use all the pre-tax dollars in your Dependent Care FSA during the plan year, you forfeit the amount left over.
+Eligible expenses include:
+• Costs of day care for children aged 12 and younger (longer if the dependent is disabled)
+• Day care costs for spouses, parents or grandparents who cannot care for themselves
+• The cost for an individual to provide care either in or out of your house (a sitter’s home or day care facility)
+• Nursery schools and preschools (excluding kindergarten)
+Expenses that are NOT eligible for payment with a Dependent Care FSA include
+• Costs of day care for reasons other than to enable you to work or attend school full-time
+• Child support payments or late payment fees
+• Food, clothing, activity fees/entertainment, school supplies
+• Overnight camps
+• Housekeeping services not provided by caregiver
+More information in the benefit guide page 19 and found here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;353
+114;"Limited FSA ";"For 2024, employees can contribute $3,050 to your health FSA. The healthcare Limited FSA is used for dental and vision expenses
+you expect to incur during the plan year that are not covered by the plan. This is a great way to financially plan for dental and vision
+expenses.
+Flexible Spending Account (FSA): An account that allows you to save tax-free dollars for qualified medical and/or dependent
+care expenses that are not reimbursed. You determine how much you want to contribute to the FSA at the beginning of the plan year.
+Most funds must be used by the end of the year, as there is only a limited carryover amount.
+The amount of your contributions is deducted pre-tax every pay period, therefore you do not have to pay Federal or FICA taxes on the
+amount of your deposit. Employees electing the Health Care FSA will receive a debit card. New cards are only issued to new participants
+of the Health Care FSA program. If you are re-electing this benefit, you will not receive a new card until your current card expires.
+Your annual contribution amount is assigned to your card to pay for eligible expenses. Any eligible expenses will be deducted from your
+account. Please save all receipts as Discover Benefits Inc. may need to request a copy of your itemized documentation to confirm eligible
+expenses.
+More information in the benefit guide page 19 and found here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;306
+115;"Health Savings Accounts (HSA)";"If you participate in the High Deductible Health Plan (HDHP), you are qualified to set aside funds in a Health Savings Account (HSA)
+before taxes are deducted to pay for eligible medical, dental and vision expenses. An HSA is similar to a Flexible Spending Account in
+that you are eligible to pay for health care expenses with pre-tax dollars, but an HSA has some additional advantages:
+• Unused money in an HSA is not forfeited at the end of the year; it is carried forward
+• Funds roll over each year
+Your HSA is yours to keep which means, you can take it with you if you change jobs or retire. If you have any money remaining in your
+HSA after your retirement, you may withdraw the money as cash. HSA highlights include:
+Triple Tax Advantage
+• Contributions are tax-free
+• Investment earnings are tax-free
+• Withdrawals for qualified health care expenses are tax-free
+Employee Eligibility Rules
+• You must be enrolled in the Walker Information Qualified High Deductible Health Plan to open an HSA account
+• You cannot be covered by another health insurance, including a spouse’s plan that is not a qualified HDHP/CDHP
+• You cannot be enrolled in Medicare A or B or Medicaid or TriCare
+• You cannot be claimed as a dependent on another person’s tax return
+Walker Employer Contributions
+• Employee Only: $200
+• Employee + Dependents: $400
+2024 Annual Maximum HSA Contributions (including employee and4
+• $4,150 for single coverage
+• $8,300 for family coverage
+• Additional $1,000 catch-up contribution for individuals aged 55 and Older
+You have the option to use the HSA:
+• To pay for “qualified medical expenses”:
+• Expenses covered under the medical plan (i.e., deductible, coinsurance)
+• Other IRS-approved expenses not covered under the medical plan such as dental or vision (IRS213d)
+• Note: Withdrawals for non-qualified expenses will be taxed and include a 20% penalty
+• For tax dependents, even if they are not enrolled in your medical plan
+• To save the money in the account
+• Funds roll over each year
+• Pay retiree medical expenses
+• Earn interest/investment earnings
+• You OWN the account and can
+
+IMPORTANT NOTE: You must open an HSA account before services are rendered to be
+eligible. You will set up your HSA with the banking institution of your choice. Once set up please
+sent the following information to Alix Robertson: name of bank/credit union, account number, routing number, and if it is a checking or savings account.
+More information in the benefit guide pages 20-23 and found here: J:\Shared\human resources\Benefits\Benefit Guide.
+Health Savings Account (HSA): An employee-owned medical savings account used to pay for eligible medical expenses.
+Funds contributed to the account are pre-tax and do not have to be used within a specified time period. HSAs must be coupled with
+qualified high-deductible health plans (HDHP).";4;5;678
+116;"Life Insurance";"Basic Life / AD&D- Anthem: Life insurance can help provide for your loved ones if something were to happen to you. Walker Information provides full-time employees with 2X annual earnings to $500,000 in Group Basic Life and Accidental Death and Dismemberment (AD&D) insurance.
+Walker Information pays for the full cost of this benefit, meaning you are not responsible for paying any monthly premiums. Contact HR if you would like to update your beneficiary information.
+Voluntary Life / AD&D- Anthem: While Walker Information offers Basic Life insurance, some employees may want to purchase additional coverage. Think about your personal circumstances. Are you the sole provider for your household? What other expenses do you expect in the future? Depending on your needs, you may want to consider buying supplemental coverage.
+With Voluntary Life Insurance, you are responsible for paying the full cost of coverage through biweekly payroll deductions. You can purchase coverage for yourself or for your spouse in $10,000 increments. The minimum coverage level is $10,000 and the maximum is 5X salary of $500,000. The chart below outlines the monthly costs of purchasing additional coverage. 
+Long-Term Care- CHUBB: If you need Long Term Care (LTC), you can access your death benefit while you are living for home health care, assisted living, adult day care, and nursing home care. You get 4% of your death benefit per month while you are living.
+More information in the benefit guide pages 25, 27 and found here: J:\Shared\human resources\Benefits\Benefit Guide.
+";4;5;332
+117;"Long Term Disability (LTD)";"Disability Insurance (Income Protection)- Company Provided- Anthem
+Employer paid supplemental income protection (disability insurance) can be a great way to enhance and tailor your coverage to protect the life you've built. 
+Short Term Salary Continuation Coverage - Walker Information, Inc. provides eligible associates with Short Term salary continuation. In the event you become disabled from a nonwork-related injury or sickness, disability income benefits are provided as a source of income. The benefit is 70% of your salary and continues for a maximum of 90 days. You are not eligible to receive short-term salary continuation if you are receiving workers’ compensation benefits.
+Employer Paid Long Term Disability (LTD) Insurance: Walker Information also provides Long Term Disability insurance at no cost to you. In the event that you become disabled for an extended period of time from a non-work related injury or sickness, disability income benefits are provided as a source of income. Just like Short Term Disability insurance, you are not eligible to receive LTD benefits if you are receiving Workers’ Compensation benefits. Please refer to the Plan Certificate for full details.
+Disability Insurance LTD: Benefits Begin (accident/sickness) on the 91st day. Benefits are Payable  until your Social security normalretirement age. Percentage of Income Replaced is 60% of your monthly income with a Maximum Benefit $12,000 per month.
+More information in the benefit guide page 26 and found here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;314
+118;"401k Retirement Plan";"As an associate of Walker Information, you are eligible to participate in the 401k plan. This allows you to contribute a percent of each paycheck into the retirement plan. Our plan has auto-enrollment. This means that if you do nothing, in about 15-30 days, Fidelity will automatically enroll you into the retirement plan. It will enroll you at 6% (so that you will receive maximum match) and into a T. Rowe Price Target Date Fund. Walker Information’s Match: 50% match up to 6% contribution. Maximum of 3% for 6+% contribution. Vesting- How much of the company’s match becomes yours is 20% after year 2 and 100% after year 3. 
+Contribution Options
+A. Pre-Tax
+a. You are not taxed on the contribution when it goes into the plan. You are taxed when you distribute the funds at retirement. Advantage is lower tax bracket for retirement.
+B. Roth 401k (REFER TO HANDOUT ON ROTH 401k)
+a. You ARE taxed on the contribution when it goes into the plan. You ARE NOT taxed when you distribute the funds at retirement. If you think that you are in a lower tax bracket, then you will be later or you do not want to worry about paying tax when you distribute.
+Beneficiary Information Online
+Make your beneficiary election online by logging on to Fidelity NetBenefits at www.401k.com or www.netbenefits.fidelity.com – click Your Profile, then select Beneficiaries. After you have made your election, you will be able to view your beneficiary election on NetBenefits.
+Or By Phone: Please call a Fidelity Investments Customer Services Representative to request a
+Beneficiary Form to be mailed to your home address. A Fidelity Investments Customer Service Representative can be reached at 800-835-5097 between the hours of 8:30am and 8:00pm Monday through Friday. If you designate your beneficiary by form, you should allow approximately two weeks for your election to be updated on NetBenefits. A Fidelity Investment Customer Service Representative will also be able to verify your beneficiary designation after your election is made.
+SETTING UP A LOGIN
+1. Visit www.401k.com  or http://www.netbenefits.fidelity.com/
+2. In the Log In box, click on Register Now
+3. Follow the instructions by entering your first name, last name, last 4 digits of your social security number, and date of birth.
+4. Submit and you should then be set up.
+5. Go back to NetBenefits to login and set up your contribution percentage and investment selections
+Anytime you want to change yourMore information in the benefit guide page 26 and found here: J:\Shared\human resources\Benefits\Benefit Guide. contribution %, do it online at Fidelity, www.401k.com  or http://www.netbenefits.fidelity.com/ and payroll will change it for the next payroll deduction. 
+More information in the benefit guide page 32 and found here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;665
+119;"Your Money Line";"Your Money Line is a benefit provided by your employer to give you expert help on any money challenge, greater financial literacy, and less stress about money. YML provides you with free 1:1 financial guidance, education, & tools—so you can stress less about money and enjoy greater stability & confidence.
+Get started at: http://yourmoneyline.com/walkerinfo.
+More information in the benefit guide page 33 and found here: J:\Shared\human resources\Benefits\Benefit Guide.";4;5;105
+120;"Qualifying Event";"A life event change (qualifying event) is a personal change in status which may allow you to change your benefit elections.
+Examples of qualifying events include:
+• Marital Status Change: Marriage, Divorce, Legal Separation
+• Dependent Status Change: Birth, Death, Adoption
+• Change in Employment: Full-time to Part-Time or vice versa
+If you experience a life event change, please contact the Human Resources team for next steps.
+To add your qualifying event to Paycom, Log into Employee Self-Service® and tap Benefits >
+Qualifying Events.
+Tap the "+" icon. and complete the information. 
+";4;5;135
+121;"Improve response rates";"Background – Response rates are driven by two main factors: 1) Successfully getting the invite to the audience (Technical), and 2) Successfully getting invitees to enter the survey (Psychological/Behavioral). 
+
+Short Answer – The resources below contain a large number of suggestions for improving response rates. It is best to peruse all the suggestions and see which ones fit best. Unfortunately, there is not a small set of universal steps that will always work. All the resources are client shareable. 
+
+Resources –  
+
+XM Institute Response Rates article - https://www.xminstitute.com/blog/four-levers-improve-response-rates/
+
+Qualtrics Response Rate blog - https://www.qualtrics.com/experience-management/research/tools-increase-response-rate/
+
+Walker Documentation on Response Rates - https://walkerinfo.sharepoint.com/:w:/r/ClientServiceKnowledgeBase/_layouts/15/Doc.aspx?sourcedoc=%7BB80C2601-4BBB-4D48-AED2-AABC2552F8FC%7D&file=Invitation%20%26%20Reminder%20Best%20Practices%20-%2009.10.22.docx&action=default&mobileredirect=true&DefaultItemOpen=1
+
+Long Answer –  
+
+XM Institute blog article organizes activities into 4 main levers that can work for categorizing suggestions across all resources. Below are some highlights from across resources: 
+
+Mode – Getting the survey to the customer  
+
+Select a mode of delivery that will be most noticeable. An email is easily drowned out, so other modes like SMS can be valuable. However, you must balance this with the percentage of customers you can access through that channel. 
+
+Make sure to utilize all Qualtrics configurations to ensure maximum email deliverability. 
+
+Avoid words and email invitation choices that could increase the invitations spam score and decrease deliverability. For instance, avoid using the word “survey” in your invite. 
+
+Send invitations at a day and time invitees are most likely to see it and be able to act on the request. Traditionally, B2B invites have been sent on Tuesday mornings (~7am local time).  
+
+Send at least two reminders. There is diminishing returns after 2, but sending more can still get some new responses. Reminder should come at least 3-4 days apart (unless that is a weekend for B2B invitees). 2nd reminder should be at least a week after the invite. 
+
+Sample – Who receives the survey.   
+
+Use qualified, clean sample – contacts who are active customers with valid emails, etc. 
+
+Make sure to send to the right customers who will provide useful feedback 
+
+Don’t over-send invites and risk annoying customers. 
+
+Design – What the invitation and survey looks like.  
+
+Use invite language and visuals that inspire participation. 
+
+Keep the survey short and focused on things the customer wants to tell – topics that matter to them. 
+
+Action – How you respond to the survey & ensuring customers feel heard.   
+
+Thank customers for participating  
+
+Follow up with customer indicated issues  
+
+Consider if offering incentives would help.  
+
+Communicate improvement initiatives to customers ";3;4;735
+122;"What's a good response rate?";"Short Answer – This is a complex issue encompassing many factors, and any figures should not be taken as law.  Even how “response rate” is determined.  At Walker, we’d advise using the percentage of those invited who started the survey.  “Starting” a survey can also be another nuance.  Generally, we advise that someone must answer one question.  There are not any great response rate benchmarks out there. Walker’s general guidance for response rates are as follows: 
+
+For a Relational/NPS survey 
+
+<10% weak  
+
+10-30% moderate 
+
+30-50% above par 
+
+>50% world class  
+
+For a Transactional survey 
+
+<10% weak  
+
+10-15% moderate 
+
+16-25% above par 
+
+>25% world class  
+
+Resources – Walker’s standard normative NPS, Loyalty, and Response Rates - https://walkerinfo.sharepoint.com/:p:/g/ClientServiceKnowledgeBase/EeiJxNpTqCBGufe26RT3gBQBtZ4QrJLeDASNd_38q1khtQ?e=sqrrZs";3;4;279
+123;"NPS, Loyalty, and Overall Experience/Overall Satisfaction in the same survey";"Short Answer – No, you don’t need all of them in the same survey, but it’s not bad to have all within a survey.  It depends on the organization’s goals and the stakeholders viewing the information. 
+
+NPS – may be a measure for executives to look at things holistically. 
+
+Loyalty – may be more tactical measure for account leaders to view. More relevant to front line employees. 
+
+Overall Experience – this one can also work as an overall KPI, is used as KPI in transactional surveys.  Sometimes drivers of Loyalty/NPS are different than OEXP/OSAT.  
+
+Overall, the trend across each of these will be consistent.  As one improves, the others tend to as well. 
+
+Additional Info – If the question is more around considering removing a KPI or two, more advanced analysis can be done to assess this – contact Team Katmai. ";3;4;204
+124;"Walker's preferred survey rating scales";"This document contains a list of preferred rating scales for different types of questions along with other commentary on rating scales. 
+https://walkerinfo.sharepoint.com/:w:/g/ClientServiceKnowledgeBase/EWLa7BarzohKpwRdc0PWmfYB8k5j8GZMz60Oz1W0Y0ZFGQ?e=YRdYpZ
+
+Walker does have a set of questions that we prefer to guide clients towards.  The previous document has some of them.  These should be prioritized over any question types not cited by the bot!  In general, the rating scale and related issues (direction, orientation, labels, etc.) have a small and often unmeasurable impact on data.  They are not all comparable to previous data in the event major changes are made, though. The key is to make a decision and stick to it. This research by Measuring U tests the impact of the core rating scale debates and finds little-to-no-impact regardless of the decision: https://measuringu.com/rating-scale-best-practices-8-topics-examined/  ";3;4;253
+125;"Difference between satisfaction and quality/experience rating scales on data";"Short Answer – Satisfaction may be a lower bar in part due to social norms (e.g. Being “satisfied” by an experience is a lower sentiment than having and “excellent” experience).  This means people will gravitate towards answering the higher end of the scale naturally, reducing the variation of responses.  This is especially the case with bipolar satisfaction scales, leading to a not very good data distribution.  Research backs up this positivity-response bias.  We prefer Quality ratings because it addresses these issues by:   
+
+Disconnecting somewhat from the idea of Satisfaction and associated norms. 
+
+Using unipolar scales that add nuance to the positive sentiment of the responses (Excellent, Very Good, Good, Fair, Poor), thus increasing variation (better data distribution). 
+
+Additional consideration: You can try to increase the variation of a satisfaction question in two ways: 1) Using a unipolar satisfaction rating scale (Extremely satisfied, Very, Somewhat, Not very, Not at all), or 2) Using stronger endpoints to increase the “distance” between the poles (Extremely satisfied -> Extremely dissatisfied). 
+
+Related Questions: 
+
+What differences in scores would you expect between satisfaction (5 point) and quality (5 point)?  We’d expect a decline in an “average (1-5)” from the Satisfaction item to the Quality item, but the difference may not be “significant”. ";3;4;314
+126;"On a 7-point scale, do you report top 2 or top 3 box percentage scores?";"Short Answer – It depends on a lot of factors, but we still see a lot of 7-point scales using Top 2 box % scores. This is especially true when using a bipolar, satisfaction scale.  
+
+Long Answer –   
+
+If Top 2 % scores are unexpectedly low (<30%), then use Top 3 %. 
+
+If Top 3 % scores are unexpectedly high (<80%), then consider using Top 2 %. You always want to leave a healthy room for improvement while still accurately recognizing companies with excellent performance levels.  
+
+If you have a mix of 7-point and 5-point scales in your survey, then choose the score type (Top 2 % vs. Top 3 %) that gives you a score closest to the Top 2 % scores for the 5-point scale.  
+
+Quality tends to be on unipolar scales (Poor-Excellent), so a rating that falls outside the Top-2 bucket of “Good” may not necessarily be a negative sentiment rating, it may have just been less positive.  The semantic line in sentiment is more ambiguous here. 
+
+For 7-point bipolar, a 5 rating would be ambivalently positive, so leaving it out and only measuring 6-7 % ensures you have more strong positive attitudes.  For 5-point rating scale, this is also the same, despite it being a unipolar scale.   ";3;4;292
+127;"positive or negative leading survey scales";"Short’ish Answer – There is a strong preference in academic and government research for negative-leading scales on self-administered surveys. Walker has traditionally used positive-leading scales driven partially by our history in telephone surveying (where primacy bias favored the last scale points the respondent heard), and partially by psychological theory suggesting people favor lists moving from most-to-least positive (e.g., Top 10 rankings, etc.). The most recent research on the topic indicates the direction of rating scales (positive-leading = Excellent->Poor; negative-leading = Poor->Excellent) has a small or non-significant effect on scores (https://measuringu.com/revisiting-the-left-side-bias/). If starting from scratch, going with negative-to-positive is the safest approach. If you already have a survey in place, consistency in scales over time is the most important thing to maintain trending, so avoid changing scale direction on an on-going program.  
+
+Long Answer –  
+
+The concern about the direction of rating scales is bias, specifically primacy bias. This states that items read first are more heavily weighted in a respondent’s decision than items read last. There is a long history of academic resaeach backing this up. 
+
+If starting a survey/program from scratch, we should recommend using Negative leading to diminish positivity bias. 
+
+If existing survey, consistency over time is most important so retain the positive-leading. 
+
+There is a “primacy effect” in the academic world such that people tend to provide an answer farther left (if horizontally presented) on a scale.  In other words, if positive leading – the scores are going to be more positive on average than if they were negative leading.  It might be helpful for them to think about the problem as fitting a metric (scale) to a biased frame.  The subjective decision is to figure out which way you want fit that bias, aka the dilemma at hand. 
+
+If they take positive leading, there’s a chance that their scores might be higher than negative leading scales (e.g. 85% vs 83%, respectively), and the scores may inflate perceptions.  It’s hard to know which way “correctly” reflects a respondent’s perception, so the question is more of consistency over time.  My personal opinions—survey distributions are already skewed to the positive, so if you’re starting to look at top box % scores that are in the upper 80s and 90s, is there much room left to improve?  I would prefer lower scores on average (negative leading) because that gives me more room to improve over time.   
+
+It’s important to point out that the effect size is really small though, but has been found repeatedly over the decades.  It has become a fairly robust effect, and has been studied repeatedly in different contexts since the 80s (pre-2000s anyway).  The question has now turned more towards, “Where and when does the effect become most prominent?”   
+
+A supporting article for the presence of rating scale direction effects is below and does a nice job of illustrating the effect across many question types (agreement, satisfaction, experience rating, frequencies, etc.).  
+
+Another set of articles that questions the presence and effect of scale direction effects are below, which point out the lack of consistent or significant effects. 
+
+Resources –  
+
+Yan, Ting, Florian Keusch, & Lirui He. (2018). “The Impact of Question and Scale Characteristics on Scale Direction Effects.” Survey Practice, 11 (2). https://doi.org/10.29115/SP-2018-0008. 
+
+Experiments done in 2008/2012 American National Election Studies (ANES) where a random half of respondents were given scales in forward order (high to low – positive leading) and the other half reversed order (low to high – negative leading) 
+
+Data was collected from these studies and compiled question type, question length, questionnaire position, scale type, etc.  A “meta-analysis” of sorts 
+
+Vertical vs horizontal orientation not specified, would be a safe assumption that all surveys may have varied orientation 
+
+Significant primacy effect for forward order  
+
+Larger primacy effect for non-attitudinal items than attitudinal  
+
+Stronger scale direction effects for survey items in the first half of the questionnaire 
+
+Equal effects across scale types (attitudinal scales with quantifiers [e.g. very satisfied -> very dissatisfied], frequency scales, evaluative scales [extremely well -> not well at all], and quantity scales 
+
+More pronounced scale direction effects in longer scales (5 or 6 scale points in this study) 
+
+Lewis, J. R. (2019). “Comparison of Four TAM Item Formats: Effect of Response Option Labels and Order.” Journal of Usability Studies, 14(4). https://uxpajournal.org/tam-formats-effect-response-labels-order/ 
+
+Lewis, J. R. & Sauro, J. (2020) “Revisiting Evidence for the Left-Side Bias in Rating Scales” MeasuringU, https://measuringu.com/revisiting-the-left-side-bias/  ";3;4;1166
+128;"Including "Don't know" "Not applicable" "N/A" as answer choice";"Short Answer – There’s no black and white here, it depends.  The literature (article citation in resources) says that the more potentially irrelevant a survey measure is, the more likely the midpoint is going to be used as a dumping ground for a response.  If you can guarantee that respondents should have a perception from the experience you’re measuring, then you could consider leaving it out.  So adding this option increases the quality of your responses.  Generally though, the quality gained in the data is likely going to outweigh the slight quantity increase in missing data. 
+
+Long Answer –   
+
+Including “Don’t Know”, “Not Applicable”, “N/A” at the end in conjunction with a midpoint (assuming bipolar scale) reduces the noise by providing those who truly don’t care or have an opinion a way out.  This makes the scores you do collect more valid, but increases your missing data for analysis, which is relevant for driver analysis. 
+
+It’s important to take stock of the context of the survey (transactional? relational?) and the relevance of the items being asked.  If it’s a lengthy relational survey, it’s more likely that some items would be less relevant.  Consider using it here. 
+
+Even if using experience rating, people can satisfice by providing inaccurately positive ratings that inflate scores, so still consider the item relevance with unipolar scales. 
+
+Resources –  
+
+Chyung, S.Y., Roberts, K., Swanson, I., & Hankinson, A. (2017). Evidence-Based Survey Design: The Use of a Midpoint on the Likert Scale.  Performance Improvement, 56(10), 15-23. doi: 10.1002/pfi.21727. ";3;4;395
+129;"Using 5-point likelihood to recommend or NPS scale";"Question:  Can you use a 5-point likelihood to recommend scale? 
+
+Short Answer – To leverage the default reporting and benchmarks within Qualtrics, we strongly recommend keeping the original 0-10 scale. 
+ If the client is insistent on this, then yes, it can be done. We used to use this version pre-NPS era.  Double check that the client is not interested in using the NPS-based scoring, reporting, or benchmarking in Qualtrics if considering. If using a 5-point scale, we recommend using our standard likelihood scale and the standard Top 2 box % reporting.  Link to scale document: 
+ https://walkerinfo.sharepoint.com/:w:/g/ClientServiceKnowledgeBase/EWLa7BarzohKpwRdc0PWmfYB8k5j8GZMz60Oz1W0Y0ZFGQ?e=YRdYpZ
+
+Additional considerations: If the client insists on creating NPS categories using the 5-point scale (which we wouldn’t recommend), then we’ve traditionally used the following approach: 
+
+5 = Promoter 
+
+4 = Passive 
+
+3, 2, 1 = Detractor 
+
+This categorization will generally yield a slightly lower % Promoters and slightly higher % Detractors and, therefore, a lower NPS than if using the standard 11-point NPS scale. ";3;4;311
+130;"Vertical vs horizontal scale display";"Short Answer – This is mostly relevant to the auto-adjustment of orientation from Desktop-Horizontal to Mobil-Vertical.  There’s not much effect worth worrying about here.  The best UI experience is definitely more important to consider.  The main point to consider with this question is if all answer choices are present within both display versions without the need for scrolling. 
+
+Resources –  
+
+Lewis, J. & Sauro, J. (2021).  “Horizontal versus Vertical Rating Scales”.  Measuring U.  If questioning Qualtrics’s orientation auto-change from desktop (horizontal) to mobile (vertical), the following Measuring U article presents both literature review and original research on this.  https://measuringu.com/horizontal-vs-vertical-rating-scales/ 
+
+Did NOT test horizontal vs vertical on desktop only, or mobile only. 
+
+Original research presented both scales negative leading. 
+
+Found no significant differences on CES (bipolar), NPS (unipolar), or CSAT (bipolar) items across the device-orientation pairings. 
+
+If questioning horizontal vs vertical display within desktop refer to (Toepoel, Das, & Soest 2009). 
+
+Netherlands – equal mix of gender, age, education ";3;4;287
+131;"Emoji survey scales";"Short Answer – Growing research in the space.  There does seem to be some support for the efficacy of emoji scales compared to lexical scales.  If wanting to use by client, definitely NOT worth pushing back on.  Would probably be best used for transactional surveys or web intercepts.  Also make sure that the emojis make sense (no major color differences, styles, added animations, etc.).  There is no rating scale that is absolutely “superior” to another.  It is important to remember that there connotation differences within populations about emojis, especially generational differences. 
+
+Long Answer – Aside from direct-to-survey research, it is well known that the interpretations of emojis evolve very rapidly, and often have disconnects across age groups and cultures. 
+
+As long as the directionality can clearly be inferred, it seems like they are comparable. 
+
+If the question relates to translations (wouldn’t have to translate scale points), that area is less studied than the translations for scales. 
+
+May not be universally interpreted across cultures.  May not be good for global studies. 
+
+Resources: 
+
+Measuring U article – conducted their own panel study around market research on streaming services, asked about OXP with providers. Link: https://measuringu.com/numbers-versus-face-emojis/
+
+Had proper design (Random assignment & procedural validity) 
+
+Compared 5-pt bi-polar agreement scales (no mid-point, numeric except ends) to 5-pt emoji scale (all same color) 
+
+No difference in the mean scores for any questions between scales 
+
+Phan, W.M.J., Amrhein, R., Rounds, J., & Lewis, P. (2019). “Contextualizing Interest Scales With Emojis: Implications for Measurement and Validity”. 
+
+Short version:  Emoji scales were stronger predictors of Job SAT than Lexical scales both within the same person (same survey 2x) and between people (taking survey 1x but different scales). 
+
+Compared 5-pt lexical scale with 5-pt emoji scale in Job SAT context 
+
+First, they created the emoji scale by asking 56 participants to select the top 2 emojis that best represents each scale point on a 5-pt Strongly Dislike-Strongly Like scale. 5 different sets of emojis were tested like this, and the set with the highest consensus was used. This is a Thurston scale type approach.  Valid way to build scales.   
+
+Undergrads comprised many different cultures built scale on consensus. 
+
+Validation study with 569 US residents (M-Turk), randomly assigned to 4 blocks to take interest inventory 2x separated by distraction task. Each block was either both lexical scales, both emoji scales, or 1/2 emoji 1/2 lexical with randomized ordering.  Job SAT used different scale (Yes, ?, No) (Russell, 2004).  Allowed for testing both within person and between people. 
+
+Within person results: 
+
+Consistency across T1 and T2 survey was similar for all blocks. 
+
+Hierarchical regressions for job interest congruence scores (1 for scale consistent blocks and 1 for mixed-scale blocks).  Mixed scale regressions had binary ordering variable to account for order effect.  In both regression sets, Emoji scale was a better predictor on job SAT than lexical scale. 
+
+*Emoji scale was a better predictor of Job SAT than Lexical scale. 
+
+Between people results: 
+
+Looking at T1, emoji scale job interest congruence was significantly more correlated (r=.41) than the lexical scale (r=.13).   
+
+*Emoji scale was sig a better predictor of job SAT. 
+
+Kilic, A.F., Uysal, I., & Kalkan, B. (2021). “An Alternative to Likert Scale: Emoji”.  Journal of Measurement and Evaluation in Education and Psychology, 12(2), 182-191. 
+
+University study comparing likert scales (3,5,7) with emoji scales (N=341). 
+
+Provided no basis for emojis chosen for scales. 
+
+Use the Psychological Wellbeing Scale (Diener et a. 2010). 
+
+Used EFA and CFA to evaluate the constructs and compare weights across measurement type. 
+
+Looked at correlations between measurement types across 3,5,7 – correlations decreased substantially when moving form 3-7. 
+
+No significant differences were detected in the construct validity between the scales.  They did point out that other area of the literature do see evidence of differential interpretations, especially across age groups. 
+
+Different interpretations might be a primary factor for CX work. 
+
+Jama (2022). “Comparison of an Emoji-Based Visual Analog Scale With a Numeric Rating Scale for Pain Assessment”.  Hospital Research Letter. 
+
+Patients from hospital asked to rate pain on 6 pt emoji scale or 11 pt numeric scale. 
+
+Population skewed middle aged to elderly (median = 65), N=109. 
+
+Saw statistically valid cronback alpha between groups (a = .84). 
+
+Considered this to be evidence of validity of emoji scale. 
+
+Ilhan, M. et al. (2022). “Effects of Category Labeling With Emojis on Likert-Type Scales on the Psychometric Properties of Measurements”. Journal of Psychoeducational Assessment, 40 (2), 221-237. 
+
+Measured Math motivation in 658 Children (8-11 yrs).  Focused on 3-pt agreement scale. 
+
+Found that Emoji scale had significantly higher Mean than lexical scale on ALL sub-measures.   
+
+Effect size d = .187, which qualifies as a small effect (.1-.3). 
+
+Though significant difference, not so much practical difference. 
+
+Marengo, D., Giannotta, F., & Settanni, M. (2017). Assessing personality using emoji: An exploratory study.  Personality and Individual Differences, 112(1), 74-78. https://doi.org/10.1016/j.paid.2017.02.037. 
+
+ ";3;4;1386
+132;"forcing responses in survey design and programming";"Short Answer – 
+
+Generally in CX, forcing responses is only going to reduce completion rates. With response rates decreasing over time, it’s important to make design decisions that don’t frustrate the respondent and increase abandonment.  There are 2 main scenarios where this is helpful and appropriate though: 
+
+The question is necessary for survey routing/skip logic 
+
+We are using a paid panel for responses 
+
+Response and completion rates are a top priority in the CX research space, as many individuals are voluntarily providing feedback, so they have no other incentive to complete the survey than their own volition.  Adding in friction will likely lead to decreased completion rates, and possibly fewer responses for analysis. ";3;4;150
+133;"number of CX principles";"There's no magic number. These come from "Brand Images" in the market research world.  CX principles are adaptations of this concept and meant to unify brand level promises down to operational decision-making from the customer perspective.  
+
+Typically, we'll have somewhere between 3 and 5.  What's most important is the distinctions between them.  Typically, we ask about them in a section of "Images & Impressions" in the survey towards the beginning since these are more generalized, abstract, and holistic attitudes.  Usually one item evaluating one principle.";3;4;117
+134;" global and subgroup KPI scoregoal setting";"The idea is to set targets that are far enough to be significant changes without being too lofty. 
+
+Holistically, looking at a single global score, it’s best to leverage confidence intervals to identify at what point do we see a significant change with our expected base sizes and margin of error. 
+
+When there are multiple distinct populations (e.g. Retail side, Corporate) that comprise the global scores, we need to factor in the segment sizes (weighting).  Ideally, we have the actual numbers from the client of how large the Retail and Corporate populations are.  Using historical response rates and referencing the actual population numbers, we can create weights that will adjust scores to reflect each population more accurately.   
+
+To help understand how much each subgroup needs to improve by to have a significant global improvement, use  either the Top box % or NPS goal setting worksheets linked below: 
+
+Top Box %: https://walkerinfo.sharepoint.com/:x:/r/ClientServiceKnowledgeBase/_layouts/15/Doc.aspx?sourcedoc=%7B2CDC98F5-2D0A-4E5C-9DFD-2E72A4C36BB9%7D&file=Goal-Setting%20Worksheet.xlsx&action=default&mobileredirect=true 
+
+NPS: https://walkerinfo.sharepoint.com/:x:/r/ClientServiceKnowledgeBase/_layouts/15/Doc.aspx?sourcedoc=%7BC94CD4EA-5F99-4F77-975C-A044D7CB2E2C%7D&file=Goal-Setting%20Worksheet_NPS.xlsx&action=default&mobileredirect=true 
+
+If you have questions about the usage of these worksheets, please reach out to Team Katmai. ";3;4;413
+135;"Incentives for Employees to deliver good CX ";"Short Answer – If we are asked to provide input on the topic: 
+
+Only incentives like social recognition or minor perks.  These are conducive to a positive culture.  The consequences don’t carry as much weight.  Small things like mini trophies, certificates, recognition at department meeting.  If monetary, should be small unexpected rewards that are not directly cash – lunch, coffee, gift card, etc. 
+
+Generally, to not place bonuses or base compensation in the hands of these metrics.  More details below. 
+
+Long Answer –  If bonuses/base compensation are linked to CX metrics, it can be a slippery slope to a place you didn’t imagine going.  Several negative impacts that typically result from this kind incentive: 
+
+Frontline employees can game the system by only telling customers where an obvious positive interaction occurred or by explicitly begging for top box scores on their card.  These pleas can even go as far as guilting the customer into doing it – the ideology of “The fate my job is in your hands”.  Most commonly in retail industries where frontline are face-to-face with non-recorded calls. 
+
+The shear weight of the anticipation of these consequences can be enough to burn employees out faster.   
+
+The metrics themselves get heavily scrutinized by those impacted, calling for rigorous analysis to cross off all other reasons for a decline in scores.  If you have limited resources, your spending EXTRA money to justify the scores and taking resources away from strategizing and enacting ways to create positive experiences.  It’s a negative feedback loop that takes the focus away from the customer! ";3;4;348
+136;"difference between MaxDiff and Conjoint";"What kinds of questions do conjoint projects answer?  What kinds of questions to MaxDiff questions answer?  How are they similar and how are they different? 
+
+What they can answer? 
+
+Conjoint – Asks about preference for options comprised of different combinations of attributes.  These are usually attributes about an option that are not obviously exclusive (e.g. Size, Color, Price).  What components have the most/least influence in determining preference for a whole offering?  How much are people willing to pay for each component? 
+
+MaxDiff – Asks about preference for options that are exclusive of each other.  Usually within attribute preferences.  For example, the MaxDiff might be around choosing the ideal set of colors to produce.  MaxDiff will force respondents to select between different combinations of colors. 
+
+How are they similar? 
+
+They both require respondent to consider different options and the tradeoffs to select a preference. 
+
+How are they different? 
+
+Conjoints – are choices between options that have varying combinations of attributes.  Can evaluate impact of attribute category on top of specific attribute preference, and even willingness to pay (WTP) for them. 
+
+MaxDiff – usually choices between options that are on the same plane/level/category that are exclusive.  For example, different options within the categories of: Color, Size, Term Length, Support level. ";3;4;299
+137;"Key driver widget relative importance or correlation";"Short answer – Do NOT use the Relative Importance option on the key driver widget at this time (as of 11/15/2023). This is the current default option, so you need to manually change the analysis method to “Pearson Correlation” for any new Key Driver Widgets you setup. 
+
+Long answer - The Relative Importance Analysis method being used has a few flaws that could lead to severe misinterpretations and lead clients to make inaccurate recommendations to their stakeholders.  So, if you are creating a new Key Driver Widget for any client or are using it in reports, make sure that the widget is configured using the “Pearson Correlation” (the old method). There are two primary reasons for our recommendation: 
+
+The Key Driver Widget uses a different reporting metric from the Relative Importance Analysis compared to what is highlighted and used in Stats iQ (unstandardized coefficient vs. relative weight). This will often result in different rank ordering between the Key Driver Widget and Stats iQ. Furthermore, we believe the metric used in the Key Driver Widget is incorrect for the purpose of the widget and could lead to severely flawed interpretations under certain circumstances. 
+
+The Relative Importance Analysis in the Key Driver Widget is still using listwise deletion. This means that the only uses respondents who have answered ALL of the potential drivers, which, depending on skip patterns and missing data, could be a very tiny subset of your full dataset. However, the widget never indicates the base size used in the analysis. In fact, the widget will show the base size of the outcome metric, which is often wrong for this type of analysis. This could lead clients to make decisions that apply to their entire response sample based on Importance scores that could only apply to a very small subsegment of respondents. 
+
+If you’re interested in more detail on these issues, or if you have a client who wants more detail or is insistent on using the Relative Importance method, please reach out to Team Katmai.";3;4;422
+138;"Full scale vs end point only with numeric scale labels";"Short Answer – Fully Labeled scales tend to yield more reliable results and place less interpretation burden on the respondent. 
+
+There’s a lot of research out there actually pointing towards fully labeled scales as providing more reliable and valid measurement.  Krosnick & Fabrigar (1997) and Krosnick (1999) are two of the most foundational compilations of research on this.  Link: https://web.stanford.edu/dept/communication/faculty/krosnick/docs/1999/1999%20Maximizing%20questionnaire%20quality.pdf. Menold et al (2014) demonstrated through eye tracking that respondents pay more attention to all scale points than end-point only labels and it resulted in a closer to normal distribution of data than end-point only, which yielded more significantly skewed data.  Link: https://d1wqtxts1xzle7.cloudfront.net/73077479/How_Do_Respondents_Attend_to_Verbal_Labe20211018-30196-1fygltj.pdf?1634581786=&response-content-disposition=inline%3B+filename%3DHow_Do_Respondents_Attend_to_Verbal_Labe.pdf&Expires=1699915797&Signature=XDvzpfrj-yFOhV4m6C-3SQe7d~lDanYdzArSypLLdcYUx2kjgucJaVf0g7zCwISy9khp-zXl8YccYgbBIuzvW2hOS2xftNyvr8cU4IMfmXUX9Qg~a4cG3PN73v8uI2Wx2D4w6BxZku8oy634zNUBMRI2yAwF56LGDxL1OSvispadAVyGZCOOngj1ezV3prG-62QmlsT7TB~8E9leRbJw02YSIa9qx57sf2kI6DjpiGpt393mqm8agvNFU1qU3d75oIH52SAvGPbaw1wGiM7V6MIwICN3o38JaHCT9NfVHarU6GRNEqT1AtYslY6BTzgSjRhqddhCmC6MJ~Ls8XFg-g__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA.  Longer attention time doesn’t necessarily mean more difficult though.  Another NIH article (Hamby & Taylor, 2016) found that the end-point only with numeric labels may place more burden on the respondent and lead to artificially inflated correlations between entirely different constructs due to the consistency in rating.  Link:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5965608/.  The artificially inflated correlations indicate that the responder behavior was actually different.  This type of scenario seems relevant for asking for ratings across different experience areas, which could affect identifying key drivers.   
+
+Another common rationale, consistent with interpretation burden being placed on the respondent, is that the end point only scale requires participants to translate the numbers into another semantic meaning for themselves to decide.  This may actually be more subjective and ambiguous than more explicit semantic labels for all options. 
+
+The literature strongly favors rating scales with a verbal label on each scale pointA customer effort question might be better served by a verbally-labeled scale to help guide the respondent on what they are rating. If you ask them to rate their effort, respondents could be confused on what a 5-star rating means. The labels will also help with reporting (e.g., 60% of customers agreed that it was easy to handle their issue).  
+
+One issue with “customer effort” is the multiple ways that CES (customer effort score) has been captured. The current guidance by Gartner is to use a 7-pt agreement scale, but their first version used a 5-point high-to-low effort scale. Since Gartner has done a poor job of creating any benchmarks around CES, I usually let clients decide how they want to ask the question with a few options. This article from In-Moment (a competitor) actually contains the three options I usually give clients EXCEPT I prefer a fully-labeled 5-point scale for the last question they list (Extremely easy, Very easy, Somewhat easy, Not very easy, Not easy at all) ";3;4;1010
+139;"single response report links";"- the single response report link leads to a pdf report of the individual survey response
+- A New Response report isn't available until the response is submitted. This means that the response report link isn't available in the survey flow, but is available in workflows triggered off of the survey. To make the link available in the survey response one could configure a workflow to API update the survey response with the link upon receiving the new survey response.
+Default Piping: ${srr://SingleResponseReportLink}
+	^^This expires after like 30 days:
+Piping to Never Expire:  ${srr://SingleResponseReportLink?ttl=0}
+	^^ I call TTL "Time to Live". No idea if that is right. I don't know what the unit is? Days maybe?
+	
+	
+Piping to force a translation when the report loads: ${srr://SingleResponseReportLink}?language=EN
+Piping to never expire and force language:  ${srr://SingleResponseReportLink?ttl=0}?language=EN";2;3;223
