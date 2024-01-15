@@ -6,7 +6,7 @@ import os
 import json
 from pathlib import Path
 from dotenv import load_dotenv
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, jsonify
 from slackeventsapi import SlackEventAdapter
 from utils.slack_home import home_view
 from transformers import GPT2Tokenizer
@@ -30,6 +30,16 @@ openai.api_key = os.environ['OPENAI_KEY']
 
 # setup Flask server to handle callback events from slack
 application = Flask(__name__)
+
+
+@application.route("/health")
+def health_check():
+    payload = {
+        'status': 'success'
+    }
+    return jsonify(payload), 200
+
+
 my_bot = None
 my_bot_id = os.environ['MY_BOT_ID']
 db = SQLAlchemy()
