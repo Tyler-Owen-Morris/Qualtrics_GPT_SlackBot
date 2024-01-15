@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from pathlib import Path
@@ -24,6 +24,14 @@ db_name = os.environ['DB_NAME']
 
 def create_app():
     app = Flask(__name__)
+
+    @app.route("/health")
+    def health_check():
+        payload = {
+            'status': 'success'
+        }
+        return jsonify(payload), 200
+
     app.config['SECRET_KEY'] = os.environ['LOGIN_SECRET_KEY']
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/{}'.format(
         db_username, db_password, db_endpoint, db_name)
