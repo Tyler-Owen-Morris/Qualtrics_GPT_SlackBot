@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, session
 from flask_login import login_required, current_user
+from sqlalchemy import func
 from transformers import GPT2Tokenizer
 from . import db
 from .models import SubjectContent, Bot, User, BotOwnership
@@ -109,7 +110,8 @@ def load_user_bots_from_database():
 
 
 def load_subject_data_from_database(bot_id):
-    mysubjects = SubjectContent.query.filter_by(bot_id=bot_id).all()
+    mysubjects = SubjectContent.query.filter_by(bot_id=bot_id).order_by(
+        func.lower(SubjectContent.subject)).all()
     print("my subjects", type(mysubjects), mysubjects)
     bot = Bot.query.filter_by(id=bot_id).first()
     return mysubjects, bot
