@@ -29,7 +29,7 @@
 {% block content
 %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Bots</h1>
+    <h1 class="text-center mb-4">Your Bots:</h1>
     <ul class="list-group list-group-flush mb-3" id="bots">
         {% if not data %}
         <div class="list-group-item d-flex align-items-center">
@@ -38,13 +38,13 @@
         {% endif %}
         {% for item in data %}
         <li class="list-group-item mb-3"> <!-- Added margin-bottom for spacing between records -->
-            <div class="mb-2">
+            <div class="d-flex justify-content-between mb-2">
                 <label for="subject_{k{ loop.index}}" class="form-label d-block mb-1">
                     <!-- Added d-block and margin-bottom for better spacing -->
-                    <strong>BOT:</strong> {{item.display_name}}
+                    <h2><strong> {{item.display_name}}</strong></h2>
+                    <!-- Assuming `item.description` exists for the description -->
+                    <p class="text-muted mb-2">hosted at: {{item.subdomain}}.walker-chatbot.com</p>
                 </label>
-                <!-- Assuming `item.description` exists for the description -->
-                <p class="text-muted mb-2">hosted at: {{item.subdomain}}.walker-chatbot.com</p>
                 <!-- Display description with a muted text style -->
                 <button class="btn btn-primary SelectBot" type="button" id="{{item.id}}">Select Bot</button>
             </div>

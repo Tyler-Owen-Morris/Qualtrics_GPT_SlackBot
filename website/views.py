@@ -31,7 +31,7 @@ def home():
         print("loading selected bot", selected_bot)
         data, bot = load_subject_data_from_database(selected_bot)
     else:
-        print("rendering bot page")
+        print("rendering bot page", mybots)
         return render_template("bots.html", user=current_user, data=mybots)
     return render_template("subjects.html", user=current_user, data=data, bot=bot, max_tokens=str(int(token_limit/4)))
 
