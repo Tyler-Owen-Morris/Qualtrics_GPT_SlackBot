@@ -63,12 +63,12 @@ def schedule_upload():
         time.sleep(7200)  # Sleep for 2 hours before the next upload
 
 
-# Create and start the upload thread
-upload_thread = threading.Thread(target=schedule_upload)
-upload_thread.start()
+# # Create and start the upload thread
+# upload_thread = threading.Thread(target=schedule_upload)
+# upload_thread.start()
 
-# Wait for the thread to finish
-upload_thread.join()
+# # Wait for the thread to finish
+# upload_thread.join()
 
 my_bot = None
 my_bot_id = os.environ['MY_BOT_ID']
