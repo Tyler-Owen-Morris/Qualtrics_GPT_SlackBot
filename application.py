@@ -13,7 +13,10 @@ from transformers import GPT2Tokenizer
 import segment.analytics as analytics
 import string
 import boto3
+import time
 from io import StringIO
+import threading
+from utils.aws_utils import upload_folder_to_s3
 
 # Load Environment variables
 envpath = Path('.') / '.env'
@@ -39,6 +42,33 @@ def health_check():
     }
     return jsonify(payload), 200
 
+
+bucket_name = 'gpt-chatbot-files'
+s3_folder_path = f"{os.environ['S3_LOG_FOLDER']}/"
+local_folder_path = 'conversations'
+
+
+@application.route('/backup-logs', methods=['POST'])
+def backup_logs():
+    try:
+        upload_folder_to_s3(bucket_name, s3_folder_path, local_folder_path)
+        return jsonify(status='success'), 200
+    except Exception as e:
+        return jsonify(status='error', message=str(e)), 500
+
+
+def schedule_upload():
+    while True:
+        upload_folder_to_s3(bucket_name, s3_folder_path, local_folder_path)
+        time.sleep(7200)  # Sleep for 2 hours before the next upload
+
+
+# Create and start the upload thread
+upload_thread = threading.Thread(target=schedule_upload)
+upload_thread.start()
+
+# Wait for the thread to finish
+upload_thread.join()
 
 my_bot = None
 my_bot_id = os.environ['MY_BOT_ID']
