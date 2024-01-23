@@ -57,19 +57,6 @@ def backup_logs():
         return jsonify(status='error', message=str(e)), 500
 
 
-def schedule_upload():
-    while True:
-        upload_folder_to_s3(bucket_name, s3_folder_path, local_folder_path)
-        time.sleep(7200)  # Sleep for 2 hours before the next upload
-
-
-# # Create and start the upload thread
-# upload_thread = threading.Thread(target=schedule_upload)
-# upload_thread.start()
-
-# # Wait for the thread to finish
-# upload_thread.join()
-
 my_bot = None
 my_bot_id = os.environ['MY_BOT_ID']
 db = SQLAlchemy()
@@ -481,6 +468,23 @@ def run_bot():
         serve(application, host='0.0.0.0')
 
 
-if __name__ == "__main__":
-    # run_bot()
+def schedule_upload():
+    while True:
+        upload_folder_to_s3(bucket_name, s3_folder_path, local_folder_path)
+        time.sleep(7200)  # Sleep for 2 hours before the next upload
+
+
+def run_app():
     application.run()
+
+
+if __name__ == "__main__":
+
+    application_thread = threading.Thread(target=run_app)
+    application_thread.start()
+
+    upload_thread = threading.Thread(target=schedule_upload)
+    upload_thread.start()
+
+    application_thread.join()
+    upload_thread.join()
