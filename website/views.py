@@ -5,6 +5,7 @@ from transformers import GPT2Tokenizer
 from . import db
 from .models import SubjectContent, Bot, User, BotOwnership
 import boto3
+import requests
 import json
 from io import StringIO
 from pathlib import Path
@@ -95,9 +96,37 @@ def save_subject():
     my_subject = request.json['subject']
     res = update_subject_content(my_id, my_content, my_subject)
     if res:
+        flash('Subject Saved.', category='success')
         return {'passed': True}
     else:
         return {'passed': False}
+
+
+@views.route('/save_logs', methods=['POST'])
+@login_required
+def save_logs():
+    # res = update_subject_content(my_id, my_content, my_subject)
+    print("save logs route", request)
+    res = save_server_logs()
+    if res:
+
+        return {'passed': True}
+    else:
+        return {'passed': False}
+
+
+def save_server_logs():
+    mybot = session['selected_bot']
+    chosen_bot = Bot.query.filter_by(id=mybot).first()
+    base_url = "http://"+chosen_bot.subdomain+".walker-chatbot.com/backup-logs"
+    print('baseurl', base_url)
+    res = requests.post(base_url)
+    print("requestresponse:", res)
+    if res:
+        flash('Logs Recorded.', category='success')
+        return True
+    else:
+        return False
 
 
 def load_user_bots_from_database():

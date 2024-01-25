@@ -79,6 +79,10 @@
       console.log("unselect:", e.currentTarget.id)
       unselect_bot(e.currentTarget.id)
     });
+    $('#save-logs').click(function (e) {
+      console.log("save logs", e.currentTarget)
+      save_logs()
+    })
   });
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -158,12 +162,30 @@
       }
     });
   }
+  function save_logs() {
+    $.ajax({
+      url: "/save_logs",
+      type: "POST",
+      success: function (response) {
+        if (response.passed) {
+          console.log("logs saved", response)
+          location.replace("/")
+        }
+      },
+      error: function (error) {
+        console.log("ERROR:", error)
+      }
+    })
+  }
 </script>
 {% endblock %}
 {% block content
 %}
 <div class="container mt-5">
-  <button class="btn btn-secondary" id="unselect-bot">Switch Bot</button>
+  <div class="d-flex justify-content-between mb-4">
+    <button class="btn flex btn-secondary" id="unselect-bot">Switch Bot</button>
+    <button class="btn flex btn-primary" id="save-logs">Save Logs</button>
+  </div>
   <!-- <h1 class="text-center mb-4">Subjects</h1> -->
   <h3 class="text-center"><strong>Selected:</strong> {{bot.display_name}}</h3>
   <h5 class="text-center"><strong>Max Tokens per-content:</strong> {{max_tokens}}</h5>
