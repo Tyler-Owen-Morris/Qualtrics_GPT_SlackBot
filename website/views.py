@@ -118,7 +118,7 @@ def save_logs():
 def save_server_logs():
     mybot = session['selected_bot']
     chosen_bot = Bot.query.filter_by(id=mybot).first()
-    base_url = "http://"+chosen_bot.subdomain+".walker-chatbot.com/backup-logs"
+    base_url = "https://"+chosen_bot.subdomain+".walker-chatbot.com/backup-logs"
     print('baseurl', base_url)
     res = requests.post(base_url)
     print("requestresponse:", res)
