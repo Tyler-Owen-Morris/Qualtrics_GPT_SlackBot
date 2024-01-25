@@ -16,6 +16,7 @@ import boto3
 import time
 from io import StringIO
 import threading
+import datetime
 from utils.aws_utils import upload_folder_to_s3
 
 # Load Environment variables
@@ -44,7 +45,8 @@ def health_check():
 
 
 bucket_name = 'gpt-chatbot-files'
-s3_folder_path = f"{os.environ['S3_LOG_FOLDER']}/"
+ts = datetime.datetime.now().strftime("%Y-%m-%d_%H")
+s3_folder_path = f"{os.environ['S3_LOG_FOLDER']}/{ts}/"
 local_folder_path = 'conversations'
 
 
