@@ -46,14 +46,15 @@ def health_check():
 
 
 bucket_name = 'gpt-chatbot-files'
-ts = datetime.datetime.now().strftime("%Y-%m-%d_%H")
-s3_folder_path = f"{os.environ['S3_LOG_FOLDER']}/{ts}/"
+
 local_folder_path = 'conversations'
 
 
 @application.route('/backup-logs', methods=['POST'])
 def backup_logs():
     try:
+        ts = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M")
+        s3_folder_path = f"{os.environ['S3_LOG_FOLDER']}/{ts}/"
         upload_folder_to_s3(bucket_name, s3_folder_path, local_folder_path)
         return jsonify(status='success'), 200
     except Exception as e:
@@ -482,6 +483,8 @@ def run_bot():
 
 def schedule_upload():
     while True:
+        ts = datetime.datetime.now().strftime("%Y-%m-%d")
+        s3_folder_path = f"{os.environ['S3_LOG_FOLDER']}/{ts}/"
         upload_folder_to_s3(bucket_name, s3_folder_path, local_folder_path)
         time.sleep(7200)  # Sleep for 2 hours before the next upload
 
