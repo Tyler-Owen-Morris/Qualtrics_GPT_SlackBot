@@ -11,9 +11,8 @@ q_api_token = os.environ['QUALTRICS_API_TOKEN']
 survey_id = os.environ['QUALTRICS_LOG_SURVEY_ID']
 
 
-def write_response_to_survey(bot_id, user_question, bot_response):
+def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects):
     try:
-
         headers = {
             'X-API-TOKEN': q_api_token,
             'Content-Type': 'application/json',
@@ -30,8 +29,6 @@ def write_response_to_survey(bot_id, user_question, bot_response):
                 "startDate": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "userLanguage": "EN"
             }}
-        data = {bot_id: bot_id, user_question: user_question,
-                bot_response: bot_response}
         response = requests.post(
             f'https://yul1.qualtrics.com/API/v3/surveys/{survey_id}/responses',
             json=payload,
@@ -48,7 +45,8 @@ def write_response_to_survey(bot_id, user_question, bot_response):
                 "embeddedData": {
                     "bot_id": bot_id,
                     "user_question": user_question,
-                    "bot_response": bot_response
+                    "bot_response": bot_response,
+                    "bot_subjects": bot_subjects
                 }
             }
             update_response = requests.put(
