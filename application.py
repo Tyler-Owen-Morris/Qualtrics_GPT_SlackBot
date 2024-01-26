@@ -241,7 +241,7 @@ def message(payload):
                                     text=my_resp)
         analytics.track(user_id, 'Reply Generated', {
                         'question': text, 'response': resp, 'channelType': channel_type, 'channel_id': channel_id, 'subject': subject_list})
-        append_and_save_conversation(user_id, text, resp)
+        append_and_save_conversation(user_id, text, resp, subject_list)
 
 
 # Listen to the app_home_opened Events API event to hear when a user opens your app from the sidebar
@@ -343,7 +343,7 @@ def load_or_create_json_file(user_id):
     return data
 
 
-def append_and_save_conversation(user_id, user_string, bot_string):
+def append_and_save_conversation(user_id, user_string, bot_string, subject_string):
     try:
         file_name = f"conversations/{user_id}.json"
         with open(file_name, "r") as json_file:
@@ -369,7 +369,8 @@ def append_and_save_conversation(user_id, user_string, bot_string):
 
     # Write the response to Qualtrics (try)
     try:
-        write_response_to_survey(my_bot_id, user_string, bot_string)
+        write_response_to_survey(
+            my_bot_id, user_string, bot_string, subject_string)
     except:
         print("failed to write data to Qualtrics survey")
 
