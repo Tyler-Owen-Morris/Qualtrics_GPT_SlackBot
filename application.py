@@ -18,6 +18,7 @@ from io import StringIO
 import threading
 import datetime
 from utils.aws_utils import upload_folder_to_s3
+from utils.qualtrics_utils import write_response_to_survey
 
 # Load Environment variables
 envpath = Path('.') / '.env'
@@ -342,25 +343,34 @@ def load_or_create_json_file(user_id):
 
 
 def append_and_save_conversation(user_id, user_string, bot_string):
-    file_name = f"conversations/{user_id}.json"
-    with open(file_name, "r") as json_file:
-        data = json.load(json_file)
-    last_conv = data[-1]
-    # print("full data:", data)
-    # print("last convo:", last_conv)
-    user_message = {"role": "user", "content": user_string}
-    bot_message = {"role": "assistant", "content": bot_string}
+    try:
+        file_name = f"conversations/{user_id}.json"
+        with open(file_name, "r") as json_file:
+            data = json.load(json_file)
+        last_conv = data[-1]
+        # print("full data:", data)
+        # print("last convo:", last_conv)
+        user_message = {"role": "user", "content": user_string}
+        bot_message = {"role": "assistant", "content": bot_string}
 
-    last_conv.append(user_message)
-    last_conv.append(bot_message)
-    if len(data) > 1:
-        data = data[:-1]
-        data.append(last_conv)
-    else:
-        data = [last_conv]
-    # print("data before write:", data)
-    with open(file_name, "w") as json_file:
-        json.dump(data, json_file)
+        last_conv.append(user_message)
+        last_conv.append(bot_message)
+        if len(data) > 1:
+            data = data[:-1]
+            data.append(last_conv)
+        else:
+            data = [last_conv]
+        # print("data before write:", data)
+        with open(file_name, "w") as json_file:
+            json.dump(data, json_file)
+    except:
+        print("failed to write conversation to local json file")
+
+    # Write the response to Qualtrics (try)
+    try:
+        write_response_to_survey(my_bot_id, user_string, bot_string)
+    except:
+        print("failed to write data to Qualtrics survey")
 
 
 def start_new_conversation(user_id):
