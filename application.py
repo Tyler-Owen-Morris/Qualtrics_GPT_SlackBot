@@ -484,9 +484,12 @@ def run_bot():
 
 def schedule_upload():
     while True:
-        ts = datetime.datetime.now().strftime("%Y-%m-%d")
-        s3_folder_path = f"{os.environ['S3_LOG_FOLDER']}/{ts}/"
-        upload_folder_to_s3(bucket_name, s3_folder_path, local_folder_path)
+        try:
+            ts = datetime.datetime.now().strftime("%Y-%m-%d")
+            s3_folder_path = f"{os.environ['S3_LOG_FOLDER']}/{ts}/"
+            upload_folder_to_s3(bucket_name, s3_folder_path, local_folder_path)
+        except:
+            pass
         time.sleep(7200)  # Sleep for 2 hours before the next upload
 
 
