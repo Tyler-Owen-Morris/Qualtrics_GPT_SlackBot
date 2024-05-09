@@ -304,7 +304,7 @@ def load_subj_data(subjs):
     for subj in subjs:
         text += data[subj]+" "
     # limit the token count
-    while count_conversation_tokens([{'content': "data:"+text}]) > 3000:
+    while count_conversation_tokens([{'content': "data:"+text}]) > round(token_limit/2):
         print("shortening loaded data:", len(text))
         text = text[15:]
     # Construct
