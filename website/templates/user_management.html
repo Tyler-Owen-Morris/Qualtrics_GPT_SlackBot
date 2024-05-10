@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% extends "base.html" %} {% block title %}Home{% endblock %}
+    {% block header%}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.SelectUser').click(function (e) {
+                updateBots(e.currentTarget.id);
+            });
+            function updateBots(userId) {
+                console.log("Select User", userId);
+                const botsDiv = document.getElementById('userBots');
+                // Hide the botsDiv modal if no user is selected
+                if (!userId) {
+                    botsDiv.style.display = 'none';
+                    return;
+                }
+                $.ajax({
+                    url: '/get_user_bots/' + userId,
+                    type: 'GET',
+                    success: function (response) {
+                        console.log("bots!", response);
+                        console.log("ruid", response.user_id);
+                        let content = '<div class="text-center"><p>Modifying: <strong>' + response.username + '</strong></p></div><ul class="bot-list">';
+                        response.bots.forEach(bot => {
+                            //content += `<li>${bot.name}</li>`;  
+                            content += `
+                                <div class="bot-container">
+                                    <div class="bot-info">
+                                        <span class="bot-name">${bot.name}</span>
+                                    </div>
+                                    <button class="toggle-assignment" value="${bot.id}" userid="${response.user_id}" >${bot.assigned ? 'Unassign' : 'Assign'}</button>
+                                </div>
+                            `;
+                        });
+                        content += '</ul><button id="close-modal">close</button>';
+                        botsDiv.innerHTML = content;
+                        // Show the botsDiv modal
+                        botsDiv.style.display = 'block';
+                        // attach the listener to the button to close the modal
+                        $('#close-modal').click(function (e) {
+                            console.log("Close modal!")
+                            const botsDiv = document.getElementById('userBots');
+                            botsDiv.style.display = "none";
+                        });
+                        $('.toggle-assignment').click(function (e) {
+                            console.log("toggle-assignment", e.target);
+                            let bot_id = e.target.value;
+                            let user_id = e.target.getAttribute('userid'); // ensure grabbing user_id from attribute
+                            console.log("botid", bot_id);
+                            console.log("userid", user_id);
+                            $.ajax({
+                                url: '/toggle_assignment',
+                                type: 'POST',
+                                contentType: 'application/json', // Set the content type for JSON payload
+                                data: JSON.stringify({ "bot_id": bot_id, "user_id": user_id }),
+                                success: function (response) {
+                                    console.log("assignment-toggleresult", response);
+                                    updateBots(user_id)
+                                },
+                                error: function (error) { console.warn(error) }
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Users:</h1>
+        {% for user_item in user_list %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between mb-2">
+                <label for="user_{k{ loop.index}}" class="form-label d-block mb-1">
+                    <h4>{{user_item.first_name}}</h4>
+                    <p>{{user_item.email}}</p>
+                </label>
+                <button class="btn btn-primary SelectUser" type="button" id="{{user_item.id}}">Select User</button>
+            </div>
+        </div>
+        {% endfor %}
+        <div id="botsContainer">
+
+        </div>
+        <div id="userBots" class="mt-3">
+            <!-- Bots will be loaded here based on selection -->
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

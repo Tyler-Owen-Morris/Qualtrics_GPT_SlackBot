@@ -32,3 +32,4 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     bots = db.relationship('BotOwnership')
     subjectContent = db.relationship('SubjectContent')
+    sys_admin = db.Column(db.Integer)

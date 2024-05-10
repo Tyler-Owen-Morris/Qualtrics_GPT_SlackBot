@@ -33,8 +33,53 @@ def home():
         data, bot = load_subject_data_from_database(selected_bot)
     else:
         print("rendering bot page", mybots)
+        print("current user:", current_user.sys_admin)
         return render_template("bots.html", user=current_user, data=mybots)
     return render_template("subjects.html", user=current_user, data=data, bot=bot, max_tokens=str(int(token_limit/4)))
+
+
+@views.route("/user-management", methods=['GET', 'POST'])
+@login_required
+def user_management():
+    if current_user.sys_admin != 1:
+        print("redirect here")
+    users = User.query.all()
+    users.remove(current_user)
+    return render_template("user_management.html", user=current_user, user_list=users)
+
+
+@views.route("/get_user_bots/<int:user_id>", methods=['GET'])
+@login_required
+def get_user_bots(user_id):
+    bots = Bot.query.all()
+    user_bots = BotOwnership.query.filter_by(user_id=user_id)
+    this_user = User.query.filter_by(id=user_id).first()
+    my_bot_data = []
+    for bot in bots:
+        this_data = {'id': bot.id, 'name': bot.display_name, 'assigned': False}
+        for userbot in user_bots:
+            if userbot.bot_id == bot.id:
+                this_data['assigned'] = True
+        my_bot_data.append(this_data)
+    # bots_data = [{'id': bot.id, 'name': bot.name} for bot in bots]  # Example serialization
+    return jsonify({"bots": my_bot_data, "user_id": this_user.id, "username": this_user.first_name})
+
+
+@views.route("/toggle_assignment", methods=["POST"])
+@login_required
+def toggle_bot_assignment():
+    bot_id = request.json['bot_id']
+    user_id = request.json['user_id']
+    owned = BotOwnership.query.filter_by(
+        user_id=user_id, bot_id=bot_id).first()
+    print(bot_id, user_id, owned)
+    if owned:
+        BotOwnership.query.delete(id=owned.id)
+    else:
+        new_owner = BotOwnership(user_id=user_id, bot_id=bot_id)
+        db.session.add(new_owner)
+        db.session.commit()
+    return {'updated': True}
 
 
 @views.route("/select_bot", methods=["POST"])
