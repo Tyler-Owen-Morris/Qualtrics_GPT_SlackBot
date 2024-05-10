@@ -22,10 +22,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbar">
-      <div class="navbar-nav">
+      <div class="navbar-nav mr-auto">
         {% if user.is_authenticated %}
         <a class="nav-item nav-link" id="home" href="/">Home</a>
-        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% if user.sys_admin == 1 %}
         <a class="nav-item nav-link" id="user-management" href="/user-management">User Management</a>
         {% endif %}
@@ -34,6 +33,11 @@
         <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
         {% endif %}
       </div>
+      {% if user.is_authenticated %}
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+      </div>
+      {% endif %}
     </div>
   </nav>
 

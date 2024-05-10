@@ -44,7 +44,7 @@ def user_management():
     if current_user.sys_admin != 1:
         print("redirect here")
     users = User.query.all()
-    users.remove(current_user)
+    # users.remove(current_user)
     return render_template("user_management.html", user=current_user, user_list=users)
 
 
