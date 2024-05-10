@@ -74,11 +74,11 @@ def toggle_bot_assignment():
         user_id=user_id, bot_id=bot_id).first()
     print(bot_id, user_id, owned)
     if owned:
-        BotOwnership.query.delete(id=owned.id)
+        db.session.delete(owned)
     else:
         new_owner = BotOwnership(user_id=user_id, bot_id=bot_id)
         db.session.add(new_owner)
-        db.session.commit()
+    db.session.commit()
     return {'updated': True}
 
 
