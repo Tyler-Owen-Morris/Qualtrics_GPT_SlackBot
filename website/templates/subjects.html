@@ -89,6 +89,15 @@
     let triangles = document.querySelectorAll('.triangle');
 
     triangles.forEach(function (triangle) {
+      //restore previous state
+      const contentId = triangle.parentElement.parentElement.id; // Assuming each list item has a unique ID
+      const state = localStorage.getItem(contentId);
+      if (state === 'open') {
+        triangle.classList.add('rotated');
+        let content = triangle.parentElement.nextElementSibling;
+        content.style.display = "block";
+      }
+      // add on click to toggle state and store to localstorage
       triangle.onclick = function () {
         // Rotate the triangle
         this.classList.toggle('rotated');
@@ -99,6 +108,13 @@
           content.style.display = "block";
         } else {
           content.style.display = "none";
+        }
+        // Store the state
+        const contentId = this.parentElement.parentElement.id; // Assuming each list item has a unique ID
+        if (this.classList.contains('rotated')) {
+          localStorage.setItem(contentId, 'open');
+        } else {
+          localStorage.removeItem(contentId); // Or set to 'closed' if you prefer
         }
       };
     });
@@ -197,7 +213,7 @@
   <form method="POST">
     <ul class="list-group list-group-flush mb-3" id="subjects">
       {% for item in data %}
-      <li class="list-group-item">
+      <li class="list-group-item" id="{{item.id}}">
         <!-- Collapsible Trigger -->
         <div class="mb-2 d-flex align-items-center justify-content-start">
           <span class="triangle">&#9654;</span>

@@ -35,6 +35,7 @@ def home():
         print("rendering bot page", mybots)
         print("current user:", current_user.sys_admin)
         return render_template("bots.html", user=current_user, data=mybots)
+    print(data)
     return render_template("subjects.html", user=current_user, data=data, bot=bot, max_tokens=str(int(token_limit/4)))
 
 
