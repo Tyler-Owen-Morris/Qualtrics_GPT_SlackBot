@@ -35,6 +35,8 @@ def create_app():
     app.config['SECRET_KEY'] = os.environ['LOGIN_SECRET_KEY']
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/{}'.format(
         db_username, db_password, db_endpoint, db_name)
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}/{}'.format(
+    #     db_username, db_password, db_endpoint, db_name)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 

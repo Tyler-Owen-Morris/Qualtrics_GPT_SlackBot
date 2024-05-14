@@ -18,13 +18,11 @@ def run_website():
     print("starting website")
     if environment == "PROD":
         # WSGI server is required for production to allow simultaneous requests
-        serve(application, host='0.0.0.0')
+        serve(application, host='0.0.0.0', port=5000)
     else:
         # Development server runs as default
-        # 0.0.0.0 allows run on public server
-        # app.run('0.0.0.0', debug=False, port=os.environ['WEBSITE_PORT'])
-        serve(application, host='0.0.0.0')
+        application.run()
 
 
 if __name__ == "__main__":
-    application.run()
+    run_website()
