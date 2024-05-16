@@ -403,12 +403,22 @@ def append_and_save_conversation(user_id, user_string, bot_string, subject_strin
 
 def start_new_conversation(user_id):
     file_name = f"conversations/{user_id}.json"
+    # Check if file exists
+    if not os.path.exists(file_name):
+        # If not, create the file and initialize with an empty array inside of an array
+        with open(file_name, "w") as json_file:
+            # Creates an empty array inside of an array
+            json.dump([[]], json_file)
+        return
+    # If file exists, proceed to append an empty array
     with open(file_name, "r") as json_file:
-        data = json.load(json_file)
+        try:
+            data = json.load(json_file)
+        except json.JSONDecodeError:
+            # In case the file is empty and can't be parsed
+            data = [[]]
     convo = []
-    # print("data before reset", data)
     data.append(convo)
-    # print("data after reset", data)
     with open(file_name, "w") as json_file:
         json.dump(data, json_file)
 
