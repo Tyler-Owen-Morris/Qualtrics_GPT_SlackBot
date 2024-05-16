@@ -236,7 +236,7 @@ def message(payload):
         full_msgs, warn, subject_list = construct_chat_history(user_id, text)
         # print("full message with history:", full_msgs)
         print("subject list: ", subject_list)
-        completion = aiclient.chat.completion.create(
+        completion = aiclient.chat.completions.create(
             model=my_model,
             messages=full_msgs
         )
