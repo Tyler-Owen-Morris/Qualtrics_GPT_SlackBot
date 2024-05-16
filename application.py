@@ -1,5 +1,5 @@
 import slack
-import openai
+from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 import os
@@ -30,8 +30,11 @@ my_model = os.environ['MODEL']
 # this controls maximum tokens submitted to OpenAI
 token_limit = int(os.environ['MODEL_TOKEN_LIMIT'])
 gpt_system_prompt = os.environ['GPT_SYSTEM_PROMPT']
-# setup the openapi auth
-openai.api_key = os.environ['OPENAI_KEY']
+
+# setup the openapi client
+aiclient = OpenAI(
+    api_key=os.environ['OPENAI_KEY']
+)
 
 # setup Flask server to handle callback events from slack
 application = Flask(__name__)
@@ -233,7 +236,7 @@ def message(payload):
         full_msgs, warn, subject_list = construct_chat_history(user_id, text)
         # print("full message with history:", full_msgs)
         print("subject list: ", subject_list)
-        completion = openai.ChatCompletion.create(
+        completion = aiclient.chat.completion.create(
             model=my_model,
             messages=full_msgs
         )
@@ -431,7 +434,7 @@ def determine_msg_subject(question):
     # subjects = [d.get('subject') for d in load_primed_data()]
     subjs = ",".join(subjects)
     print("eligible subjects:", subjs)
-    completion = openai.ChatCompletion.create(
+    completion = aiclient.chat.completions.create(
         model=my_model,
         messages=[{"role": "system", "content": f"You are a classification bot. The user will feed you a question and you will return which subjects it relates to with ONLY the name of the subject(s). The only eligible subjects are: {subjs}. you will not elaborate. you will not add extra words. You will JUST reply with the single subject or comma separated list of up to 5 subjects. The subject(s) you reply with MUST be in the provided list: {subjs}. You will not invent new subjects- the subject(s) will ONLY be a maximum of 5 of these: {subjs}. If the question is not related to any of these subjects you will reply with the string 'None'. Reply with 'OK' if you understand."},
                   {"role": "assistant", "content": "OK"},
