@@ -202,6 +202,29 @@ def message(payload):
                 client.chat_postMessage(channel=channel_id,
                                         text=response)
             return
+        if "--image" in text.lower()[:7]:
+            myprompt = text[7:]
+            print("image prompt:", myprompt)
+            img_response = aiclient.images.generate(
+                model="dall-e-3",
+                prompt=myprompt,
+                size="1024x1024",
+                quality="standard",
+                n=1
+            )
+            img_url = img_response.data[0].url
+            print("image url:", img_url)
+            if channel_type in ['group', 'channel']:
+                if thread_ts is not None:
+                    ts = thread_ts  # reply in the thread
+                client.chat_postMessage(
+                    channel=channel_id, text="Here is your image", attachments=[{"image_url": img_url, "alt_text": "image", "fallback": "your image"}], thread_ts=ts)
+            elif channel_type == 'im':
+                client.chat_postMessage(channel=channel_id,
+                                        attachments=[
+                                            {"image_url": img_url, "alt_text": "image", "fallback": "your image"}],
+                                        text="Here is your image")
+            return
 
         # SEEDED CHAT OPTION
         if channel_type in ['group', 'channel']:
