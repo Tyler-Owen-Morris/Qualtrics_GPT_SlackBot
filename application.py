@@ -146,10 +146,10 @@ def message(payload):
     text = event.get('text')
     ts = event.get('ts')
     thread_ts = event.get('thread_ts')
-    print("USERID:", user_id, "  | BOTID:", BOT_ID)
+    # print("USERID:", user_id, "  | BOTID:", BOT_ID)
     if text == None:
         return
-    print("check string", text.lower()[:14])
+    # print("check string", text.lower()[:14])
     # if it's a DM OR the user
     if (user_id != BOT_ID and "<@"+BOT_ID+">" in text[:14] and channel_id in CHANNELS) or (channel_type == 'im' and user_id != BOT_ID and user_id != None):
         print("channel:", channel_id)
@@ -189,7 +189,7 @@ def message(payload):
         if "--subject" in text.lower():
             primed_data = list(load_primed_data().keys())
             primed_data.sort()
-            print("**************primed data:\n", primed_data)
+            # print("**************primed data:\n", primed_data)
             subjs = "* • *".join(string.capwords(s)
                                  for s in primed_data)
             # print(">>>>>> SUBJECTS::>>>>>\n", subjs)
@@ -235,22 +235,40 @@ def message(payload):
             text = text[14:]
         full_msgs, warn, subject_list = construct_chat_history(user_id, text)
         # print("full message with history:", full_msgs)
-        print("subject list: ", subject_list)
-        completion = aiclient.chat.completions.create(
+        # print("subject list: ", subject_list)
+        response = aiclient.chat.completions.with_raw_response.create(
             model=my_model,
             messages=full_msgs
         )
+        completion = response.parse()
+
+        # Get Rate limit data
+        rate_limit_limitRequests = response.headers.get(
+            'x-ratelimit-limit-requests')
+        rate_limit_limitTokens = response.headers.get(
+            'x-ratelimit-limit-tokens')
+        rate_limit_remaining_requests = response.headers.get(
+            'x-ratelimit-remaining-requests')
+        rate_limit_reset = response.headers.get('x-ratelimit-reset-requests')
+        rate_limit_remainingTokens = response.headers.get(
+            'x-ratelimit-remaining-tokens')
+        print(f"Rate Limit Requests: {rate_limit_limitRequests}")
+        print(f"Requests Remaining Requests: {rate_limit_remaining_requests}")
+        print(f"Rate Limit Tokens: {rate_limit_limitTokens}")
+        print(f"Rate Limit Remaining Tokens {rate_limit_remainingTokens}")
+        print(f"Rate Limit Resets at: {rate_limit_reset}")
+
         resp = completion.choices[0].message.content
         response = resp
         if warn == True:
             response += "\n\n WARNING: Chat history is too long. Use the --reset command to clear cache and start fresh."
         if subject_list is not None:
-            print("subj List:", subject_list, "\n", len(
-                subject_list), "\n"+resp+"****************")
+            # print("subj List:", subject_list, "\n", len(
+            #     subject_list), "\n"+resp+"****************")
             subj_str = ", ".join(list(subject_list))
             subj_str = "\n\n_subjects:_\n_["+str(subj_str)+"]_"
-            print("subject string:", subj_str)
-        print("************making response:", resp)
+            # print("subject string:", subj_str)
+        # print("************making response:", resp)
         if channel_type in ['group', 'channel']:
             my_resp = resp
             if thread_ts is not None:
@@ -308,8 +326,8 @@ def construct_chat_history(uuid, chat):
     history_data = load_or_create_json_file(uuid)
     if len(history_data) > 0:
         data_tokens = count_conversation_tokens(history_data)
-        print('historical conversation tokens:', data_tokens)
-        while tokens + count_conversation_tokens(history_data) > token_limit:
+        # print('historical conversation tokens:', data_tokens)
+        while tokens + data_tokens > token_limit:
             warn = True
             print(">>>>>>>>>>>>>conversation too long<<<<<<<<<<<<,",
                   tokens + count_conversation_tokens(history_data))
@@ -331,7 +349,7 @@ def load_subj_data(subjs):
         text += data[subj]+" "
     # limit the token count
     while count_conversation_tokens([{'content': "data:"+text}]) > round(token_limit/2):
-        print("shortening loaded data:", len(text))
+        # print("shortening loaded data:", len(text))
         text = text[15:]
     # Construct
     ret = [{"role": "system", "content": "data: "+text}]
@@ -343,7 +361,7 @@ def determine_subject(subj):
     subj = set(subj.split(","))
     accum = []
     found = False
-    print("<><><><><><><><><><>subjects FROM AI to sort on:", subj)
+    # print("<><><><><><><><><><>subjects FROM AI to sort on:", subj)
     for subject in list(loaded.keys()):
         for sub in subj:
             # print("comparing:", subject, "|", sub)
@@ -440,10 +458,10 @@ def count_string_tokens(my_text):
 
 def determine_msg_subject(question):
     subjects = list(load_primed_data().keys())
-    print("SUBJECTS LOADED:", subjects)
+    # print("SUBJECTS LOADED:", subjects)
     # subjects = [d.get('subject') for d in load_primed_data()]
     subjs = ",".join(subjects)
-    print("eligible subjects:", subjs)
+    # print("eligible subjects:", subjs)
     completion = aiclient.chat.completions.create(
         model=my_model,
         messages=[{"role": "system", "content": f"You are a classification bot. The user will feed you a question and you will return which subjects it relates to with ONLY the name of the subject(s). The only eligible subjects are: {subjs}. you will not elaborate. you will not add extra words. You will JUST reply with the single subject or comma separated list of up to 5 subjects. The subject(s) you reply with MUST be in the provided list: {subjs}. You will not invent new subjects- the subject(s) will ONLY be a maximum of 5 of these: {subjs}. If the question is not related to any of these subjects you will reply with the string 'None'. Reply with 'OK' if you understand."},
@@ -451,7 +469,7 @@ def determine_msg_subject(question):
                   {"role": "user", "content": question}]
     )
     resp = completion.choices[0].message.content
-    print("----------------- SUBJECT LIST PASS 1:", resp)
+    # print("----------------- SUBJECT LIST PASS 1:", resp)
     return resp
 
 
@@ -459,8 +477,8 @@ def load_primed_data():
     try:
         # Read the file data
         mysubjects = SubjectContent.query.filter_by(bot_id=my_bot_id).all()
-        for sub in mysubjects:
-            print("sub:", sub.subject, sub.content)
+        # for sub in mysubjects:
+        #     print("sub:", sub.subject, sub.content)
         return convert_list_of_dicts(mysubjects)
     except Exception as e:
         print("file-load failed - loading nothing", e)
@@ -469,10 +487,10 @@ def load_primed_data():
 
 def convert_list_of_dicts(data):
     new_dict = {}
-    print("incoming data", data)
+    # print("incoming data", data)
     for d in data:
         new_dict[d.subject] = d.content
-    print('after organization of dict', new_dict)
+    # print('after organization of dict', new_dict)
     return new_dict
 
 
@@ -487,13 +505,13 @@ def convert_immutable_multidict(data):
 
         my_content = data[content_key]
         while count_string_tokens(my_content) > int(token_limit/4)*3:
-            print("my string tokens:", count_string_tokens(my_content))
+            # print("my string tokens:", count_string_tokens(my_content))
             subtractor = 10
             # if the number of tokens difference is too large, we subtract a larger amount of characters than the default 10
             if count_string_tokens(my_content) - int(token_limit/4)*3 > subtractor:
                 subtractor = count_string_tokens(
                     my_content) - int(token_limit/4)*3
-            print("subtracting:", subtractor)
+            # print("subtracting:", subtractor)
             my_content = my_content[:-subtractor]
 
         if subject_key in data and content_key in data and id_key in data:
@@ -502,7 +520,7 @@ def convert_immutable_multidict(data):
                 'subject': data[subject_key],
                 'content': my_content
             })
-    print(result)
+    # print(result)
     return result
 
 
