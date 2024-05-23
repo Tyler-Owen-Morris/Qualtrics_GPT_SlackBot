@@ -28,13 +28,22 @@ environment = os.environ['ENVIRONMENT']
 analytics.write_key = os.environ['SEGMENT_WRITE_KEY']
 my_model = os.environ['MODEL']
 # this controls maximum tokens submitted to OpenAI
-token_limit = int(os.environ['MODEL_TOKEN_LIMIT'])
 gpt_system_prompt = os.environ['GPT_SYSTEM_PROMPT']
+# Limit Handling
+token_limit = int(os.environ['MODEL_TOKEN_LIMIT'])
+# globals for limit reporting
+rate_limit_limitRequests = None
+rate_limit_limitTokens = None
+rate_limit_remaining_requests = None
+rate_limit_remaining_tokens = None
+rate_limit_reset = None
 
-# setup the openapi client
 aiclient = OpenAI(
     api_key=os.environ['OPENAI_KEY']
 )
+# Hardcoded Values
+bucket_name = 'gpt-chatbot-files'
+local_folder_path = 'conversations'
 
 # setup Flask server to handle callback events from slack
 application = Flask(__name__)
@@ -46,11 +55,6 @@ def health_check():
         'status': 'success'
     }
     return jsonify(payload), 200
-
-
-bucket_name = 'gpt-chatbot-files'
-
-local_folder_path = 'conversations'
 
 
 @application.route('/backup-logs', methods=['POST'])
@@ -228,6 +232,18 @@ def message(payload):
                                             {"image_url": img_url, "alt_text": "image", "fallback": "your image"}],
                                         text="Here is your image")
             return
+        if "--rates" in text.lower()[:7]:
+            if rate_limit_limitTokens is None:
+                no_data_message = "There is no rate limit data currently available. Ask a message to the bot to cache new data before using this command again."
+                post_message_to_slack(
+                    no_data_message, channel_type, ts, thread_ts, None, '', channel_id)
+            else:
+                rate_limit_pct = int(
+                    (int(rate_limit_remaining_tokens) / int(rate_limit_limitTokens))*100)
+                rate_limit_message = f"I currently have *%{rate_limit_pct}* of my token capacity remaining.\nI have used *{rate_limit_remaining_tokens}* tokens of the total *{rate_limit_limitTokens}* allowed.\nI have gone through *{rate_limit_remaining_requests}* requests of the total *{rate_limit_limitRequests}* requests allowed."
+                post_message_to_slack(
+                    rate_limit_message, channel_type, ts, thread_ts, None, '', channel_id)
+            return
 
         # SEEDED CHAT OPTION
         if channel_type in ['group', 'channel']:
@@ -246,25 +262,8 @@ def message(payload):
         completion = response.parse()
 
         # Get Rate limit data
-        print("Status Code from openAI:", response.status_code)
-        rate_limit_limitRequests = response.headers.get(
-            'x-ratelimit-limit-requests')
-        rate_limit_limitTokens = response.headers.get(
-            'x-ratelimit-limit-tokens')
-        rate_limit_remaining_requests = response.headers.get(
-            'x-ratelimit-remaining-requests')
-        rate_limit_remaining_tokens = response.headers.get(
-            'x-ratelimit-remaining-tokens')
-        rate_limit_reset = response.headers.get('x-ratelimit-reset-requests')
-        rate_limit_pct = int(rate_limit_remaining_tokens) / \
-            int(rate_limit_limitTokens)
-        print(f"Rate Limit Requests: {rate_limit_limitRequests}")
-        print(f"Requests Remaining Requests: {rate_limit_remaining_requests}")
-        print(f"Rate Limit Tokens: {rate_limit_limitTokens}")
-        print(f"Rate Limit Remaining Tokens {rate_limit_remaining_tokens}")
-        print(f"Rate Limit Resets at: {rate_limit_reset}")
-        print(f"Rate Limit percentage: %{int(rate_limit_pct*100)}")
-        #
+        handle_openai_limit_data(response=response)
+        # Handle responding if we've already hit the rate limit
         if response.status_code == 429:
             limit_message = "You have reached the rate limit for openAI - please wait before querying the bot again."
             post_message_to_slack(
@@ -289,20 +288,7 @@ def message(payload):
         # print("************making response:", resp)
         post_message_to_slack(bot_response, channel_type, ts,
                               thread_ts, subject_list, subj_str, channel_id)
-        # if channel_type in ['group', 'channel']:
-        #     my_resp = bot_response
-        #     if thread_ts is not None:
-        #         ts = thread_ts  # reply in the thread
-        #     if subject_list is not None:
-        #         my_resp += subj_str
-        #     client.chat_postMessage(
-        #         channel=channel_id, text=my_resp, thread_ts=ts)
-        # elif channel_type == 'im':
-        #     my_resp = bot_response
-        #     if subject_list is not None:
-        #         my_resp += subj_str
-        #     client.chat_postMessage(channel=channel_id,
-        #                             text=my_resp)
+
         # Record message to Analytics Tracker
         analytics.track(user_id, 'Reply Generated', {
                         'question': text, 'response': bot_response, 'channelType': channel_type, 'channel_id': channel_id, 'subject': subject_list})
@@ -329,6 +315,31 @@ def app_home_opened(payload):
     except Exception as e:
         # logger.error("Error fetching conversations: {}".format(e))
         print("ERROR loading HOME:", e)
+
+
+def handle_openai_limit_data(response):
+    global rate_limit_limitRequests
+    global rate_limit_limitTokens
+    global rate_limit_remaining_requests
+    global rate_limit_remaining_tokens
+    global rate_limit_reset
+    rate_limit_limitRequests = response.headers.get(
+        'x-ratelimit-limit-requests')
+    rate_limit_limitTokens = response.headers.get(
+        'x-ratelimit-limit-tokens')
+    rate_limit_remaining_requests = response.headers.get(
+        'x-ratelimit-remaining-requests')
+    rate_limit_remaining_tokens = response.headers.get(
+        'x-ratelimit-remaining-tokens')
+    rate_limit_reset = response.headers.get('x-ratelimit-reset-requests')
+    rate_limit_pct = int(rate_limit_remaining_tokens) / \
+        int(rate_limit_limitTokens)
+    print(f"Rate Limit Requests: {rate_limit_limitRequests}")
+    print(f"Requests Remaining Requests: {rate_limit_remaining_requests}")
+    print(f"Rate Limit Tokens: {rate_limit_limitTokens}")
+    print(f"Rate Limit Remaining Tokens {rate_limit_remaining_tokens}")
+    print(f"Rate Limit Resets at: {rate_limit_reset}")
+    print(f"Rate Limit percentage: %{int(rate_limit_pct*100)}")
 
 
 def post_message_to_slack(message, channel_type, ts, thread_ts, subject_list, subj_str, channel_id):
