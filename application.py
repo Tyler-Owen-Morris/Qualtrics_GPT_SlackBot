@@ -233,9 +233,12 @@ def message(payload):
         if channel_type in ['group', 'channel']:
             # drop the bot opening from history and henceforth
             text = text[14:]
-        full_msgs, warn, subject_list = construct_chat_history(user_id, text)
+        full_msgs, token_limit_warning, subject_list = construct_chat_history(
+            user_id, text)
         # print("full message with history:", full_msgs)
         # print("subject list: ", subject_list)
+
+        # Generate the response from the openai client
         response = aiclient.chat.completions.with_raw_response.create(
             model=my_model,
             messages=full_msgs
@@ -243,25 +246,40 @@ def message(payload):
         completion = response.parse()
 
         # Get Rate limit data
+        print("Status Code from openAI:", response.status_code)
         rate_limit_limitRequests = response.headers.get(
             'x-ratelimit-limit-requests')
         rate_limit_limitTokens = response.headers.get(
             'x-ratelimit-limit-tokens')
         rate_limit_remaining_requests = response.headers.get(
             'x-ratelimit-remaining-requests')
-        rate_limit_reset = response.headers.get('x-ratelimit-reset-requests')
-        rate_limit_remainingTokens = response.headers.get(
+        rate_limit_remaining_tokens = response.headers.get(
             'x-ratelimit-remaining-tokens')
+        rate_limit_reset = response.headers.get('x-ratelimit-reset-requests')
+        rate_limit_pct = int(rate_limit_remaining_tokens) / \
+            int(rate_limit_limitTokens)
         print(f"Rate Limit Requests: {rate_limit_limitRequests}")
         print(f"Requests Remaining Requests: {rate_limit_remaining_requests}")
         print(f"Rate Limit Tokens: {rate_limit_limitTokens}")
-        print(f"Rate Limit Remaining Tokens {rate_limit_remainingTokens}")
+        print(f"Rate Limit Remaining Tokens {rate_limit_remaining_tokens}")
         print(f"Rate Limit Resets at: {rate_limit_reset}")
+        print(f"Rate Limit percentage: %{int(rate_limit_pct*100)}")
+        #
+        if response.status_code == 429:
+            limit_message = "You have reached the rate limit for openAI - please wait before querying the bot again."
+            post_message_to_slack(
+                limit_message, channel_type, ts, thread_ts, subject_list, '', channel_id)
+            return
+        # Parse the response from the bot
+        bot_response = completion.choices[0].message.content
+        response = bot_response
 
-        resp = completion.choices[0].message.content
-        response = resp
-        if warn == True:
+        # if user is nearing the token limit, append a warning to the message
+        if token_limit_warning == True:
             response += "\n\n WARNING: Chat history is too long. Use the --reset command to clear cache and start fresh."
+
+        # if subjects were used from the database, append them to the message
+        subj_str = ''
         if subject_list is not None:
             # print("subj List:", subject_list, "\n", len(
             #     subject_list), "\n"+resp+"****************")
@@ -269,23 +287,27 @@ def message(payload):
             subj_str = "\n\n_subjects:_\n_["+str(subj_str)+"]_"
             # print("subject string:", subj_str)
         # print("************making response:", resp)
-        if channel_type in ['group', 'channel']:
-            my_resp = resp
-            if thread_ts is not None:
-                ts = thread_ts  # reply in the thread
-            if subject_list is not None:
-                my_resp += subj_str
-            client.chat_postMessage(
-                channel=channel_id, text=my_resp, thread_ts=ts)
-        elif channel_type == 'im':
-            my_resp = resp
-            if subject_list is not None:
-                my_resp += subj_str
-            client.chat_postMessage(channel=channel_id,
-                                    text=my_resp)
+        post_message_to_slack(bot_response, channel_type, ts,
+                              thread_ts, subject_list, subj_str, channel_id)
+        # if channel_type in ['group', 'channel']:
+        #     my_resp = bot_response
+        #     if thread_ts is not None:
+        #         ts = thread_ts  # reply in the thread
+        #     if subject_list is not None:
+        #         my_resp += subj_str
+        #     client.chat_postMessage(
+        #         channel=channel_id, text=my_resp, thread_ts=ts)
+        # elif channel_type == 'im':
+        #     my_resp = bot_response
+        #     if subject_list is not None:
+        #         my_resp += subj_str
+        #     client.chat_postMessage(channel=channel_id,
+        #                             text=my_resp)
+        # Record message to Analytics Tracker
         analytics.track(user_id, 'Reply Generated', {
-                        'question': text, 'response': resp, 'channelType': channel_type, 'channel_id': channel_id, 'subject': subject_list})
-        append_and_save_conversation(user_id, text, resp, subject_list)
+                        'question': text, 'response': bot_response, 'channelType': channel_type, 'channel_id': channel_id, 'subject': subject_list})
+        # Save the data locally for message history
+        append_and_save_conversation(user_id, text, bot_response, subject_list)
 
 
 # Listen to the app_home_opened Events API event to hear when a user opens your app from the sidebar
@@ -307,6 +329,23 @@ def app_home_opened(payload):
     except Exception as e:
         # logger.error("Error fetching conversations: {}".format(e))
         print("ERROR loading HOME:", e)
+
+
+def post_message_to_slack(message, channel_type, ts, thread_ts, subject_list, subj_str, channel_id):
+    if channel_type in ['group', 'channel']:
+        my_message = message
+        if thread_ts is not None:
+            ts = thread_ts  # reply in the thread
+        if subject_list is not None:
+            my_message += subj_str
+        client.chat_postMessage(
+            channel=channel_id, text=my_message, thread_ts=ts)
+    elif channel_type == 'im':
+        my_message = message
+        if subject_list is not None:
+            my_message += subj_str
+        client.chat_postMessage(channel=channel_id,
+                                text=my_message)
 
 
 def construct_chat_history(uuid, chat):
