@@ -262,7 +262,7 @@ def message(payload):
         completion = response.parse()
 
         # Get Rate limit data
-        handle_openai_limit_data(response=response)
+        near_rate_limit_warning = handle_openai_limit_data(response=response)
         # Handle responding if we've already hit the rate limit
         if response.status_code == 429:
             limit_message = "You have reached the rate limit for openAI - please wait before querying the bot again."
@@ -275,7 +275,11 @@ def message(payload):
 
         # if user is nearing the token limit, append a warning to the message
         if token_limit_warning == True:
-            response += "\n\n WARNING: Chat history is too long. Use the --reset command to clear cache and start fresh."
+            response += "\n\n*WARNING*: Chat history is too long. Use the --reset command to clear cache and start fresh."
+
+        # If nearing openai ratelimit send warning back with the response message
+        if near_rate_limit_warning:
+            response += "\n\n*WARNING*: You are nearing the OpenAI API rate limit. Use the --reset command to reduce your token usage, or wait a few minutes before resuming your conversation."
 
         # if subjects were used from the database, append them to the message
         subj_str = ''
@@ -323,6 +327,7 @@ def handle_openai_limit_data(response):
     global rate_limit_remaining_requests
     global rate_limit_remaining_tokens
     global rate_limit_reset
+    near_limit = False
     rate_limit_limitRequests = response.headers.get(
         'x-ratelimit-limit-requests')
     rate_limit_limitTokens = response.headers.get(
@@ -334,12 +339,16 @@ def handle_openai_limit_data(response):
     rate_limit_reset = response.headers.get('x-ratelimit-reset-requests')
     rate_limit_pct = int(rate_limit_remaining_tokens) / \
         int(rate_limit_limitTokens)
+    rate_limit_pct = int(rate_limit_pct*100)
     print(f"Rate Limit Requests: {rate_limit_limitRequests}")
     print(f"Requests Remaining Requests: {rate_limit_remaining_requests}")
     print(f"Rate Limit Tokens: {rate_limit_limitTokens}")
     print(f"Rate Limit Remaining Tokens {rate_limit_remaining_tokens}")
     print(f"Rate Limit Resets at: {rate_limit_reset}")
-    print(f"Rate Limit percentage: %{int(rate_limit_pct*100)}")
+    print(f"Rate Limit percentage: %{rate_limit_pct}")
+    if rate_limit_pct <= 20:
+        near_limit = True
+    return near_limit
 
 
 def post_message_to_slack(message, channel_type, ts, thread_ts, subject_list, subj_str, channel_id):
@@ -360,7 +369,7 @@ def post_message_to_slack(message, channel_type, ts, thread_ts, subject_list, su
 
 
 def construct_chat_history(uuid, chat):
-    tokens = 0
+    total_tokens = 0
     warn = False
     subj = determine_msg_subject(chat)
     mysubjs = determine_subject(subj)
@@ -368,23 +377,29 @@ def construct_chat_history(uuid, chat):
     base = [{"role": "system", "content": gpt_system_prompt},
             {"role": "assistant", "content": "OK"}]
     subj_data = load_subj_data(mysubjs)
-    new = {'role': 'user', 'content': chat}
-    new_tokens = count_conversation_tokens([new])
+    new_message = {'role': 'user', 'content': chat}
+    new_tokens = count_conversation_tokens([new_message])
     base_tokens = count_conversation_tokens(base)
     primed_tokens = count_conversation_tokens(subj_data)
-    tokens += base_tokens + new_tokens + primed_tokens
+    total_tokens += base_tokens + new_tokens + primed_tokens
+    print("total_tokens for this chat:", total_tokens)
     history_data = load_or_create_json_file(uuid)
     if len(history_data) > 0:
-        data_tokens = count_conversation_tokens(history_data)
-        # print('historical conversation tokens:', data_tokens)
-        while tokens + data_tokens > token_limit:
+        historical_data_tokens = count_conversation_tokens(history_data)
+        print('historical conversation tokens:', historical_data_tokens)
+        removal_count = 0
+        while total_tokens + historical_data_tokens > token_limit:
             warn = True
             print(">>>>>>>>>>>>>conversation too long<<<<<<<<<<<<,",
-                  tokens + count_conversation_tokens(history_data))
+                  total_tokens + count_conversation_tokens(history_data))
             history_data = history_data[1:]
+            historical_data_tokens = count_conversation_tokens(history_data)
+            removal_count += 1
+            if removal_count >= 100:
+                break
         base += history_data
     base += subj_data
-    base.append(new)
+    base.append(new_message)
     return base, warn, mysubjs
 
 
