@@ -240,7 +240,7 @@ def message(payload):
             else:
                 rate_limit_pct = int(
                     (int(rate_limit_remaining_tokens) / int(rate_limit_limitTokens))*100)
-                rate_limit_message = f"I currently have *%{rate_limit_pct}* of my token capacity remaining.\nI have used *{rate_limit_remaining_tokens}* tokens of the total *{rate_limit_limitTokens}* allowed.\nI have gone through *{rate_limit_remaining_requests}* requests of the total *{rate_limit_limitRequests}* requests allowed."
+                rate_limit_message = f"I currently have *%{rate_limit_pct}* of my token capacity remaining.\nI have used *{str(int(rate_limit_limitTokens)-int(rate_limit_remaining_tokens))}* leaving *{rate_limit_remaining_tokens}* tokens available of the total *{rate_limit_limitTokens}* allowed.\nI have gone through *{rate_limit_remaining_requests}* requests of the total *{rate_limit_limitRequests}* requests allowed."
                 post_message_to_slack(
                     rate_limit_message, channel_type, ts, thread_ts, None, '', channel_id)
             return
