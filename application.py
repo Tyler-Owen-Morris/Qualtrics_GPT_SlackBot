@@ -84,9 +84,9 @@ with application.app_context():
     db.create_all()
 
 
-def create_database(app):
-    db.create_all(app=app)
-    print("Created database!")
+# def create_database(app):
+#     db.create_all(app=app)
+#     print("Created database!")
 
 
 class SubjectContent(db.Model):
@@ -160,11 +160,11 @@ def message(payload):
         print("channel type:", channel_type)
         print("thread_ts", thread_ts)
         print("user msg:", text)
-        global last_msg
-        if text == last_msg:
+        last_user_message = get_last_user_content(user_id)
+        print("last user message", last_user_message)
+        if text == last_user_message:
+            # if message is a duplicate then ignore it.
             return
-        else:
-            last_msg = text
         if "--model" in text.lower():
             analytics.track(user_id, 'Model Query', {
                 'question': text, 'channelType': channel_type, 'channel_id': channel_id})
@@ -240,7 +240,7 @@ def message(payload):
             else:
                 rate_limit_pct = int(
                     (int(rate_limit_remaining_tokens) / int(rate_limit_limitTokens))*100)
-                rate_limit_message = f"I currently have *%{rate_limit_pct}* of my token capacity remaining.\nI have used *{str(int(rate_limit_limitTokens)-int(rate_limit_remaining_tokens))}* leaving *{rate_limit_remaining_tokens}* tokens available of the total *{rate_limit_limitTokens}* allowed.\nI have gone through *{rate_limit_remaining_requests}* requests of the total *{rate_limit_limitRequests}* requests allowed."
+                rate_limit_message = f"I currently have *%{rate_limit_pct}* of my token capacity remaining.\nI have used *{str(int(rate_limit_limitTokens)-int(rate_limit_remaining_tokens))}* leaving *{rate_limit_remaining_tokens}* tokens available of the total *{rate_limit_limitTokens}* allowed.\nI have gone through *{int(rate_limit_limitRequests)- int(rate_limit_remaining_requests)}* requests of the total *{rate_limit_limitRequests}* requests allowed leaving *{rate_limit_remaining_requests}* remaining."
                 post_message_to_slack(
                     rate_limit_message, channel_type, ts, thread_ts, None, '', channel_id)
             return
@@ -450,6 +450,16 @@ def load_or_create_json_file(user_id):
     with open(file_name, "r") as json_file:
         data = json.load(json_file)[-1]
     return data
+
+
+def get_last_user_content(user_id):
+    data = load_or_create_json_file(user_id)
+    if not data or data == [[]]:
+        return ""
+    for message in reversed(data):
+        if message.get("role") == "user":
+            return message.get("content", "")
+    return ""
 
 
 def append_and_save_conversation(user_id, user_string, bot_string, subject_string):
