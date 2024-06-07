@@ -4,7 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from datetime import datetime
 import requests
-from username_lookup import get_username_from_id
+from .username_lookup import get_username_from_id
 
 envpath = Path('.') / '.env'
 load_dotenv(dotenv_path=envpath)
