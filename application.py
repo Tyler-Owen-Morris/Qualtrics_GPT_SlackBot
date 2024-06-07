@@ -489,7 +489,7 @@ def append_and_save_conversation(user_id, user_string, bot_string, subject_strin
     # Write the response to Qualtrics (try)
     try:
         write_response_to_survey(
-            my_bot_id, user_string, bot_string, subject_string)
+            my_bot_id, user_string, bot_string, subject_string, user_id)
     except:
         print("failed to write data to Qualtrics survey")
 

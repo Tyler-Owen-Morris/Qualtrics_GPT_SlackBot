@@ -4,6 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from datetime import datetime
 import requests
+from username_lookup import get_username_from_id
 
 envpath = Path('.') / '.env'
 load_dotenv(dotenv_path=envpath)
@@ -11,7 +12,7 @@ q_api_token = os.environ['QUALTRICS_API_TOKEN']
 survey_id = os.environ['QUALTRICS_LOG_SURVEY_ID']
 
 
-def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects):
+def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects, slack_user_id):
     try:
         headers = {
             'X-API-TOKEN': q_api_token,
@@ -39,6 +40,7 @@ def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects):
         if (response.json()['result']['responseId'] != None):
             rid = response.json()['result']['responseId']
             print(rid)
+            username = get_username_from_id(slack_user_id)
             update_payload = {
                 "surveyId": survey_id,
                 "resetRecordedDate": False,
@@ -46,7 +48,8 @@ def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects):
                     "bot_id": bot_id,
                     "user_question": user_question,
                     "bot_response": bot_response,
-                    "bot_subjects": bot_subjects
+                    "bot_subjects": bot_subjects,
+                    "username": username
                 }
             }
             update_response = requests.put(
