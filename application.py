@@ -161,10 +161,13 @@ def message(payload):
         print("thread_ts", thread_ts)
         print("user msg:", text)
         last_user_message = get_last_user_content(user_id)
+        global last_msg
         print("last user message", last_user_message)
-        if text == last_user_message:
+        if text == last_user_message or text == last_msg:
             # if message is a duplicate then ignore it.
             return
+        last_msg = text
+
         if "--model" in text.lower():
             analytics.track(user_id, 'Model Query', {
                 'question': text, 'channelType': channel_type, 'channel_id': channel_id})
