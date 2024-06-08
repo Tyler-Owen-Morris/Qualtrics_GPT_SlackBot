@@ -49,7 +49,8 @@ def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects, 
                     "user_question": user_question,
                     "bot_response": bot_response,
                     "bot_subjects": bot_subjects,
-                    "username": username
+                    "username": username,
+                    "user_id": slack_user_id
                 }
             }
             update_response = requests.put(
