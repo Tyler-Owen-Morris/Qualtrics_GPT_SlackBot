@@ -162,6 +162,39 @@ def save_logs():
         return {'passed': False}
 
 
+# Your redirect URL endpoint
+@views.route('/oauth/callback')
+def oauth_callback():
+    code = request.args.get('code')
+
+    if not code:
+        return 'Authorization code not found', 400
+
+    try:
+        # Exchange the authorization code for an access token
+        response = requests.post('https://slack.com/api/oauth.v2.access', {
+            'client_id': os.environ['SLACK_CLIENT_ID'],
+            'client_secret': os.environ['SLACK_CLIENT_SECRET'],
+            'code': code,
+            # This should match the URL you put in Slack's app settings
+            'redirect_uri': 'https://walker-chatbot.com/oauth/callback'
+        })
+
+        response_data = response.json()
+        if 'access_token' in response_data:
+            token = response_data['access_token']
+            # Store the token somewhere, e.g., in your database
+            print('Access Token:', token)
+            return 'Authorization successful. You can close this window.'
+        else:
+            error = response_data.get('error', 'Unknown error')
+            return f'Error retrieving access token: {error}', 400
+
+    except Exception as e:
+        print('Error fetching access token:', e)
+        return 'An error occurred while authorizing.', 500
+
+
 def save_server_logs():
     mybot = session['selected_bot']
     chosen_bot = Bot.query.filter_by(id=mybot).first()
