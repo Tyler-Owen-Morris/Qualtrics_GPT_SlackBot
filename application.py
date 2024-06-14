@@ -252,7 +252,7 @@ def message(payload):
         if channel_type in ['group', 'channel']:
             # drop the bot opening from history and henceforth
             text = text[14:]
-        full_msgs, token_limit_warning, subject_list = construct_chat_history(
+        full_msgs, token_limit_warning, subject_list, total_tokens = construct_chat_history(
             user_id, text)
         # print("full message with history:", full_msgs)
         # print("subject list: ", subject_list)
@@ -300,7 +300,8 @@ def message(payload):
         analytics.track(user_id, 'Reply Generated', {
                         'question': text, 'response': bot_response, 'channelType': channel_type, 'channel_id': channel_id, 'subject': subject_list})
         # Save the data locally for message history
-        append_and_save_conversation(user_id, text, bot_response, subject_list)
+        append_and_save_conversation(
+            user_id, text, bot_response, subject_list, total_tokens)
 
 
 # Listen to the app_home_opened Events API event to hear when a user opens your app from the sidebar
@@ -385,7 +386,6 @@ def construct_chat_history(uuid, chat):
     base_tokens = count_conversation_tokens(base)
     primed_tokens = count_conversation_tokens(subj_data)
     total_tokens += base_tokens + new_tokens + primed_tokens
-    print("total_tokens for this chat:", total_tokens)
     history_data = load_or_create_json_file(uuid)
     if len(history_data) > 0:
         historical_data_tokens = count_conversation_tokens(history_data)
@@ -403,7 +403,9 @@ def construct_chat_history(uuid, chat):
         base += history_data
     base += subj_data
     base.append(new_message)
-    return base, warn, mysubjs
+    total_tokens = count_conversation_tokens(base)
+    print(f"message using {total_tokens} tokens")
+    return base, warn, mysubjs, total_tokens
 
 
 def load_subj_data(subjs):
@@ -465,7 +467,7 @@ def get_last_user_content(user_id):
     return ""
 
 
-def append_and_save_conversation(user_id, user_string, bot_string, subject_string):
+def append_and_save_conversation(user_id, user_string, bot_string, subject_string, total_tokens):
     try:
         file_name = f"conversations/{user_id}.json"
         with open(file_name, "r") as json_file:
@@ -492,7 +494,7 @@ def append_and_save_conversation(user_id, user_string, bot_string, subject_strin
     # Write the response to Qualtrics (try)
     try:
         write_response_to_survey(
-            my_bot_id, user_string, bot_string, subject_string, user_id)
+            my_bot_id, user_string, bot_string, subject_string, user_id, total_tokens)
     except:
         print("failed to write data to Qualtrics survey")
 

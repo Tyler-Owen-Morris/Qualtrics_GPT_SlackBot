@@ -12,7 +12,7 @@ q_api_token = os.environ['QUALTRICS_API_TOKEN']
 survey_id = os.environ['QUALTRICS_LOG_SURVEY_ID']
 
 
-def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects, slack_user_id):
+def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects, slack_user_id, total_tokens):
     try:
         headers = {
             'X-API-TOKEN': q_api_token,
@@ -40,7 +40,10 @@ def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects, 
         if (response.json()['result']['responseId'] != None):
             rid = response.json()['result']['responseId']
             print(rid)
-            username = get_username_from_id(slack_user_id)
+            try:
+                username = get_username_from_id(slack_user_id)
+            except:
+                username = "devuser"
             update_payload = {
                 "surveyId": survey_id,
                 "resetRecordedDate": False,
@@ -50,7 +53,8 @@ def write_response_to_survey(bot_id, user_question, bot_response, bot_subjects, 
                     "bot_response": bot_response,
                     "bot_subjects": bot_subjects,
                     "username": username,
-                    "user_id": slack_user_id
+                    "user_id": slack_user_id,
+                    "tokens_used": total_tokens
                 }
             }
             update_response = requests.put(
