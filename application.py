@@ -239,13 +239,13 @@ def message(payload):
             if rate_limit_limitTokens is None:
                 no_data_message = "There is no rate limit data currently available. Ask a message to the bot to cache new data before using this command again."
                 post_message_to_slack(
-                    no_data_message, channel_type, ts, thread_ts, None, '', channel_id)
+                    no_data_message, channel_type, ts, thread_ts, channel_id)
             else:
                 rate_limit_pct = int(
                     (int(rate_limit_remaining_tokens) / int(rate_limit_limitTokens))*100)
                 rate_limit_message = f"I currently have *%{rate_limit_pct}* of my token capacity remaining.\nI have used *{str(int(rate_limit_limitTokens)-int(rate_limit_remaining_tokens))}* leaving *{rate_limit_remaining_tokens}* tokens available of the total *{rate_limit_limitTokens}* allowed.\nI have gone through *{int(rate_limit_limitRequests)- int(rate_limit_remaining_requests)}* requests of the total *{rate_limit_limitRequests}* requests allowed leaving *{rate_limit_remaining_requests}* remaining."
                 post_message_to_slack(
-                    rate_limit_message, channel_type, ts, thread_ts, None, '', channel_id)
+                    rate_limit_message, channel_type, ts, thread_ts, channel_id)
             return
 
         # SEEDED CHAT OPTION
@@ -270,7 +270,7 @@ def message(payload):
         if response.status_code == 429:
             limit_message = "You have reached the rate limit for openAI - please wait before querying the bot again."
             post_message_to_slack(
-                limit_message, channel_type, ts, thread_ts, subject_list, '', channel_id)
+                limit_message, channel_type, ts, thread_ts, channel_id)
             return
         # Parse the response from the bot
         bot_response = completion.choices[0].message.content
@@ -293,8 +293,12 @@ def message(payload):
             subj_str = "\n\n_subjects:_\n_["+str(subj_str)+"]_"
             # print("subject string:", subj_str)
         # print("************making response:", resp)
+        token_string = None
+        if total_tokens > 2000:
+            cost = round(total_tokens * 0.000005, 2)
+            token_string = f"\n\n_tokens: {total_tokens} | cost: ${cost}_"
         post_message_to_slack(bot_response, channel_type, ts,
-                              thread_ts, subject_list, subj_str, channel_id)
+                              thread_ts, channel_id, subj_str, token_string)
 
         # Record message to Analytics Tracker
         analytics.track(user_id, 'Reply Generated', {
@@ -355,19 +359,23 @@ def handle_openai_limit_data(response):
     return near_limit
 
 
-def post_message_to_slack(message, channel_type, ts, thread_ts, subject_list, subj_str, channel_id):
+def post_message_to_slack(message, channel_type, ts, thread_ts, channel_id, subj_str='',  token_string=None):
     if channel_type in ['group', 'channel']:
         my_message = message
         if thread_ts is not None:
             ts = thread_ts  # reply in the thread
-        if subject_list is not None:
+        if subj_str != '':
             my_message += subj_str
+        if token_string is not None:
+            my_message += token_string
         client.chat_postMessage(
             channel=channel_id, text=my_message, thread_ts=ts)
     elif channel_type == 'im':
         my_message = message
-        if subject_list is not None:
+        if subj_str != '':
             my_message += subj_str
+        if token_string is not None:
+            my_message += token_string
         client.chat_postMessage(channel=channel_id,
                                 text=my_message)
 
