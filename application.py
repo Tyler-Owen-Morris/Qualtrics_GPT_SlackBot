@@ -294,7 +294,7 @@ def message(payload):
             # print("subject string:", subj_str)
         # print("************making response:", resp)
         token_string = None
-        if total_tokens > 2000:
+        if total_tokens > 10000:
             cost = round(total_tokens * 0.000005, 2)
             token_string = f"\n\n_tokens: {total_tokens} | cost: ${cost}_"
         post_message_to_slack(bot_response, channel_type, ts,
