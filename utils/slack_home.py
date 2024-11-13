@@ -7,7 +7,7 @@ home_view = {
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "I am a Qualtrics assistant that uses Chat GPT to answer Qualtrics related questions.\n\nI am still in beta, so don't trust everything I say. Look up my responses to verify!"
+                "text": "I am an HR assistant that uses Chat GPT to answer Walker Human Resource related questions.\n\nI am still in beta, so don't trust everything I say. Look up my responses to verify, or ask your friendly HR representative!"
             },
             "accessory": {
                 "type": "image",
