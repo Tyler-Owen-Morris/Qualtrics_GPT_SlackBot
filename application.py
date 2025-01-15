@@ -39,7 +39,7 @@ rate_limit_remaining_tokens = None
 rate_limit_reset = None
 
 aiclient = OpenAI(
-    api_key=os.environ['OPENAI_KEY']
+    api_key=os.environ['OPENAI_TOKEN']
 )
 # Hardcoded Values
 bucket_name = 'gpt-chatbot-files'
